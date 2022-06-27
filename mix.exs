@@ -20,7 +20,7 @@ defmodule DerpyCoder.MixProject do
   def application do
     [
       mod: {DerpyCoder.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools, :os_mon]
     ]
   end
 

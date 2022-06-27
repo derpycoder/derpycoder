@@ -2,6 +2,7 @@ defmodule DerpyCoderWeb.Router do
   use DerpyCoderWeb, :router
 
   import DerpyCoderWeb.UserAuth
+  import Phoenix.LiveDashboard.Router
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -35,15 +36,15 @@ defmodule DerpyCoderWeb.Router do
   # If your application does not have an admins-only section yet,
   # you can use Plug.BasicAuth to set up some basic authentication
   # as long as you are also using SSL (which you should anyway).
-  if Mix.env() in [:dev, :test] do
-    import Phoenix.LiveDashboard.Router
+  # if Mix.env() in [:dev, :test] do
+  #   import Phoenix.LiveDashboard.Router
 
-    scope "/" do
-      pipe_through :browser
+  #   scope "/" do
+  #     pipe_through :browser
 
-      live_dashboard "/dashboard", metrics: DerpyCoderWeb.Telemetry
-    end
-  end
+  #     live_dashboard "/dashboard", metrics: DerpyCoderWeb.Telemetry
+  #   end
+  # end
 
   # Enables the Swoosh mailbox preview in development.
   #
@@ -78,6 +79,8 @@ defmodule DerpyCoderWeb.Router do
     get "/users/settings", UserSettingsController, :edit
     put "/users/settings", UserSettingsController, :update
     get "/users/settings/confirm_email/:token", UserSettingsController, :confirm_email
+
+    live_dashboard "/dashboard", metrics: DerpyCoderWeb.Telemetry
   end
 
   scope "/", DerpyCoderWeb do
