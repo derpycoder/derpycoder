@@ -26,7 +26,10 @@ config :derpy_coder, DerpyCoderWeb.Endpoint,
   secret_key_base: "yGgjzKC+PhpuL5VRIYcLuz6gYWucxywnoBq7xV1buAaPnLRk/HltcxR2R95jwapc",
   watchers: [
     # Start the esbuild watcher by calling Esbuild.install_and_run(:default, args)
-    esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]}
+    esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]},
+
+    # Watch for Tailwind Changes
+    tailwind: {Tailwind, :install_and_run, [:default, ~w(--watch)]}
   ]
 
 # ## SSL Support
