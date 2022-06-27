@@ -14,10 +14,16 @@
     </div>
   <% end %>
 
-  <%= hidden_input(f, :action, name: "action", value: "update_email") %>
+  <%= hidden_input(f, :action,
+    name: "action",
+    value: "update_email"
+  ) %>
 
   <%= label(f, :email) %>
-  <%= email_input(f, :email, required: true) %>
+  <%= email_input(f, :email,
+    required: true,
+    class: "text-xl"
+  ) %>
   <%= error_tag(f, :email) %>
 
   <%= label(f, :current_password, for: "current_password_for_email") %>
