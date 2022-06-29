@@ -22,6 +22,13 @@ defmodule DerpyCoderWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
+
+    live "/photos", PhotoLive.Index, :index
+    live "/photos/new", PhotoLive.Index, :new
+    live "/photos/:id/edit", PhotoLive.Index, :edit
+
+    live "/photos/:id", PhotoLive.Show, :show
+    live "/photos/:id/show/edit", PhotoLive.Show, :edit
   end
 
   # Other scopes may use custom stacks.
