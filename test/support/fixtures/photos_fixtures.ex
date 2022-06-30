@@ -16,7 +16,9 @@ defmodule DerpyCoder.PhotosFixtures do
         likes: 42,
         photo_url: "https://placekitten.com/515/515",
         title: "some title",
-        views: 42
+        views: 42,
+        width: 1920,
+        height: 1080
       })
       |> DerpyCoder.Photos.create_photo()
 

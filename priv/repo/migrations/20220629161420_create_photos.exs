@@ -9,6 +9,8 @@ defmodule DerpyCoder.Repo.Migrations.CreatePhotos do
       add(:views, :integer, default: 0, null: false)
       add(:downloads, :integer, default: 0, null: false)
       add(:likes, :integer, default: 0, null: false)
+      add(:width, :integer, null: false)
+      add(:height, :integer, null: false)
 
       timestamps()
     end

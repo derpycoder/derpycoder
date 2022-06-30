@@ -14,7 +14,9 @@ defmodule DerpyCoder.PhotosTest do
       likes: nil,
       photo_url: nil,
       title: nil,
-      views: nil
+      views: nil,
+      width: nil,
+      height: nil
     }
 
     test "list_photos/0 returns all photos" do
@@ -34,7 +36,9 @@ defmodule DerpyCoder.PhotosTest do
         likes: 42,
         photo_url: "https://placekitten.com/515/515",
         title: "some title",
-        views: 42
+        views: 42,
+        width: 1920,
+        height: 1080
       }
 
       assert {:ok, %Photo{} = photo} = Photos.create_photo(valid_attrs)
@@ -44,6 +48,8 @@ defmodule DerpyCoder.PhotosTest do
       assert photo.photo_url == "https://placekitten.com/515/515"
       assert photo.title == "some title"
       assert photo.views == 42
+      assert photo.width == 1920
+      assert photo.height == 1080
     end
 
     test "create_photo/1 with invalid data returns error changeset" do
@@ -59,7 +65,9 @@ defmodule DerpyCoder.PhotosTest do
         likes: 43,
         photo_url: "https://dummyimage.com/942x942",
         title: "some updated title",
-        views: 43
+        views: 43,
+        width: 1024,
+        height: 768
       }
 
       assert {:ok, %Photo{} = photo} = Photos.update_photo(photo, update_attrs)
@@ -69,6 +77,8 @@ defmodule DerpyCoder.PhotosTest do
       assert photo.photo_url == "https://dummyimage.com/942x942"
       assert photo.title == "some updated title"
       assert photo.views == 43
+      assert photo.width == 1024
+      assert photo.height == 768
     end
 
     test "update_photo/2 with invalid data returns error changeset" do

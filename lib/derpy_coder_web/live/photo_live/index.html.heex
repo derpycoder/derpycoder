@@ -13,12 +13,33 @@
   </.modal>
 <% end %>
 
+<div class="columns:1 sm:columns-2 md:columns-3 lg:columns-4">
+  <%= for photo <- @photos do %>
+    <div class="break-inside-avoid pb-6 relative" id={"photo-#{photo.title}"}>
+      <img
+        class="object-cover rounded-2xl w-[458px]"
+        src={photo.photo_url}
+        alt={photo.title}
+        width={photo.width}
+        height={photo.height}
+        loading="lazy"
+      />
+      <div class="text-white flex flex-col absolute inset-0 p-8 pb-14">
+        <h1 class="text-3xl font-bold mb-3"><%= photo.title %></h1>
+        <p class="font-sm font-light"><%= photo.description %></p>
+        <div class="mt-auto">
+          <span class="bg-white bg-opacity-60 pt-1 pb-2 px-4 rounded-md text-black">
+            #tag
+          </span>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
+
 <table>
   <thead>
     <tr>
-      <th>Title</th>
-      <th>Description</th>
-      <th>Photo url</th>
       <th>Views</th>
       <th>Downloads</th>
       <th>Likes</th>
@@ -29,9 +50,6 @@
   <tbody id="photos">
     <%= for photo <- @photos do %>
       <tr id={"photo-#{photo.id}"}>
-        <td><%= photo.title %></td>
-        <td><%= photo.description %></td>
-        <td><img src={photo.photo_url} alt={photo.title} /></td>
         <td><%= photo.views %></td>
         <td><%= photo.downloads %></td>
         <td><%= photo.likes %></td>

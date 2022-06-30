@@ -10,7 +10,9 @@ defmodule DerpyCoderWeb.PhotoLiveTest do
     likes: 42,
     photo_url: "https://placekitten.com/515/515",
     title: "some title",
-    views: 42
+    views: 42,
+    width: 1920,
+    height: 1080
   }
   @update_attrs %{
     description: "some updated description",
@@ -18,7 +20,9 @@ defmodule DerpyCoderWeb.PhotoLiveTest do
     likes: 43,
     photo_url: "https://dummyimage.com/942x942",
     title: "some updated title",
-    views: 43
+    views: 43,
+    width: 1024,
+    height: 768
   }
   @invalid_attrs %{
     description: nil,
@@ -26,7 +30,9 @@ defmodule DerpyCoderWeb.PhotoLiveTest do
     likes: nil,
     photo_url: nil,
     title: nil,
-    views: nil
+    views: nil,
+    width: nil,
+    height: nil
   }
 
   defp create_photo(_) do

@@ -13,11 +13,25 @@
 alias DerpyCoder.Repo
 alias DerpyCoder.Photos.Photo
 
-for i <- 0..10 do
+width_range = 3000..6000
+height_range = 3000..6000
+
+for _ <- 1..10 do
+  width = Enum.random(width_range)
+  height = Enum.random(height_range)
+
+  ratio = width / height
+
+  # width = Enum.random([640, 1920, 2400])
+  width = 640
+  height = Kernel.round(width / ratio)
+
   %Photo{
     title: Faker.Person.En.first_name(),
     description: Faker.Lorem.Shakespeare.En.hamlet(),
-    photo_url: "https://source.unsplash.com/random/#{i}"
+    photo_url: "https://source.unsplash.com/random/#{width}x#{height}",
+    width: width,
+    height: height
   }
   |> Repo.insert!()
 end
