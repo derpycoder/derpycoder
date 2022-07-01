@@ -13,66 +13,35 @@
   </.modal>
 <% end %>
 
+<span><%= live_patch("New Photo", to: Routes.photo_index_path(@socket, :new)) %></span>
+
 <div class="columns:1 sm:columns-2 md:columns-3 lg:columns-4">
   <%= for photo <- @photos do %>
     <div class="break-inside-avoid pb-6 relative" id={"photo-#{photo.title}"}>
       <img
-        class="object-cover rounded-2xl w-[458px]"
+        class="object-cover rounded-2xl"
         src={photo.photo_url}
         alt={photo.title}
         width={photo.width}
         height={photo.height}
         loading="lazy"
+        phx-click="show-photo"
+        phx-value-id={photo.id}
       />
-      <div class="text-white flex flex-col absolute inset-0 p-8 pb-14">
+      <div class="text-white flex flex-col absolute inset-0 p-8 pb-14 pointer-events-none">
         <h1 class="text-3xl font-bold mb-3"><%= photo.title %></h1>
         <p class="font-sm font-light"><%= photo.description %></p>
-        <div class="mt-auto">
+        <div class="mt-auto flex justify-between">
           <span class="bg-white bg-opacity-60 pt-1 pb-2 px-4 rounded-md text-black">
             #tag
+          </span>
+          <span>
+            <%= photo.views %>
+            <%= photo.downloads %>
+            <%= photo.likes %>
           </span>
         </div>
       </div>
     </div>
   <% end %>
 </div>
-
-<table>
-  <thead>
-    <tr>
-      <th>Views</th>
-      <th>Downloads</th>
-      <th>Likes</th>
-
-      <th></th>
-    </tr>
-  </thead>
-  <tbody id="photos">
-    <%= for photo <- @photos do %>
-      <tr id={"photo-#{photo.id}"}>
-        <td><%= photo.views %></td>
-        <td><%= photo.downloads %></td>
-        <td><%= photo.likes %></td>
-
-        <td>
-          <span>
-            <%= live_redirect("Show", to: Routes.photo_show_path(@socket, :show, photo)) %>
-          </span>
-          <span>
-            <%= live_patch("Edit", to: Routes.photo_index_path(@socket, :edit, photo)) %>
-          </span>
-          <span>
-            <%= link("Delete",
-              to: "#",
-              phx_click: "delete",
-              phx_value_id: photo.id,
-              data: [confirm: "Are you sure?"]
-            ) %>
-          </span>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<span><%= live_patch("New Photo", to: Routes.photo_index_path(@socket, :new)) %></span>

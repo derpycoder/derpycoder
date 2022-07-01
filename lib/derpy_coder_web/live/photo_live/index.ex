@@ -40,6 +40,11 @@ defmodule DerpyCoderWeb.PhotoLive.Index do
     {:noreply, assign(socket, :photos, list_photos())}
   end
 
+  def handle_event("show-photo", %{"id" => id}, socket) do
+    photo = Photos.get_photo!(id)
+    {:noreply, push_redirect(socket, to: Routes.photo_show_path(socket, :show, photo))}
+  end
+
   defp list_photos do
     Photos.list_photos()
   end
