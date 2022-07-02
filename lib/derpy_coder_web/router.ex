@@ -21,7 +21,8 @@ defmodule DerpyCoderWeb.Router do
   scope "/", DerpyCoderWeb do
     pipe_through :browser
 
-    get "/", PageController, :index
+    # get "/", PageController, :index
+    live "/", HomePageLive, :index
 
     live "/photos", PhotoLive.Index, :index
     live "/photos/new", PhotoLive.Index, :new
