@@ -51,7 +51,8 @@ defmodule DerpyCoder.MixProject do
       {:jason, "~> 1.2"},
       {:plug_cowboy, "~> 2.5"},
       {:tailwind, "~> 0.1", runtime: Mix.env() == :dev},
-      {:faker, "~> 0.17.0"}
+      {:faker, "~> 0.17.0"},
+      {:ecto_enum, "~> 1.4"}
     ]
   end
 

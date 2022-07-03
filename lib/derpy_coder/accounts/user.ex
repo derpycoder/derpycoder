@@ -1,12 +1,19 @@
 defmodule DerpyCoder.Accounts.User do
   use Ecto.Schema
   import Ecto.Changeset
+  import EctoEnum
+
+  defenum(RolesEnum, :role, [
+    :user,
+    :admin
+  ])
 
   schema "users" do
     field :email, :string
     field :password, :string, virtual: true, redact: true
     field :hashed_password, :string, redact: true
     field :confirmed_at, :naive_datetime
+    field :role, RolesEnum, default: :user
 
     timestamps()
   end
@@ -134,5 +141,19 @@ defmodule DerpyCoder.Accounts.User do
     else
       add_error(changeset, :current_password, "is not valid")
     end
+  end
+
+  @doc """
+  A user changeset for registering admins.
+  """
+  def admin_registration_changeset(user, attrs) do
+    user
+    |> registration_changeset(attrs)
+    |> prepare_changes(&set_admin_role/1)
+  end
+
+  defp set_admin_role(changeset) do
+    changeset
+    |> put_change(:role, :admin)
   end
 end

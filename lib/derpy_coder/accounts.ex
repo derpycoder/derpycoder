@@ -350,4 +350,21 @@ defmodule DerpyCoder.Accounts do
       {:error, :user, changeset, _} -> {:error, changeset}
     end
   end
+
+  @doc """
+  Registers an admin.
+
+  ## Examples
+      iex> register_admin(%{field: value})
+      {:ok, %User{}}
+
+      iex> register_admin(%{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+  """
+
+  def register_admin(attrs) do
+    %User{}
+    |> User.admin_registration_changeset(attrs)
+    |> Repo.insert()
+  end
 end

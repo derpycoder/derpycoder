@@ -16,6 +16,18 @@ defmodule DerpyCoderWeb.UserAuthTest do
     %{user: user_fixture(), conn: conn}
   end
 
+  describe "register_admin/1" do
+    test "registers users with a hashed password and sets role to :admin" do
+      email = unique_user_email()
+      {:ok, user} = Accounts.register_admin(%{email: email, password: valid_user_password()})
+      assert user.email == email
+      assert is_binary(user.hashed_password)
+      assert is_nil(user.confirmed_at)
+      assert is_nil(user.password)
+      assert user.role == :admin
+    end
+  end
+
   describe "log_in_user/3" do
     test "stores the user token in the session", %{conn: conn, user: user} do
       conn = UserAuth.log_in_user(conn, user)

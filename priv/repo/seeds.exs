@@ -11,7 +11,20 @@
 # and so on) as they will fail if something goes wrong.
 
 alias DerpyCoder.Repo
+alias DerpyCoder.Accounts
 alias DerpyCoder.Photos.Photo
+
+Accounts.register_admin(%{
+  email: "admin@derpycoder.com",
+  password: "janmiq-robget-9byVtu",
+  password_confirmation: "janmiq-robget-9byVtu"
+})
+
+Accounts.register_user(%{
+  email: "abhijit@derpycoder.com",
+  password: "gesDeh-5cifqy-buxtec",
+  password_confirmation: "gesDeh-5cifqy-buxtec"
+})
 
 width_range = 3000..6000
 height_range = 3000..6000
