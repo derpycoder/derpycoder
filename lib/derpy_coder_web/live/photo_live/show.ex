@@ -4,7 +4,11 @@ defmodule DerpyCoderWeb.PhotoLive.Show do
   alias DerpyCoder.Photos
 
   @impl true
-  def mount(_params, _session, socket) do
+  def mount(_params, session, socket) do
+    socket =
+      socket
+      |> assign_defaults(session)
+
     {:ok, socket}
   end
 
