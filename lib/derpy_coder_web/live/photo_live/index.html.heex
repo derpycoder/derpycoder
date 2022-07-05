@@ -42,12 +42,19 @@
             #tag
           </span>
           <span>
-            <%= link("Delete",
-              to: "#",
-              phx_click: "delete",
-              phx_value_id: photo.id,
-              data: [confirm: "Are you sure?"]
-            ) %>
+            <%= if Roles.can?(@current_user, photo, :delete) do %>
+              <%= link("Delete",
+                to: "#",
+                phx_click: "delete",
+                phx_value_id: photo.id,
+                data: [confirm: "Are you sure?"]
+              ) %>
+            <% end %>
+            <span>
+              <%= if Roles.can?(@current_user, photo, :edit) do %>
+                <%= live_patch("Edit", to: Routes.photo_index_path(@socket, :edit, photo)) %>
+              <% end %>
+            </span>
           </span>
           <span>
             <%= photo.views %>

@@ -46,7 +46,9 @@
 </ul>
 
 <span>
-  <%= live_patch("Edit", to: Routes.photo_show_path(@socket, :edit, @photo), class: "button") %>
+  <%= if Roles.can?(@current_user, @photo, :edit) do %>
+    <%= live_patch("Edit", to: Routes.photo_show_path(@socket, :edit, @photo), class: "button") %>
+  <% end %>
 </span>
 |
 <span><%= live_redirect("Back", to: Routes.photo_index_path(@socket, :index)) %></span>
