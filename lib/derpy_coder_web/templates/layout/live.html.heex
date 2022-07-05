@@ -1,16 +1,16 @@
 <main class="p-8">
-  <p class="alert alert-info hidden" role="alert" phx-click="lv:clear-flash" phx-value-key="info">
-    <%= live_flash(@flash, :info) %>
-  </p>
+  <p
+    class="alert alert-info empty:hidden"
+    role="alert"
+    phx-click="lv:clear-flash"
+    phx-value-key="info"
+  ><%= live_flash(@flash, :info) %></p>
 
   <p
-    class="alert alert-danger hidden"
+    class="alert alert-danger empty:hidden"
     role="alert"
     phx-click="lv:clear-flash"
     phx-value-key="error"
-  >
-    <%= live_flash(@flash, :error) %>
-  </p>
-
+  ><%= live_flash(@flash, :error) %></p>
   <%= @inner_content %>
 </main>

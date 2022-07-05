@@ -1,8 +1,18 @@
 defmodule DerpyCoderWeb.Router do
   use DerpyCoderWeb, :router
 
+  alias DerpyCoderWeb.EnsureRolePlug
+
   import DerpyCoderWeb.UserAuth
   import Phoenix.LiveDashboard.Router
+
+  pipeline :user do
+    plug EnsureRolePlug, [:admin, :user]
+  end
+
+  pipeline :admin do
+    plug EnsureRolePlug, :admin
+  end
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -30,6 +40,12 @@ defmodule DerpyCoderWeb.Router do
 
     live "/photos/:id", PhotoLive.Show, :show
     live "/photos/:id/show/edit", PhotoLive.Show, :edit
+
+    delete "/users/log_out", UserSessionController, :delete
+    get "/users/confirm", UserConfirmationController, :new
+    post "/users/confirm", UserConfirmationController, :create
+    get "/users/confirm/:token", UserConfirmationController, :edit
+    post "/users/confirm/:token", UserConfirmationController, :update
   end
 
   # Other scopes may use custom stacks.
@@ -92,12 +108,12 @@ defmodule DerpyCoderWeb.Router do
   end
 
   scope "/", DerpyCoderWeb do
-    pipe_through [:browser]
+    pipe_through [:browser, :require_authenticated_user, :user]
+    live "/user_dashboard", UserDashboardLive, :index
+  end
 
-    delete "/users/log_out", UserSessionController, :delete
-    get "/users/confirm", UserConfirmationController, :new
-    post "/users/confirm", UserConfirmationController, :create
-    get "/users/confirm/:token", UserConfirmationController, :edit
-    post "/users/confirm/:token", UserConfirmationController, :update
+  scope "/", DerpyCoderWeb do
+    pipe_through [:browser, :require_authenticated_user, :admin]
+    live "/admin_dashboard", AdminDashboardLive, :index
   end
 end
