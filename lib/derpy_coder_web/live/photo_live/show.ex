@@ -7,7 +7,7 @@ defmodule DerpyCoderWeb.PhotoLive.Show do
   def mount(_params, session, socket) do
     socket =
       socket
-      |> assign_defaults(session)
+      |> assign_current_user(session)
 
     {:ok, socket}
   end

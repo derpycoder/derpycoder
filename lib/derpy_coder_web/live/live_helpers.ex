@@ -8,7 +8,7 @@ defmodule DerpyCoderWeb.LiveHelpers do
   alias DerpyCoder.Accounts.User
   alias DerpyCoderWeb.Router.Helpers, as: Routes
 
-  def assign_defaults(socket, session) do
+  def assign_current_user(socket, session) do
     socket =
       assign_new(socket, :current_user, fn ->
         find_current_user(session)
