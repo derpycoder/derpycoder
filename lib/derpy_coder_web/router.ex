@@ -34,6 +34,11 @@ defmodule DerpyCoderWeb.Router do
     # get "/", PageController, :index
     live "/", HomePageLive, :index
 
+    # Following routes do have authenticated & authorized components, but not the whole page!
+    live "/photos", PhotoLive.Index, :index
+    live "/photos/new", PhotoLive.Index, :new
+    live "/photos/:id", PhotoLive.Show, :show
+
     delete "/users/log_out", UserSessionController, :delete
     get "/users/confirm", UserConfirmationController, :new
     post "/users/confirm", UserConfirmationController, :create
@@ -102,18 +107,17 @@ defmodule DerpyCoderWeb.Router do
 
   scope "/", DerpyCoderWeb do
     pipe_through [:browser, :require_authenticated_user, :user]
+
     live "/user_dashboard", UserDashboardLive, :index
 
-    live "/photos", PhotoLive.Index, :index
-    live "/photos/new", PhotoLive.Index, :new
+    # Following 2 Routes are entirely authenticated & authorized!
     live "/photos/:id/edit", PhotoLive.Index, :edit
-
-    live "/photos/:id", PhotoLive.Show, :show
     live "/photos/:id/show/edit", PhotoLive.Show, :edit
   end
 
   scope "/", DerpyCoderWeb do
     pipe_through [:browser, :require_authenticated_user, :admin]
+
     live "/admin_dashboard", AdminDashboardLive, :index
   end
 end

@@ -82,14 +82,21 @@ defmodule DerpyCoderWeb.PhotoLive.Index do
     current_user = socket.assigns.current_user
     photo = Photos.get_photo!(id)
 
-    if Roles.can?(current_user, photo, :delete) do
-      photo = Photos.get_photo!(id)
-      {:ok, _} = Photos.delete_photo(photo)
-      {:noreply, assign(socket, :photos, list_photos())}
-    else
+    if !current_user do
       {:noreply,
        socket
-       |> put_flash(:error, "Unauthorized")}
+       |> put_flash(:error, "You must log in to access this page.")
+       |> redirect(to: Routes.user_session_path(socket, :new))}
+    else
+      if Roles.can?(current_user, photo, :delete) do
+        photo = Photos.get_photo!(id)
+        {:ok, _} = Photos.delete_photo(photo)
+        {:noreply, assign(socket, :photos, list_photos())}
+      else
+        {:noreply,
+         socket
+         |> put_flash(:error, "Unauthorized")}
+      end
     end
   end
 
