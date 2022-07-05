@@ -3,7 +3,7 @@ defmodule DerpyCoderWeb.AdminDashboardLive do
 
   @impl true
   def mount(_params, session, socket) do
-    socket = assign_current_user(socket, session)
+    socket = assign_current_user(socket, session, :admin)
     {:ok, socket}
   end
 

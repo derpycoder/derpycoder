@@ -28,6 +28,10 @@ defmodule DerpyCoderWeb.PhotoLive.FormComponent do
   end
 
   defp save_photo(socket, :edit, photo_params) do
+    ## Must do this to prevent malicious users from changing the id in form!
+    current_user = socket.assigns.current_user
+    photo_params = Map.put(photo_params, "user_id", current_user.id)
+
     case Photos.update_photo(socket.assigns.photo, photo_params) do
       {:ok, _photo} ->
         {:noreply,
@@ -41,6 +45,10 @@ defmodule DerpyCoderWeb.PhotoLive.FormComponent do
   end
 
   defp save_photo(socket, :new, photo_params) do
+    ## Must do this to prevent malicious users from changing the id in form!
+    current_user = socket.assigns.current_user
+    photo_params = Map.put(photo_params, "user_id", current_user.id)
+
     case Photos.create_photo(photo_params) do
       {:ok, _photo} ->
         {:noreply,

@@ -10,26 +10,34 @@
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
 
-alias DerpyCoder.Repo
 alias DerpyCoder.Accounts
-alias DerpyCoder.Photos.Photo
+alias DerpyCoder.Photos
 
-Accounts.register_admin(%{
-  email: "admin@derpycoder.com",
-  password: "janmiq-robget-9byVtu",
-  password_confirmation: "janmiq-robget-9byVtu"
-})
+{:ok, admin} =
+  Accounts.register_admin(%{
+    email: "admin@derpycoder.com",
+    password: "123456789abc",
+    password_confirmation: "123456789abc"
+  })
 
-Accounts.register_user(%{
-  email: "abhijit@derpycoder.com",
-  password: "gesDeh-5cifqy-buxtec",
-  password_confirmation: "gesDeh-5cifqy-buxtec"
-})
+{:ok, abhijit} =
+  Accounts.register_user(%{
+    email: "abhijit@derpycoder.com",
+    password: "123456789abc",
+    password_confirmation: "123456789abc"
+  })
+
+{:ok, abhisek} =
+  Accounts.register_user(%{
+    email: "abhisek@derpycoder.com",
+    password: "123456789abc",
+    password_confirmation: "123456789abc"
+  })
 
 width_range = 3000..6000
 height_range = 3000..6000
 
-for _ <- 1..10 do
+for i <- 1..10 do
   width = Enum.random(width_range)
   height = Enum.random(height_range)
 
@@ -39,12 +47,55 @@ for _ <- 1..10 do
   width = 640
   height = Kernel.round(width / ratio)
 
-  %Photo{
-    title: Faker.Person.En.first_name(),
-    description: Faker.Lorem.Shakespeare.En.hamlet(),
+  %{
+    user_id: admin.id,
+    title: "Photo #{i}",
+    description: "Admin",
     photo_url: "https://source.unsplash.com/random/#{width}x#{height}",
     width: width,
     height: height
   }
-  |> Repo.insert!()
+  |> Photos.create_photo()
+end
+
+for i <- 11..20 do
+  width = Enum.random(width_range)
+  height = Enum.random(height_range)
+
+  ratio = width / height
+
+  # width = Enum.random([640, 1920, 2400])
+  width = 640
+  height = Kernel.round(width / ratio)
+
+  %{
+    user_id: abhijit.id,
+    title: "Photo #{i}",
+    description: "Abhijit",
+    photo_url: "https://source.unsplash.com/random/#{width}x#{height}",
+    width: width,
+    height: height
+  }
+  |> Photos.create_photo()
+end
+
+for i <- 21..30 do
+  width = Enum.random(width_range)
+  height = Enum.random(height_range)
+
+  ratio = width / height
+
+  # width = Enum.random([640, 1920, 2400])
+  width = 640
+  height = Kernel.round(width / ratio)
+
+  %{
+    user_id: abhisek.id,
+    title: "Photo #{i}",
+    description: "Abhisek",
+    photo_url: "https://source.unsplash.com/random/#{width}x#{height}",
+    width: width,
+    height: height
+  }
+  |> Photos.create_photo()
 end

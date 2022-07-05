@@ -12,6 +12,8 @@ defmodule DerpyCoder.Photos.Photo do
     field :width, :integer
     field :height, :integer
 
+    belongs_to :user, DerpyCoder.Accounts.User
+
     timestamps()
   end
 
@@ -20,8 +22,18 @@ defmodule DerpyCoder.Photos.Photo do
   @doc false
   def changeset(photo, attrs) do
     photo
-    |> cast(attrs, [:title, :description, :downloads, :views, :likes, :photo_url, :width, :height])
-    |> validate_required([:title, :photo_url, :width, :height])
+    |> cast(attrs, [
+      :title,
+      :description,
+      :downloads,
+      :views,
+      :likes,
+      :photo_url,
+      :width,
+      :height,
+      :user_id
+    ])
+    |> validate_required([:title, :photo_url, :width, :height, :user_id])
     |> validate_length(:title, min: 2, max: 100)
     |> validate_length(:description, min: 2, max: 280)
     |> validate_format(:photo_url, @url, message: "must be a valid url")

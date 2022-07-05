@@ -8,6 +8,8 @@
       title={@page_title}
       action={@live_action}
       photo={@photo}
+      current_user={@current_user}
+      ,
       return_to={Routes.photo_index_path(@socket, :index)}
     />
   </.modal>
@@ -17,7 +19,7 @@
 
 <div class="columns:1 sm:columns-2 md:columns-3 lg:columns-4">
   <%= for photo <- @photos do %>
-    <div class="break-inside-avoid pb-6 relative" id={"photo-#{photo.title}"}>
+    <figure class="break-inside-avoid mb-6 relative" id={"photo-#{photo.title}"}>
       <img
         class="object-cover rounded-2xl"
         src={photo.photo_url}
@@ -25,15 +27,27 @@
         width={photo.width}
         height={photo.height}
         loading="lazy"
+      />
+      <figcaption
+        class="text-white flex flex-col absolute inset-0 p-8 pb-14 justify-between"
         phx-click="show-photo"
         phx-value-id={photo.id}
-      />
-      <div class="text-white flex flex-col absolute inset-0 p-8 pb-14 pointer-events-none">
-        <h1 class="text-3xl font-bold mb-3"><%= photo.title %></h1>
-        <p class="font-sm font-light"><%= photo.description %></p>
-        <div class="mt-auto flex justify-between">
+      >
+        <div>
+          <h1 class="text-3xl font-bold mb-3"><%= photo.title %></h1>
+          <p class="font-sm font-light"><%= photo.description %></p>
+        </div>
+        <div class="flex justify-between">
           <span class="bg-white bg-opacity-60 pt-1 pb-2 px-4 rounded-md text-black">
             #tag
+          </span>
+          <span>
+            <%= link("Delete",
+              to: "#",
+              phx_click: "delete",
+              phx_value_id: photo.id,
+              data: [confirm: "Are you sure?"]
+            ) %>
           </span>
           <span>
             <%= photo.views %>
@@ -41,7 +55,7 @@
             <%= photo.likes %>
           </span>
         </div>
-      </div>
-    </div>
+      </figcaption>
+    </figure>
   <% end %>
 </div>

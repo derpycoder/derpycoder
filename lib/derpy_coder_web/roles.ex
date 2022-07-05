@@ -1,0 +1,21 @@
+defmodule DerpyCoderWeb.Roles do
+  @moduledoc """
+  Defines roles related functions.
+  """
+
+  alias DerpyCoder.Accounts.User
+  alias DerpyCoder.Photos.Photo
+
+  @type entity :: struct()
+  @type action :: :new | :index | :edit | :show | :delete
+
+  @spec can?(%User{}, entity(), action()) :: boolean()
+  def can?(user, entity, action)
+  def can?(%User{role: :admin}, %Photo{}, _any), do: true
+  def can?(%User{}, %Photo{}, :index), do: true
+  def can?(%User{}, %Photo{}, :new), do: true
+  def can?(%User{}, %Photo{}, :show), do: true
+  def can?(%User{id: id}, %Photo{user_id: id}, :edit), do: true
+  def can?(%User{id: id}, %Photo{user_id: id}, :delete), do: true
+  def can?(_, _, _), do: false
+end

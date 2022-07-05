@@ -34,13 +34,6 @@ defmodule DerpyCoderWeb.Router do
     # get "/", PageController, :index
     live "/", HomePageLive, :index
 
-    live "/photos", PhotoLive.Index, :index
-    live "/photos/new", PhotoLive.Index, :new
-    live "/photos/:id/edit", PhotoLive.Index, :edit
-
-    live "/photos/:id", PhotoLive.Show, :show
-    live "/photos/:id/show/edit", PhotoLive.Show, :edit
-
     delete "/users/log_out", UserSessionController, :delete
     get "/users/confirm", UserConfirmationController, :new
     post "/users/confirm", UserConfirmationController, :create
@@ -110,6 +103,13 @@ defmodule DerpyCoderWeb.Router do
   scope "/", DerpyCoderWeb do
     pipe_through [:browser, :require_authenticated_user, :user]
     live "/user_dashboard", UserDashboardLive, :index
+
+    live "/photos", PhotoLive.Index, :index
+    live "/photos/new", PhotoLive.Index, :new
+    live "/photos/:id/edit", PhotoLive.Index, :edit
+
+    live "/photos/:id", PhotoLive.Show, :show
+    live "/photos/:id/show/edit", PhotoLive.Show, :edit
   end
 
   scope "/", DerpyCoderWeb do

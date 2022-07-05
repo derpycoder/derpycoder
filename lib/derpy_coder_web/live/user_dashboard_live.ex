@@ -4,6 +4,7 @@ defmodule DerpyCoderWeb.UserDashboardLive do
   @impl true
   def mount(_params, session, socket) do
     socket = assign_current_user(socket, session)
+
     {:ok, socket}
   end
 

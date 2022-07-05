@@ -8,6 +8,15 @@ defmodule DerpyCoderWeb.LiveHelpers do
   alias DerpyCoder.Accounts.User
   alias DerpyCoderWeb.Router.Helpers, as: Routes
 
+  def maybe_assign_current_user(socket, session) do
+    socket =
+      assign_new(socket, :current_user, fn ->
+        find_current_user(session)
+      end)
+
+    socket
+  end
+
   def assign_current_user(socket, session) do
     socket =
       assign_new(socket, :current_user, fn ->
@@ -25,11 +34,39 @@ defmodule DerpyCoderWeb.LiveHelpers do
     end
   end
 
-  defp find_current_user(session) do
-    with user_token when not is_nil(user_token) <- session["user_token"],
-         %User{} = user <- Accounts.get_user_by_session_token(user_token),
-         do: user
+  def assign_current_user(socket, session, roles) do
+    socket =
+      assign_new(socket, :current_user, fn ->
+        find_current_user(session)
+      end)
+
+    current_user = socket.assigns.current_user
+
+    case current_user do
+      %User{} ->
+        if does_role_match(current_user.role, roles) do
+          socket
+        else
+          socket
+          |> put_flash(:error, "Unauthorized")
+          |> redirect(to: Routes.user_session_path(socket, :new))
+        end
+
+      _other ->
+        socket
+        |> put_flash(:error, "You must log in to access this page.")
+        |> redirect(to: Routes.user_session_path(socket, :new))
+    end
   end
+
+  defp does_role_match(user_role, role) when is_atom(role), do: user_role === role
+  defp does_role_match(user_role, roles) when is_list(roles), do: user_role in roles
+
+  defp find_current_user(%{"user_token" => user_token}) do
+    Accounts.get_user_by_session_token(user_token)
+  end
+
+  defp find_current_user(_), do: nil
 
   @doc """
   Renders a live component inside a modal.

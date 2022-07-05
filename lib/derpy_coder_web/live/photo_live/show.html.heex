@@ -47,13 +47,6 @@
 
 <span>
   <%= live_patch("Edit", to: Routes.photo_show_path(@socket, :edit, @photo), class: "button") %>
-</span> |
-<span><%= live_redirect("Back", to: Routes.photo_index_path(@socket, :index)) %></span>
-<span>
-  <%= link("Delete",
-    to: "#",
-    phx_click: "delete",
-    phx_value_id: @photo.id,
-    data: [confirm: "Are you sure?"]
-  ) %>
 </span>
+|
+<span><%= live_redirect("Back", to: Routes.photo_index_path(@socket, :index)) %></span>
