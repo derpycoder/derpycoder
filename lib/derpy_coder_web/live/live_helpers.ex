@@ -8,22 +8,56 @@ defmodule DerpyCoderWeb.LiveHelpers do
   alias DerpyCoder.Accounts.User
   alias DerpyCoderWeb.Router.Helpers, as: Routes
 
-  def maybe_assign_current_user(socket, session) do
-    socket =
-      assign_new(socket, :current_user, fn ->
-        find_current_user(session)
-      end)
+  @doc """
+  Used for live view routes, that do not require authentication for first render.
+  Assigns current_user to the socket.
 
-    socket
+  Returns `socket`
+  """
+  def maybe_assign_current_user(socket, session) do
+    assign_new(socket, :current_user, fn ->
+      find_current_user(session)
+    end)
   end
 
-  def assign_current_user(socket, session) do
-    socket =
-      assign_new(socket, :current_user, fn ->
-        find_current_user(session)
-      end)
+  @doc """
+  Used for live view routes, that do require authentication for first render.
+  Assigns current_user to the socket.
 
-    case socket.assigns.current_user do
+  If user is not authenticated, they are asked to login.
+
+  Returns `socket`
+  """
+  def assign_current_user(socket, session) do
+    socket
+    |> assign_new(:current_user, fn ->
+      find_current_user(session)
+    end)
+    |> authenticate_current_user()
+  end
+
+  @doc """
+  Used for live view routes, that do require authentication and authorization for first render.
+  Assigns current_user to the socket.
+
+  If user is not authenticated, they are asked to login.
+  Else if user has no authorization, based on roles passed in, they are notified.
+
+  Returns `socket`
+  """
+  def assign_current_user(socket, session, roles) do
+    socket
+    |> assign_new(:current_user, fn ->
+      find_current_user(session)
+    end)
+    |> authenticate_current_user()
+    |> authorize_current_user(roles)
+  end
+
+  defp authenticate_current_user(socket) do
+    current_user = socket.assigns.current_user
+
+    case current_user do
       %User{} ->
         socket
 
@@ -34,28 +68,15 @@ defmodule DerpyCoderWeb.LiveHelpers do
     end
   end
 
-  def assign_current_user(socket, session, roles) do
-    socket =
-      assign_new(socket, :current_user, fn ->
-        find_current_user(session)
-      end)
-
+  defp authorize_current_user(socket, roles) do
     current_user = socket.assigns.current_user
 
-    case current_user do
-      %User{} ->
-        if does_role_match(current_user.role, roles) do
-          socket
-        else
-          socket
-          |> put_flash(:error, "Unauthorized")
-          |> redirect(to: Routes.user_session_path(socket, :new))
-        end
-
-      _other ->
-        socket
-        |> put_flash(:error, "You must log in to access this page.")
-        |> redirect(to: Routes.user_session_path(socket, :new))
+    if does_role_match(current_user.role, roles) do
+      socket
+    else
+      socket
+      |> put_flash(:error, "Unauthorized")
+      |> redirect(to: Routes.user_session_path(socket, :new))
     end
   end
 
