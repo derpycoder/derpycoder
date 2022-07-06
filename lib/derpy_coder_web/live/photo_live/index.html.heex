@@ -19,7 +19,7 @@
 
 <div class="columns:1 sm:columns-2 md:columns-3 lg:columns-4">
   <%= for photo <- @photos do %>
-    <figure class="break-inside-avoid mb-6 relative" id={"photo-#{photo.title}"}>
+    <figure class="break-inside-avoid pb-8 m-0 relative" id={"photo-#{photo.title}"}>
       <img
         class="object-cover rounded-2xl"
         src={photo.photo_url}

@@ -29,11 +29,18 @@ defmodule DerpyCoderWeb.LiveHelpers do
   Returns `socket`
   """
   def assign_current_user(socket, session) do
-    socket
-    |> assign_new(:current_user, fn ->
-      find_current_user(session)
-    end)
-    |> authenticate_current_user()
+    socket =
+      assign_new(socket, :current_user, fn ->
+        find_current_user(session)
+      end)
+
+    case socket.assigns.current_user do
+      %User{} ->
+        socket
+
+      _ ->
+        ask_user_to_login(socket)
+    end
   end
 
   @doc """
@@ -46,42 +53,40 @@ defmodule DerpyCoderWeb.LiveHelpers do
   Returns `socket`
   """
   def assign_current_user(socket, session, roles) do
-    socket
-    |> assign_new(:current_user, fn ->
-      find_current_user(session)
-    end)
-    |> authenticate_current_user()
-    |> authorize_current_user(roles)
-  end
+    socket =
+      assign_new(socket, :current_user, fn ->
+        find_current_user(session)
+      end)
 
-  defp authenticate_current_user(socket) do
     current_user = socket.assigns.current_user
 
     case current_user do
       %User{} ->
-        socket
+        if role_matches?(current_user.role, roles) do
+          socket
+        else
+          kick_unauthorized_user_out(socket)
+        end
 
-      _other ->
-        socket
-        |> put_flash(:error, "You must log in to access this page.")
-        |> redirect(to: Routes.user_session_path(socket, :new))
+      _ ->
+        ask_user_to_login(socket)
     end
   end
 
-  defp authorize_current_user(socket, roles) do
-    current_user = socket.assigns.current_user
-
-    if does_role_match(current_user.role, roles) do
-      socket
-    else
-      socket
-      |> put_flash(:error, "Unauthorized")
-      |> redirect(to: Routes.user_session_path(socket, :new))
-    end
+  def ask_user_to_login(socket) do
+    socket
+    |> put_flash(:error, "You must log in to access this page.")
+    |> redirect(to: Routes.user_session_path(socket, :new))
   end
 
-  defp does_role_match(user_role, role) when is_atom(role), do: user_role === role
-  defp does_role_match(user_role, roles) when is_list(roles), do: user_role in roles
+  def kick_unauthorized_user_out(socket) do
+    socket
+    |> put_flash(:error, "Unauthorized")
+    |> redirect(to: "/")
+  end
+
+  defp role_matches?(user_role, role) when is_atom(role), do: user_role === role
+  defp role_matches?(user_role, roles) when is_list(roles), do: user_role in roles
 
   defp find_current_user(%{"user_token" => user_token}) do
     Accounts.get_user_by_session_token(user_token)
