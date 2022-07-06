@@ -19,11 +19,6 @@
     <header>
       <section class="container">
         <nav>
-          <ul>
-            <%= if function_exported?(Routes, :live_dashboard_path, 2) do %>
-              <li><%= link("Live Dashboard", to: Routes.live_dashboard_path(@conn, :home)) %></li>
-            <% end %>
-          </ul>
           <%= render("_user_menu.html", assigns) %>
         </nav>
         <a href="/" class="phx-logo">

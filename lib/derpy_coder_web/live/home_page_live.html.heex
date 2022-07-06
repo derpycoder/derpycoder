@@ -3,6 +3,12 @@
   <p>Peace of mind from prototype to production</p>
 
   <%= live_redirect("Photos", to: Routes.photo_index_path(@socket, :index)) %>
-  <%= live_redirect("User Dashboard", to: Routes.user_dashboard_path(@socket, :index)) %>
-  <%= live_redirect("Admin Dashboard", to: Routes.admin_dashboard_path(@socket, :index)) %>
+
+  <%= if @current_user do %>
+    <%= live_redirect("User Dashboard", to: Routes.user_dashboard_path(@socket, :index)) %>
+  <% end %>
+
+  <%= if Roles.can?(@current_user, %{}, :index) do %>
+    <%= live_redirect("Admin Dashboard", to: Routes.admin_dashboard_path(@socket, :index)) %>
+  <% end %>
 </section>

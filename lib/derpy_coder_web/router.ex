@@ -96,13 +96,11 @@ defmodule DerpyCoderWeb.Router do
   end
 
   scope "/", DerpyCoderWeb do
-    pipe_through [:browser, :require_authenticated_user]
+    pipe_through [:browser, :require_authenticated_user, :user]
 
     get "/users/settings", UserSettingsController, :edit
     put "/users/settings", UserSettingsController, :update
     get "/users/settings/confirm_email/:token", UserSettingsController, :confirm_email
-
-    live_dashboard "/dashboard", metrics: DerpyCoderWeb.Telemetry
   end
 
   scope "/", DerpyCoderWeb do
@@ -119,5 +117,7 @@ defmodule DerpyCoderWeb.Router do
     pipe_through [:browser, :require_authenticated_user, :admin]
 
     live "/admin_dashboard", AdminDashboardLive, :index
+
+    live_dashboard "/dashboard", metrics: DerpyCoderWeb.Telemetry
   end
 end

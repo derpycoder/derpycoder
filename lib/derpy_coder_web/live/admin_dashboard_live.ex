@@ -12,6 +12,8 @@ defmodule DerpyCoderWeb.AdminDashboardLive do
     ~H"""
     <section class="flex flex-col items-center">
       <h1>Welcome to the admin dashboard!</h1>
+
+      <%= link("Live Dashboard", to: Routes.live_dashboard_path(@socket, :home)) %>
     </section>
     """
   end
