@@ -1,4 +1,7 @@
 defmodule DerpyCoderWeb.Telemetry do
+  @moduledoc """
+  Houses Telemetry.
+  """
   use Supervisor
   import Telemetry.Metrics
 

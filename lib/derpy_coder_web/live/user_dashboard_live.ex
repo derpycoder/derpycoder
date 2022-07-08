@@ -1,4 +1,7 @@
 defmodule DerpyCoderWeb.UserDashboardLive do
+  @moduledoc """
+  Live User Dashboard.
+  """
   use DerpyCoderWeb, :live_view
 
   @impl true

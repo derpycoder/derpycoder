@@ -1,4 +1,7 @@
 defmodule DerpyCoderWeb.PhotoLive.FormComponent do
+  @moduledoc """
+  Houses form to handle Photo creation!
+  """
   use DerpyCoderWeb, :live_component
 
   alias DerpyCoder.Photos

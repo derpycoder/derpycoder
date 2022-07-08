@@ -1,4 +1,7 @@
 defmodule DerpyCoderWeb.HomePageLive do
+  @moduledoc """
+  Home Page Live.
+  """
   use DerpyCoderWeb, :live_view
 
   alias DerpyCoderWeb.Roles

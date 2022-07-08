@@ -1,4 +1,7 @@
 defmodule DerpyCoder.Accounts.UserNotifier do
+  @moduledoc """
+  User Email Center.
+  """
   import Swoosh.Email
 
   alias DerpyCoder.Mailer

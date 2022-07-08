@@ -1,4 +1,7 @@
 defmodule DerpyCoderWeb.UserAuth do
+  @moduledoc """
+  User Authentication helpers live here.
+  """
   import Plug.Conn
   import Phoenix.Controller
 

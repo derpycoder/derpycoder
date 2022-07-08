@@ -1,4 +1,7 @@
 defmodule DerpyCoder.Accounts.UserToken do
+  @moduledoc """
+  User facing actions like invitation, password change relies on User Token.
+  """
   use Ecto.Schema
   import Ecto.Query
   alias DerpyCoder.Accounts.UserToken

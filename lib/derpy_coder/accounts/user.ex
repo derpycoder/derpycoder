@@ -1,4 +1,7 @@
 defmodule DerpyCoder.Accounts.User do
+  @moduledoc """
+  Houses the User Schema.
+  """
   use Ecto.Schema
   import Ecto.Changeset
   import EctoEnum

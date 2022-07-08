@@ -9,7 +9,7 @@ defmodule DerpyCoderWeb.Roles do
   @type entity :: struct()
   @type action :: :new | :index | :edit | :show | :delete
 
-  @spec can?(%User{}, entity(), action()) :: boolean()
+  @spec can?(User.t(), entity(), action()) :: boolean()
   def can?(user, entity, action)
   def can?(%User{role: :admin}, %{}, _), do: true
   def can?(%User{}, %Photo{}, :index), do: true

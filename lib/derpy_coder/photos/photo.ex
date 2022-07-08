@@ -1,4 +1,7 @@
 defmodule DerpyCoder.Photos.Photo do
+  @moduledoc """
+  Photo Scheme.
+  """
   use Ecto.Schema
   import Ecto.Changeset
 

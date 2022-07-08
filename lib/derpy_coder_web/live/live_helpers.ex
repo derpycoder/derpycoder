@@ -1,4 +1,7 @@
 defmodule DerpyCoderWeb.LiveHelpers do
+  @moduledoc """
+  ALl helpers commonly used in LiveView, lives here.
+  """
   import Phoenix.LiveView
   import Phoenix.LiveView.Helpers
 

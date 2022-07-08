@@ -1,4 +1,7 @@
 defmodule DerpyCoderWeb.PhotoLive.Index do
+  @moduledoc """
+  Show all the public photos.
+  """
   use DerpyCoderWeb, :live_view
 
   alias DerpyCoder.Photos

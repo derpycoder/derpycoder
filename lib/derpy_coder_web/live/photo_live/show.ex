@@ -1,4 +1,7 @@
 defmodule DerpyCoderWeb.PhotoLive.Show do
+  @moduledoc """
+  Show a photo!
+  """
   use DerpyCoderWeb, :live_view
 
   alias DerpyCoder.Photos
