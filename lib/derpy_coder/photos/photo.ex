@@ -16,7 +16,7 @@ defmodule DerpyCoder.Photos.Photo do
     field :width, :integer
     field :height, :integer
 
-    belongs_to :user, DerpyCoder.Accounts.User
+    belongs_to :user, DerpyCoder.Accounts.User, type: ExKsuid.EctoType
 
     timestamps()
   end

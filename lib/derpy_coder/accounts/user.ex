@@ -11,6 +11,7 @@ defmodule DerpyCoder.Accounts.User do
     :admin
   ])
 
+  @primary_key {:id, ExKsuid.EctoType, autogenerate: true}
   schema "users" do
     field :email, :string
     field :password, :string, virtual: true, redact: true

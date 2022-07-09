@@ -16,11 +16,13 @@ defmodule DerpyCoder.Accounts.UserToken do
   @change_email_validity_in_days 7
   @session_validity_in_days 60
 
+  @primary_key {:id, ExKsuid.EctoType, autogenerate: true}
   schema "users_tokens" do
     field :token, :binary
     field :context, :string
     field :sent_to, :string
-    belongs_to :user, DerpyCoder.Accounts.User
+
+    belongs_to :user, DerpyCoder.Accounts.User, type: ExKsuid.EctoType
 
     timestamps(updated_at: false)
   end
