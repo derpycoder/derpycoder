@@ -5,6 +5,7 @@ defmodule DerpyCoder.Photos.Photo do
   use Ecto.Schema
   import Ecto.Changeset
 
+  @primary_key {:id, ExKsuid.EctoType, autogenerate: true}
   schema "photos" do
     field :description, :string
     field :downloads, :integer, default: 0

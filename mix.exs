@@ -53,7 +53,8 @@ defmodule DerpyCoder.MixProject do
       {:tailwind, "~> 0.1", runtime: Mix.env() == :dev},
       {:faker, "~> 0.17.0"},
       {:ecto_enum, "~> 1.4"},
-      {:credo, "~> 1.6", only: [:dev, :test], runtime: false}
+      {:credo, "~> 1.6", only: [:dev, :test], runtime: false},
+      {:ex_ksuid, "~> 0.2.1"}
     ]
   end
 

@@ -2,7 +2,8 @@ defmodule DerpyCoder.Repo.Migrations.CreatePhotos do
   use Ecto.Migration
 
   def change do
-    create table(:photos) do
+    create table(:photos, primary_key: false) do
+      add(:id, :binary, primary_key: true)
       add(:title, :string, null: false)
       add(:description, :string)
       add(:photo_url, :string, null: false)
