@@ -5,7 +5,7 @@ defmodule DerpyCoderWeb.PhotoLive.Show do
   use DerpyCoderWeb, :live_view
 
   alias DerpyCoder.Photos
-  alias DerpyCoderWeb.Roles
+  alias DerpyCoderWeb.Admin
 
   @impl true
   def mount(_params, session, socket) do
@@ -30,7 +30,7 @@ defmodule DerpyCoderWeb.PhotoLive.Show do
 
     case current_user do
       %{} ->
-        if Roles.can?(current_user, live_action, photo) do
+        if Photos.can?(current_user, live_action, photo) do
           socket
           |> assign(:photo, photo)
           |> assign(:page_title, page_title(live_action))

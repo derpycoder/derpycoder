@@ -16,7 +16,7 @@
 <% end %>
 
 <span>
-  <%= if Roles.can?(@current_user, :new, Photo) do %>
+  <%= if Photos.can?(@current_user, :new) do %>
     <%= live_patch("New Photo", to: Routes.photo_index_path(@socket, :new)) %>
   <% end %>
 </span>
@@ -46,7 +46,7 @@
             #tag
           </span>
           <span>
-            <%= if Roles.can?(@current_user, :delete, photo) do %>
+            <%= if Photos.can?(@current_user, :delete, photo) do %>
               <%= link("Delete",
                 to: "#",
                 phx_click: "delete",
@@ -55,7 +55,7 @@
               ) %>
             <% end %>
             <span>
-              <%= if Roles.can?(@current_user, :edit, photo) do %>
+              <%= if Photos.can?(@current_user, :edit, photo) do %>
                 <%= live_patch("Edit", to: Routes.photo_index_path(@socket, :edit, photo)) %>
               <% end %>
             </span>

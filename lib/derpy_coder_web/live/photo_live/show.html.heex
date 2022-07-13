@@ -46,7 +46,7 @@
 </ul>
 
 <span>
-  <%= if Roles.can?(@current_user, :edit, @photo) do %>
+  <%= if Photos.can?(@current_user, :edit, @photo) do %>
     <%= live_patch("Edit", to: Routes.photo_show_path(@socket, :edit, @photo), class: "button") %>
   <% end %>
 </span>

@@ -7,8 +7,6 @@ defmodule DerpyCoderWeb.PhotoLive.Index do
   alias DerpyCoder.Photos
   alias DerpyCoder.Photos.Photo
 
-  alias DerpyCoderWeb.Roles
-
   @impl true
   def mount(_params, session, socket) do
     socket =
@@ -33,7 +31,7 @@ defmodule DerpyCoderWeb.PhotoLive.Index do
 
     case current_user do
       %{} ->
-        if Roles.can?(current_user, live_action, photo) do
+        if Photos.can?(current_user, live_action, photo) do
           socket
           |> assign(:page_title, "Edit Photo")
           |> assign(:photo, photo)
@@ -46,14 +44,13 @@ defmodule DerpyCoderWeb.PhotoLive.Index do
     end
   end
 
-  defp apply_action(socket, :new, params) do
+  defp apply_action(socket, :new, _params) do
     live_action = socket.assigns.live_action
     current_user = socket.assigns.current_user
-    photo = photo_from_params(params)
 
     case current_user do
       %{} ->
-        if Roles.can?(current_user, live_action, photo) do
+        if Photos.can?(current_user, live_action) do
           socket
           |> assign(:page_title, "New Photo")
           |> assign(:photo, %Photo{})
@@ -80,7 +77,7 @@ defmodule DerpyCoderWeb.PhotoLive.Index do
     socket =
       case current_user do
         %{} ->
-          if Roles.can?(current_user, :delete, photo) do
+          if Photos.can?(current_user, :delete, photo) do
             {:ok, _} = Photos.delete_photo(photo)
             assign(socket, :photos, list_photos())
           else
