@@ -30,7 +30,7 @@ defmodule DerpyCoderWeb.PhotoLive.Show do
 
     case current_user do
       %{} ->
-        if Roles.can?(current_user, photo, live_action) do
+        if Roles.can?(current_user, live_action, photo) do
           socket
           |> assign(:photo, photo)
           |> assign(:page_title, page_title(live_action))

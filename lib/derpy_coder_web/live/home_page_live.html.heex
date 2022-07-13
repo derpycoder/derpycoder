@@ -8,7 +8,7 @@
     <%= live_redirect("User Dashboard", to: Routes.user_dashboard_path(@socket, :index)) %>
   <% end %>
 
-  <%= if Roles.can?(@current_user, %{}, :index) do %>
+  <%= if Roles.can?(@current_user, :index, %{}) do %>
     <%= live_redirect("Admin Dashboard", to: Routes.admin_dashboard_path(@socket, :index)) %>
   <% end %>
 </section>

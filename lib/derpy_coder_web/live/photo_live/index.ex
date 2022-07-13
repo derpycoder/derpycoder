@@ -33,7 +33,7 @@ defmodule DerpyCoderWeb.PhotoLive.Index do
 
     case current_user do
       %{} ->
-        if Roles.can?(current_user, photo, live_action) do
+        if Roles.can?(current_user, live_action, photo) do
           socket
           |> assign(:page_title, "Edit Photo")
           |> assign(:photo, photo)
@@ -53,7 +53,7 @@ defmodule DerpyCoderWeb.PhotoLive.Index do
 
     case current_user do
       %{} ->
-        if Roles.can?(current_user, photo, live_action) do
+        if Roles.can?(current_user, live_action, photo) do
           socket
           |> assign(:page_title, "New Photo")
           |> assign(:photo, %Photo{})
@@ -80,7 +80,7 @@ defmodule DerpyCoderWeb.PhotoLive.Index do
     socket =
       case current_user do
         %{} ->
-          if Roles.can?(current_user, photo, :delete) do
+          if Roles.can?(current_user, :delete, photo) do
             {:ok, _} = Photos.delete_photo(photo)
             assign(socket, :photos, list_photos())
           else
@@ -99,9 +99,8 @@ defmodule DerpyCoderWeb.PhotoLive.Index do
     {:noreply, push_redirect(socket, to: Routes.photo_show_path(socket, :show, photo))}
   end
 
-  defp photo_from_params(params)
   defp photo_from_params(%{"id" => id}), do: Photos.get_photo!(id)
-  defp photo_from_params(_params), do: %Photo{}
+  defp photo_from_params(_params), do: Photo
 
   defp list_photos do
     Photos.list_photos()

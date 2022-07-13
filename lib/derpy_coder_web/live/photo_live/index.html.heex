@@ -15,7 +15,11 @@
   </.modal>
 <% end %>
 
-<span><%= live_patch("New Photo", to: Routes.photo_index_path(@socket, :new)) %></span>
+<span>
+  <%= if Roles.can?(@current_user, :new, Photo) do %>
+    <%= live_patch("New Photo", to: Routes.photo_index_path(@socket, :new)) %>
+  <% end %>
+</span>
 
 <div class="columns:1 sm:columns-2 md:columns-3 lg:columns-4">
   <%= for photo <- @photos do %>
@@ -42,7 +46,7 @@
             #tag
           </span>
           <span>
-            <%= if Roles.can?(@current_user, photo, :delete) do %>
+            <%= if Roles.can?(@current_user, :delete, photo) do %>
               <%= link("Delete",
                 to: "#",
                 phx_click: "delete",
@@ -51,7 +55,7 @@
               ) %>
             <% end %>
             <span>
-              <%= if Roles.can?(@current_user, photo, :edit) do %>
+              <%= if Roles.can?(@current_user, :edit, photo) do %>
                 <%= live_patch("Edit", to: Routes.photo_index_path(@socket, :edit, photo)) %>
               <% end %>
             </span>
