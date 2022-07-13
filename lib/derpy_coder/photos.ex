@@ -103,6 +103,19 @@ defmodule DerpyCoder.Photos do
     Photo.changeset(photo, attrs)
   end
 
+  # Signed in users can delete their own photos withing same organization
+  # defp scope_photos(query, %User{role: :user, id: id}, _params) do
+  #   query
+  #   |> where(author_id: ^id)
+  #   |> or_where(state: :published)
+  # end
+
+  # Super admins can access anything
+  # defp scope_photos(query, %User{role: :admin}, _params), do: query
+
+  # Anonymous users can access only published photos
+  # defp scope_photos(query, _user, _params), do: query |> where(state: :published)
+
   @type entity :: struct()
   @type action :: :new | :index | :edit | :show | :delete
 
