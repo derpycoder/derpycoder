@@ -5,7 +5,6 @@ defmodule DerpyCoderWeb.PhotoLive.Show do
   use DerpyCoderWeb, :live_view
 
   alias DerpyCoder.Photos
-  alias DerpyCoderWeb.Admin
 
   @impl true
   def mount(_params, session, socket) do
