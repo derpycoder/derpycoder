@@ -15,9 +15,10 @@ defmodule DerpyCoder.Application do
       # Start the PubSub system
       {Phoenix.PubSub, name: DerpyCoder.PubSub},
       # Start the Endpoint (http/https)
-      DerpyCoderWeb.Endpoint
+      DerpyCoderWeb.Endpoint,
       # Start a worker by calling: DerpyCoder.Worker.start_link(arg)
       # {DerpyCoder.Worker, arg}
+      FunWithFlags.Supervisor
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

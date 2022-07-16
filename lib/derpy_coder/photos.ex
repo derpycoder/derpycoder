@@ -130,11 +130,11 @@ defmodule DerpyCoder.Photos do
   @type action :: :new | :index | :edit | :show | :delete
 
   @spec can?(User.t(), action(), entity()) :: boolean()
-  def can?(user, action, entity \\ Photo)
+  def can?(user, action, entity)
   def can?(%User{role: :admin}, _, %{}), do: true
 
-  def can?(%User{}, :index, _), do: true
-  def can?(%User{}, :new, _), do: true
+  def can?(%User{}, :index, Photo), do: true
+  def can?(%User{}, :new, Photo), do: true
   def can?(%User{}, :show, %Photo{}), do: true
   # def can?(%User{}, %Photo{}, action) when action in ~w[index new show]a, do: true
 

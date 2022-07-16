@@ -20,6 +20,7 @@ defmodule DerpyCoder.MixProject do
   def application do
     [
       mod: {DerpyCoder.Application, []},
+      included_applications: [:fun_with_flags],
       extra_applications: [:logger, :runtime_tools, :os_mon]
     ]
   end
@@ -54,7 +55,10 @@ defmodule DerpyCoder.MixProject do
       {:faker, "~> 0.17.0"},
       {:ecto_enum, "~> 1.4"},
       {:credo, "~> 1.6", only: [:dev, :test], runtime: false},
-      {:ex_ksuid, "~> 0.2.1"}
+      {:ex_ksuid, "~> 0.2.1"},
+      {:fun_with_flags, "~> 1.8.1"},
+      {:phoenix_pubsub, "~> 2.1"},
+      {:ecto_psql_extras, "~> 0.7.4"}
     ]
   end
 

@@ -16,7 +16,7 @@
 <% end %>
 
 <span>
-  <%= if Photos.can?(@current_user, :new) do %>
+  <%= if Photos.can?(@current_user, :new, Photo) do %>
     <%= live_patch("New Photo", to: Routes.photo_index_path(@socket, :new)) %>
   <% end %>
 </span>

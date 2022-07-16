@@ -11,27 +11,39 @@
 # and so on) as they will fail if something goes wrong.
 
 alias DerpyCoder.Accounts
+alias DerpyCoder.Accounts.User
 alias DerpyCoder.Photos
+
+FunWithFlags.enable(:index_photos, for_group: :photographer)
+FunWithFlags.enable(:new_photos, for_group: :photographer)
+FunWithFlags.enable(:show_photos, for_group: :photographer)
+FunWithFlags.enable(:edit_photos, for_group: :photographer)
+FunWithFlags.enable(:delete_photos, for_group: :photographer)
 
 {:ok, admin} =
   Accounts.register_admin(%{
     email: "admin@derpycoder.com",
     password: "123456789abc",
-    password_confirmation: "123456789abc"
+    password_confirmation: "123456789abc",
+    role: :admin,
+    groups: ~w(photographer)a
   })
 
 {:ok, abhijit} =
   Accounts.register_user(%{
     email: "abhijit@derpycoder.com",
     password: "123456789abc",
-    password_confirmation: "123456789abc"
+    password_confirmation: "123456789abc",
+    role: :user,
+    groups: ~w(photographer)a
   })
 
 {:ok, abhisek} =
   Accounts.register_user(%{
     email: "abhisek@derpycoder.com",
     password: "123456789abc",
-    password_confirmation: "123456789abc"
+    password_confirmation: "123456789abc",
+    groups: ~w(photographer)a
   })
 
 width_range = 3000..6000

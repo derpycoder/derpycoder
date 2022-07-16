@@ -1,15 +1,24 @@
+defimpl FunWithFlags.Group, for: DerpyCoder.Accounts.User do
+  def in?(%{email: email}, :employee), do: Regex.match?(~r/@derpycoder.com$/, email)
+  def in?(%{role: :user}, :user), do: true
+  def in?(%{role: :admin}, :admin), do: true
+  def in?(%{role: :super_admin, groups: _groups}, _group), do: true
+  def in?(%{groups: groups}, group), do: String.to_atom(group) in groups
+  def in?(_, _), do: false
+end
+
+defimpl FunWithFlags.Actor, for: DerpyCoder.Accounts.User do
+  def id(%{id: id}) do
+    "user:#{id}"
+  end
+end
+
 defmodule DerpyCoder.Accounts.User do
   @moduledoc """
   Houses the User Schema.
   """
   use Ecto.Schema
   import Ecto.Changeset
-  import EctoEnum
-
-  defenum(RolesEnum, :role, [
-    :user,
-    :admin
-  ])
 
   @primary_key {:id, ExKsuid.EctoType, autogenerate: true}
   schema "users" do
@@ -18,6 +27,7 @@ defmodule DerpyCoder.Accounts.User do
     field :hashed_password, :string, redact: true
     field :confirmed_at, :naive_datetime
     field :role, RolesEnum, default: :user
+    field :groups, {:array, GroupsEnum}
 
     timestamps()
   end
@@ -41,7 +51,7 @@ defmodule DerpyCoder.Accounts.User do
   """
   def registration_changeset(user, attrs, opts \\ []) do
     user
-    |> cast(attrs, [:email, :password])
+    |> cast(attrs, [:email, :password, :groups])
     |> validate_email()
     |> validate_password(opts)
   end

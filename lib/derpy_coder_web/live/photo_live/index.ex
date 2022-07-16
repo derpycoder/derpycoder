@@ -50,7 +50,7 @@ defmodule DerpyCoderWeb.PhotoLive.Index do
 
     case current_user do
       %{} ->
-        if Photos.can?(current_user, live_action) do
+        if Photos.can?(current_user, live_action, Photo) do
           socket
           |> assign(:page_title, "New Photo")
           |> assign(:photo, %Photo{})

@@ -82,42 +82,41 @@ defmodule DerpyCoderWeb.Router do
 
   ## Authentication routes
 
-  scope "/", DerpyCoderWeb do
+  scope "/users", DerpyCoderWeb do
     pipe_through [:browser, :redirect_if_user_is_authenticated]
 
-    get "/users/register", UserRegistrationController, :new
-    post "/users/register", UserRegistrationController, :create
-    get "/users/log_in", UserSessionController, :new
-    post "/users/log_in", UserSessionController, :create
-    get "/users/reset_password", UserResetPasswordController, :new
-    post "/users/reset_password", UserResetPasswordController, :create
-    get "/users/reset_password/:token", UserResetPasswordController, :edit
-    put "/users/reset_password/:token", UserResetPasswordController, :update
+    get "/register", UserRegistrationController, :new
+    post "/register", UserRegistrationController, :create
+    get "/log_in", UserSessionController, :new
+    post "/log_in", UserSessionController, :create
+    get "/reset_password", UserResetPasswordController, :new
+    post "/reset_password", UserResetPasswordController, :create
+    get "/reset_password/:token", UserResetPasswordController, :edit
+    put "/reset_password/:token", UserResetPasswordController, :update
+  end
+
+  scope "/users", DerpyCoderWeb do
+    pipe_through [:browser, :require_authenticated_user, :user]
+
+    get "/settings", UserSettingsController, :edit
+    put "/settings", UserSettingsController, :update
+    get "/settings/confirm_email/:token", UserSettingsController, :confirm_email
+    live "/dashboard", UserDashboardLive, :index
   end
 
   scope "/", DerpyCoderWeb do
     pipe_through [:browser, :require_authenticated_user, :user]
-
-    get "/users/settings", UserSettingsController, :edit
-    put "/users/settings", UserSettingsController, :update
-    get "/users/settings/confirm_email/:token", UserSettingsController, :confirm_email
-  end
-
-  scope "/", DerpyCoderWeb do
-    pipe_through [:browser, :require_authenticated_user, :user]
-
-    live "/user_dashboard", UserDashboardLive, :index
 
     # Following 2 Routes are entirely authenticated & authorized!
     live "/photos/:id/edit", PhotoLive.Index, :edit
     live "/photos/:id/show/edit", PhotoLive.Show, :edit
   end
 
-  scope "/", DerpyCoderWeb do
+  scope "/admin", DerpyCoderWeb do
     pipe_through [:browser, :require_authenticated_user, :admin]
 
-    live "/admin_dashboard", AdminDashboardLive, :index
+    live "/dashboard", AdminDashboardLive, :index
 
-    live_dashboard "/dashboard", metrics: DerpyCoderWeb.Telemetry
+    live_dashboard "/live_dashboard", metrics: DerpyCoderWeb.Telemetry, ecto_repos: [DerpyCoder.Repo]
   end
 end
