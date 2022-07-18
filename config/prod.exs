@@ -1,5 +1,8 @@
 import Config
 
+# =================================================================================
+# Configure the Endpoint
+# =================================================================================
 # For production, don't forget to configure the url host
 # to something meaningful, Phoenix uses this information
 # when generating URLs.
@@ -10,13 +13,19 @@ import Config
 # which you should run after static files are built and
 # before starting your production server.
 config :derpy_coder, DerpyCoderWeb.Endpoint,
-  cache_static_manifest: "priv/static/cache_manifest.json"
+  cache_static_manifest: "priv/static/cache_manifest.json",
+  server: true,
+  check_origin: false,
+  code_reloader: false
 
+# =================================================================================
 # Do not print debug messages in production
+# =================================================================================
 config :logger, level: :info
 
-# ## SSL Support
-#
+# =================================================================================
+# SSL Support
+# =================================================================================
 # To get SSL working, you will need to add the `https` key
 # to the previous section and set your `:url` port to 443:
 #

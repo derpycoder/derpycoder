@@ -1,34 +1,28 @@
 import Config
 
+# =================================================================================
 # Only in tests, remove the complexity from the password hashing algorithm
+# =================================================================================
 config :argon2_elixir, t_cost: 1, m_cost: 8
 
-# Configure your database
-#
-# The MIX_TEST_PARTITION environment variable can be used
-# to provide built-in test partitioning in CI environment.
-# Run `mix help test` for more information.
-config :derpy_coder, DerpyCoder.Repo,
-  username: "postgres",
-  password: "postgres",
-  hostname: "localhost",
-  database: "derpy_coder_test#{System.get_env("MIX_TEST_PARTITION")}",
-  pool: Ecto.Adapters.SQL.Sandbox,
-  pool_size: 10,
-  migration_primary_key: [name: :id, type: :binary]
+# =================================================================================
+# Configure the Database
+# =================================================================================
+config :derpy_coder, DerpyCoder.Repo, pool: Ecto.Adapters.SQL.Sandbox
 
+# =================================================================================
+# Configure the Endpoint
+# =================================================================================
 # We don't run a server during test. If one is required,
 # you can enable the server option below.
-config :derpy_coder, DerpyCoderWeb.Endpoint,
-  http: [ip: {127, 0, 0, 1}, port: 4002],
-  secret_key_base: "L8KWQ6Vpd3aDgypWI5NySTaBghr+Bmtg5PFS5kA/k2Jw45HTmNcBQ+T+5tv0NBKw",
-  server: false
+config :derpy_coder, DerpyCoderWeb.Endpoint, server: false
 
-# In test we don't send emails.
-config :derpy_coder, DerpyCoder.Mailer, adapter: Swoosh.Adapters.Test
-
+# =================================================================================
 # Print only warnings and errors during test
+# =================================================================================
 config :logger, level: :warn
 
+# =================================================================================
 # Initialize plugs at runtime for faster test compilation
+# =================================================================================
 config :phoenix, :plug_init_mode, :runtime
