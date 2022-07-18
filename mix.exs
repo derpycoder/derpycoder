@@ -58,7 +58,8 @@ defmodule DerpyCoder.MixProject do
       {:ex_ksuid, "~> 0.2.1"},
       {:fun_with_flags, "~> 1.8.1"},
       {:phoenix_pubsub, "~> 2.1"},
-      {:ecto_psql_extras, "~> 0.7.4"}
+      {:ecto_psql_extras, "~> 0.7.4"},
+      {:dotenvy, "~> 0.6.0"}
     ]
   end
 

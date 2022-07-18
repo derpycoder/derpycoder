@@ -1,4 +1,39 @@
 import Config
+import Dotenvy
+
+source!(["config/.env.#{config_env()}", System.get_env()])
+
+database_url = env!("DATABASE_URL", :string)
+pool_size = env!("POOL_SIZE", :integer, 10)
+
+maybe_ipv6 = if env!("ECTO_IPV6", :boolean, false), do: [:inet6], else: []
+
+stacktrace = env!("STACK_TRACE", :boolean, false)
+show_sensitive_data = env!("SHOW_SENSITIVE_DATA", :boolean, false)
+
+base_url = env!("BASE_URL", :string)
+base_url = URI.parse(base_url)
+# base_url.scheme
+# base_url.host
+# base_url.path
+# base_url.port
+
+# Configure your database
+# config :derpy_coder, DerpyCoder.Repo,
+#   username: "postgres",
+#   password: "postgres",
+#   hostname: "localhost",
+#   database: "derpy_coder_dev",
+#   pool_size: 10,
+#   migration_primary_key: [name: :id, type: :binary]
+
+config :derpy_coder, DerpyCoder.Repo,
+  url: database_url,
+  pool_size: pool_size,
+  socket_options: maybe_ipv6,
+  stacktrace: stacktrace,
+  show_sensitive_data_on_connection_error: show_sensitive_data,
+  migration_primary_key: [name: :id, type: :binary]
 
 # config/runtime.exs is executed for all environments, including
 # during releases. It is executed after compilation and before the
@@ -21,21 +56,6 @@ if System.get_env("PHX_SERVER") do
 end
 
 if config_env() == :prod do
-  database_url =
-    System.get_env("DATABASE_URL") ||
-      raise """
-      environment variable DATABASE_URL is missing.
-      For example: ecto://USER:PASS@HOST/DATABASE
-      """
-
-  maybe_ipv6 = if System.get_env("ECTO_IPV6"), do: [:inet6], else: []
-
-  config :derpy_coder, DerpyCoder.Repo,
-    # ssl: true,
-    url: database_url,
-    pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10"),
-    socket_options: maybe_ipv6
-
   # The secret key base is used to sign/encrypt cookies and other secrets.
   # A default value is used in config/dev.exs and config/test.exs but you
   # want to use a different value for prod and you most likely don't want

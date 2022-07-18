@@ -162,6 +162,7 @@ defmodule DerpyCoder.Accounts.User do
   """
   def admin_registration_changeset(user, attrs) do
     user
+    |> cast(attrs, [:id])
     |> registration_changeset(attrs)
     |> prepare_changes(&set_admin_role/1)
   end
