@@ -137,6 +137,9 @@ defmodule DerpyCoder.Photos do
 
   def can?(%User{role: :super_admin}, _, %{}), do: true
 
+  def can?(%User{role: :admin} = user, :new, %{}),
+    do: FunWithFlags.enabled?(:new_photos, for: user)
+
   def can?(%User{role: :admin} = user, :edit, %{}),
     do: FunWithFlags.enabled?(:edit_photos, for: user)
 

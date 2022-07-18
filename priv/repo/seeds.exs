@@ -15,23 +15,39 @@ alias DerpyCoder.Accounts
 alias DerpyCoder.Accounts.User
 alias DerpyCoder.Photos
 
+# ==============================================================================
+# Setting Fun With Flags Permissions
+# ==============================================================================
 # Since Indexing & Viewing is public by default, adding these permissions don't make sense!
 # FunWithFlags.enable(:index_photos, for_group: :photography)
 # FunWithFlags.enable(:show_photos, for_group: :photography)
-
 FunWithFlags.enable(:new_photos, for_group: :photography)
 FunWithFlags.enable(:edit_photos, for_group: :photography)
 FunWithFlags.enable(:delete_photos, for_group: :photography)
 
+# Or, if Admin, is to be treaded like normal user, then below flags can be removed.
+# And admin's new & edit power can be restricted in scope.
+FunWithFlags.disable(:new_photos, for_group: :admin)
+FunWithFlags.disable(:edit_photos, for_group: :admin)
+
+# ==============================================================================
+# Creating Default Users
+# ==============================================================================
 {:ok, admin} =
   Accounts.register_admin(%{
     email: "admin@derpycoder.com",
     password: "123456789abc",
     password_confirmation: "123456789abc",
-    groups: ~w(photography)a
+    groups: ~w(admin photography)a
   })
 
-FunWithFlags.disable(:edit_photos, for_actor: admin)
+{:ok, bobina} =
+  Accounts.register_user(%{
+    email: "bobina@derpycoder.com",
+    password: "123456789abc",
+    password_confirmation: "123456789abc",
+    groups: ~w(photography)a
+  })
 
 {:ok, abhijit} =
   Accounts.register_user(%{
@@ -49,6 +65,9 @@ FunWithFlags.disable(:edit_photos, for_actor: admin)
     groups: ~w(photography)a
   })
 
+# ==============================================================================
+# Adding Photos
+# ==============================================================================
 width_range = 3000..6000
 height_range = 3000..6000
 
@@ -63,9 +82,9 @@ for i <- 1..10 do
   height = Kernel.round(width / ratio)
 
   %{
-    user_id: admin.id,
+    user_id: bobina.id,
     title: "Photo #{i}",
-    description: "Admin",
+    description: "Bobina",
     photo_url: "https://source.unsplash.com/random/#{width}x#{height}",
     width: width,
     height: height
