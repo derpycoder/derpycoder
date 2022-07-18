@@ -1,10 +1,10 @@
-# =================================================================================
+# ==============================================================================
 # config/runtime.exs is executed for all environments, including
 # during releases. It is executed after compilation and before the
 # system starts, so it is typically used to load production configuration
 # and secrets from environment variables or elsewhere. Do not define
 # any compile-time configuration in here, as it won't be applied.
-# =================================================================================
+# ==============================================================================
 import Config
 import Dotenvy
 
@@ -12,9 +12,9 @@ source!(["config/.env.#{config_env()}", System.get_env()])
 
 app_version = env!("APP_VERSION", :string)
 
-# =================================================================================
+# ==============================================================================
 # Configure Super Admin
-# =================================================================================
+# ==============================================================================
 super_admin_user_ids = env!("SUPER_ADMIN_USER_IDS", fn str -> str |> String.split(",") end)
 admin_user_name = env!("ADMIN_USER_NAME", :string)
 admin_user_email = env!("ADMIN_USER_EMAIL", :string)
@@ -26,9 +26,9 @@ config :derpy_coder,
   admin_user_email: admin_user_email,
   admin_user_password: admin_user_password
 
-# =================================================================================
+# ==============================================================================
 # Configure Endpoint
-# =================================================================================
+# ==============================================================================
 ip_addr =
   env!("IP_ADDR", fn str ->
     case :inet.parse_address(String.to_charlist(str)) do
@@ -61,9 +61,9 @@ config :derpy_coder, DerpyCoderWeb.Endpoint,
   http: [ip: ip_addr, port: port, transport_options: [max_connections: :infinity]],
   secret_key_base: secret_key_base
 
-# =================================================================================
+# ==============================================================================
 # Configure Databases
-# =================================================================================
+# ==============================================================================
 database_url = env!("DATABASE_URL", :string)
 pool_size = env!("POOL_SIZE", :integer, 10)
 
@@ -78,9 +78,9 @@ config :derpy_coder, DerpyCoder.Repo,
   show_sensitive_data_on_connection_error: show_sensitive_data,
   migration_primary_key: [name: :id, type: :binary]
 
-# =================================================================================
+# ==============================================================================
 # Configure Swoosh
-# =================================================================================
+# ==============================================================================
 adapter = env!("ADAPTER", :module, Swoosh.Adapters.Local)
 api_client = env!("API_CLIENT", :boolean, false)
 
