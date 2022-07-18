@@ -36,8 +36,6 @@ port = env!("PORT", :integer)
 # variable instead.
 secret_key_base = env!("SECRET_KEY_BASE", :string)
 
-maybe_ipv6 = if env!("ECTO_IPV6", :boolean, false), do: [:inet6], else: []
-
 config :derpy_coder, DerpyCoderWeb.Endpoint,
   url: [scheme: base_url.scheme, host: base_url.host, port: base_url.port, path: base_url.path],
   # Maybe enable IPv6 and bind on all interfaces.
@@ -68,7 +66,7 @@ config :derpy_coder,
 # ==============================================================================
 database_url = env!("DATABASE_URL", :string)
 pool_size = env!("POOL_SIZE", :integer, 10)
-
+maybe_ipv6 = if env!("ECTO_IPV6", :boolean, false), do: [:inet6], else: []
 stacktrace = env!("STACK_TRACE", :boolean, false)
 show_sensitive_data = env!("SHOW_SENSITIVE_DATA", :boolean, false)
 
