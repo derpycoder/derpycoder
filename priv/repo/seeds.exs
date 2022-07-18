@@ -1,3 +1,4 @@
+# ==============================================================================
 # Script for populating the database. You can run it as:
 #
 #     mix run priv/repo/seeds.exs
@@ -9,31 +10,35 @@
 #
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
-
+# ==============================================================================
 alias DerpyCoder.Accounts
 alias DerpyCoder.Accounts.User
 alias DerpyCoder.Photos
 
-FunWithFlags.enable(:index_photos, for_group: :photographer)
-FunWithFlags.enable(:new_photos, for_group: :photographer)
-FunWithFlags.enable(:show_photos, for_group: :photographer)
-FunWithFlags.enable(:edit_photos, for_group: :photographer)
-FunWithFlags.enable(:delete_photos, for_group: :photographer)
+# Since Indexing & Viewing is public by default, adding these permissions don't make sense!
+# FunWithFlags.enable(:index_photos, for_group: :photography)
+# FunWithFlags.enable(:show_photos, for_group: :photography)
+
+FunWithFlags.enable(:new_photos, for_group: :photography)
+FunWithFlags.enable(:edit_photos, for_group: :photography)
+FunWithFlags.enable(:delete_photos, for_group: :photography)
 
 {:ok, admin} =
   Accounts.register_admin(%{
     email: "admin@derpycoder.com",
     password: "123456789abc",
     password_confirmation: "123456789abc",
-    groups: ~w(photographer)a
+    groups: ~w(photography)a
   })
+
+FunWithFlags.disable(:edit_photos, for_actor: admin)
 
 {:ok, abhijit} =
   Accounts.register_user(%{
     email: "abhijit@derpycoder.com",
     password: "123456789abc",
     password_confirmation: "123456789abc",
-    groups: ~w(photographer)a
+    groups: ~w(photography)a
   })
 
 {:ok, abhisek} =
@@ -41,7 +46,7 @@ FunWithFlags.enable(:delete_photos, for_group: :photographer)
     email: "abhisek@derpycoder.com",
     password: "123456789abc",
     password_confirmation: "123456789abc",
-    groups: ~w(photographer)a
+    groups: ~w(photography)a
   })
 
 width_range = 3000..6000

@@ -131,15 +131,27 @@ defmodule DerpyCoder.Photos do
 
   @spec can?(User.t(), action(), entity()) :: boolean()
   def can?(user, action, entity)
-  def can?(%User{role: :admin}, _, %{}), do: true
 
-  def can?(%User{}, :index, Photo), do: true
-  def can?(%User{}, :new, Photo), do: true
-  def can?(%User{}, :show, %Photo{}), do: true
+  def can?(%User{role: :super_admin}, _, %{}), do: true
+
+  def can?(%User{role: :admin} = user, :edit, %{}),
+    do: FunWithFlags.enabled?(:edit_photos, for: user)
+
+  def can?(%User{role: :admin} = user, _, %{}), do: FunWithFlags.Group.in?(user, "photography")
+
+  # Public Accessible, so no need to check for indexing and show.
+  # def can?(%User{} = user, :index, Photo), do: FunWithFlags.enabled?(:index_photos, for: user)
+  # def can?(%User{} = user, :show, %Photo{}), do: FunWithFlags.enabled?(:show_photos, for: user)
+
+  def can?(%User{} = user, :new, Photo), do: FunWithFlags.enabled?(:new_photos, for: user)
   # def can?(%User{}, %Photo{}, action) when action in ~w[index new show]a, do: true
 
-  def can?(%User{id: id}, :edit, %Photo{user_id: id}), do: true
-  def can?(%User{id: id}, :delete, %Photo{user_id: id}), do: true
+  def can?(%User{id: id} = user, :edit, %Photo{user_id: id}),
+    do: FunWithFlags.enabled?(:edit_photos, for: user)
+
+  def can?(%User{id: id} = user, :delete, %Photo{user_id: id}),
+    do: FunWithFlags.enabled?(:delete_photos, for: user)
+
   # def can?(%User{id: id}, %Photo{user_id: id}, action) when action in ~w[edit delete]a, do: true
 
   def can?(_, _, _), do: false

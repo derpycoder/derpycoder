@@ -12,5 +12,6 @@ defmodule DerpyCoderWeb.Admin do
   def can?(user, action, entity)
 
   def can?(%User{role: :admin}, _, %{}), do: true
+  def can?(%User{role: :super_admin}, _, %{}), do: true
   def can?(_, _, _), do: false
 end

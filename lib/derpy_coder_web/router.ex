@@ -7,11 +7,11 @@ defmodule DerpyCoderWeb.Router do
   import Phoenix.LiveDashboard.Router
 
   pipeline :user do
-    plug EnsureRolePlug, [:admin, :user]
+    plug EnsureRolePlug, [:super_admin, :admin, :super_user, :user]
   end
 
   pipeline :admin do
-    plug EnsureRolePlug, :admin
+    plug EnsureRolePlug, [:super_admin, :admin]
   end
 
   pipeline :browser do
@@ -117,6 +117,8 @@ defmodule DerpyCoderWeb.Router do
 
     live "/dashboard", AdminDashboardLive, :index
 
-    live_dashboard "/live_dashboard", metrics: DerpyCoderWeb.Telemetry, ecto_repos: [DerpyCoder.Repo]
+    live_dashboard "/live_dashboard",
+      metrics: DerpyCoderWeb.Telemetry,
+      ecto_repos: [DerpyCoder.Repo]
   end
 end

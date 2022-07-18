@@ -3,6 +3,7 @@ defimpl FunWithFlags.Group, for: DerpyCoder.Accounts.User do
   def in?(%{role: :user}, :user), do: true
   def in?(%{role: :admin}, :admin), do: true
   def in?(%{role: :super_admin, groups: _groups}, _group), do: true
+  def in?(%{groups: nil}, _), do: false
   def in?(%{groups: groups}, group), do: String.to_atom(group) in groups
   def in?(_, _), do: false
 end

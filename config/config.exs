@@ -59,22 +59,6 @@ config :logger, :console,
 config :phoenix, :json_library, Jason
 
 # ==============================================================================
-# Configure Fun With Flags
-# ==============================================================================
-config :fun_with_flags, :cache,
-  enabled: true,
-  ttl: 900
-
-config :fun_with_flags, :cache_bust_notifications,
-  enabled: true,
-  adapter: FunWithFlags.Notifications.PhoenixPubSub,
-  client: DerpyCoder.PubSub
-
-config :fun_with_flags, :persistence,
-  adapter: FunWithFlags.Store.Persistent.Ecto,
-  repo: DerpyCoder.Repo
-
-# ==============================================================================
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 # ==============================================================================

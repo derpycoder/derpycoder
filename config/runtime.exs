@@ -46,6 +46,23 @@ config :derpy_coder, DerpyCoderWeb.Endpoint,
   secret_key_base: secret_key_base
 
 # ==============================================================================
+# Configure Databases
+# ==============================================================================
+database_url = env!("DATABASE_URL", :string)
+pool_size = env!("POOL_SIZE", :integer, 10)
+maybe_ipv6 = if env!("ECTO_IPV6", :boolean, false), do: [:inet6], else: []
+stacktrace = env!("STACK_TRACE", :boolean, false)
+show_sensitive_data = env!("SHOW_SENSITIVE_DATA", :boolean, false)
+
+config :derpy_coder, DerpyCoder.Repo,
+  url: database_url,
+  pool_size: pool_size,
+  socket_options: maybe_ipv6,
+  stacktrace: stacktrace,
+  show_sensitive_data_on_connection_error: show_sensitive_data,
+  migration_primary_key: [name: :id, type: :binary]
+
+# ==============================================================================
 # Configure Super Admin
 # ==============================================================================
 super_admin_user_ids = env!("SUPER_ADMIN_USER_IDS", fn str -> str |> String.split(",") end)
@@ -64,21 +81,24 @@ config :derpy_coder,
   }
 
 # ==============================================================================
-# Configure Databases
+# Configure Fun With Flags
 # ==============================================================================
-database_url = env!("DATABASE_URL", :string)
-pool_size = env!("POOL_SIZE", :integer, 10)
-maybe_ipv6 = if env!("ECTO_IPV6", :boolean, false), do: [:inet6], else: []
-stacktrace = env!("STACK_TRACE", :boolean, false)
-show_sensitive_data = env!("SHOW_SENSITIVE_DATA", :boolean, false)
+cache_enabled = env!("CACHE_ENABLED", :boolean, true)
+cache_ttl = env!("CACHE_TTL", :integer, 900)
+cache_bust_notifications = env!("CACHE_BUST_NOTIFICATIONS", :boolean, true)
 
-config :derpy_coder, DerpyCoder.Repo,
-  url: database_url,
-  pool_size: pool_size,
-  socket_options: maybe_ipv6,
-  stacktrace: stacktrace,
-  show_sensitive_data_on_connection_error: show_sensitive_data,
-  migration_primary_key: [name: :id, type: :binary]
+config :fun_with_flags, :cache,
+  enabled: cache_enabled,
+  ttl: cache_ttl
+
+config :fun_with_flags, :cache_bust_notifications,
+  enabled: cache_bust_notifications,
+  adapter: FunWithFlags.Notifications.PhoenixPubSub,
+  client: DerpyCoder.PubSub
+
+config :fun_with_flags, :persistence,
+  adapter: FunWithFlags.Store.Persistent.Ecto,
+  repo: DerpyCoder.Repo
 
 # ==============================================================================
 # Configure Swoosh
