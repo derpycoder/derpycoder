@@ -103,7 +103,9 @@ defmodule DerpyCoder.Photos do
     Photo.changeset(photo, attrs)
   end
 
+  # ==============================================================================
   # Scope: Used to fine tune the output from the Repo
+  # ==============================================================================
   # Like guest user can see a index of photos, but not the private ones
   # However, logged in users can see index of all photos, even private ones
 
@@ -124,8 +126,9 @@ defmodule DerpyCoder.Photos do
   # Anonymous users can access only published photos
   # defp scope_photos(query, _user, _params), do: query |> where(state: :published)
 
+  # ==============================================================================
   # Policy: Used to authorize user access
-
+  # ==============================================================================
   @type entity :: struct()
   @type action :: :new | :index | :edit | :show | :delete
 
