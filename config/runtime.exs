@@ -13,20 +13,6 @@ source!(["config/.env.#{config_env()}", System.get_env()])
 app_version = env!("APP_VERSION", :string)
 
 # ==============================================================================
-# Configure Super Admin
-# ==============================================================================
-super_admin_user_ids = env!("SUPER_ADMIN_USER_IDS", fn str -> str |> String.split(",") end)
-admin_user_name = env!("ADMIN_USER_NAME", :string)
-admin_user_email = env!("ADMIN_USER_EMAIL", :string)
-admin_user_password = env!("ADMIN_USER_PASSWORD", :string)
-
-config :derpy_coder,
-  super_admin_user_ids: super_admin_user_ids,
-  admin_user_name: admin_user_name,
-  admin_user_email: admin_user_email,
-  admin_user_password: admin_user_password
-
-# ==============================================================================
 # Configure Endpoint
 # ==============================================================================
 ip_addr =
@@ -60,6 +46,22 @@ config :derpy_coder, DerpyCoderWeb.Endpoint,
   # for details about using IPv6 vs IPv4 and loopback vs public addresses.
   http: [ip: ip_addr, port: port, transport_options: [max_connections: :infinity]],
   secret_key_base: secret_key_base
+
+# ==============================================================================
+# Configure Super Admin
+# ==============================================================================
+super_admin_user_ids = env!("SUPER_ADMIN_USER_IDS", fn str -> str |> String.split(",") end)
+admin_user_id = env!("ADMIN_USER_ID", :string)
+admin_user_name = env!("ADMIN_USER_NAME", :string)
+admin_user_email = env!("ADMIN_USER_EMAIL", :string)
+admin_user_password = env!("ADMIN_USER_PASSWORD", :string)
+
+config :derpy_coder,
+  super_admin_user_ids: super_admin_user_ids,
+  admin_user_id: admin_user_id,
+  admin_user_name: admin_user_name,
+  admin_user_email: admin_user_email,
+  admin_user_password: admin_user_password
 
 # ==============================================================================
 # Configure Databases

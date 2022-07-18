@@ -361,10 +361,25 @@ defmodule DerpyCoder.Accounts do
       iex> register_admin(%{field: bad_value})
       {:error, %Ecto.Changeset{}}
   """
-
   def register_admin(attrs) do
     %User{}
     |> User.admin_registration_changeset(attrs)
+    |> Repo.insert()
+  end
+
+  @doc """
+  Registers an super_admin.
+
+  ## Examples
+      iex> register_super_admin(%{field: value})
+      {:ok, %User{}}
+
+      iex> register_super_admin(%{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+  """
+  def register_super_admin(attrs) do
+    %User{}
+    |> User.super_admin_registration_changeset(attrs)
     |> Repo.insert()
   end
 end

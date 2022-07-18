@@ -25,7 +25,6 @@ FunWithFlags.enable(:delete_photos, for_group: :photographer)
     email: "admin@derpycoder.com",
     password: "123456789abc",
     password_confirmation: "123456789abc",
-    role: :admin,
     groups: ~w(photographer)a
   })
 
@@ -34,7 +33,6 @@ FunWithFlags.enable(:delete_photos, for_group: :photographer)
     email: "abhijit@derpycoder.com",
     password: "123456789abc",
     password_confirmation: "123456789abc",
-    role: :user,
     groups: ~w(photographer)a
   })
 

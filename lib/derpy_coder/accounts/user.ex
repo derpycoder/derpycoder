@@ -162,7 +162,7 @@ defmodule DerpyCoder.Accounts.User do
   """
   def admin_registration_changeset(user, attrs) do
     user
-    |> cast(attrs, [:id])
+    |> cast(attrs, [])
     |> registration_changeset(attrs)
     |> prepare_changes(&set_admin_role/1)
   end
@@ -170,5 +170,20 @@ defmodule DerpyCoder.Accounts.User do
   defp set_admin_role(changeset) do
     changeset
     |> put_change(:role, :admin)
+  end
+
+  @doc """
+  A user changeset for registering super admin.
+  """
+  def super_admin_registration_changeset(user, attrs) do
+    user
+    |> cast(attrs, [:id])
+    |> registration_changeset(attrs)
+    |> prepare_changes(&set_super_admin_role/1)
+  end
+
+  defp set_super_admin_role(changeset) do
+    changeset
+    |> put_change(:role, :super_admin)
   end
 end
