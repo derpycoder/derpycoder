@@ -1,21 +1,16 @@
 defmodule DerpyCoder.Release do
   def init_super_admin do
-    {admin_user_id, admin_user_name, admin_user_email, admin_user_password} = {
-      Application.get_env(:derpy_coder, :admin_user_id),
-      Application.get_env(:derpy_coder, :admin_user_name),
-      Application.get_env(:derpy_coder, :admin_user_email),
-      Application.get_env(:derpy_coder, :admin_user_password)
-    }
+    super_admin_user = Application.get_env(:derpy_coder, :super_admin_user)
 
-    case DerpyCoder.Accounts.get_user_by_email(admin_user_email) do
+    case DerpyCoder.Accounts.get_user_by_email(super_admin_user.email) do
       nil ->
         {:ok, _} =
           DerpyCoder.Accounts.register_super_admin(%{
-            id: admin_user_id,
-            name: admin_user_name,
-            email: admin_user_email,
-            password: admin_user_password,
-            password_confirmation: admin_user_password
+            id: super_admin_user.id,
+            name: super_admin_user.name,
+            email: super_admin_user.email,
+            password: super_admin_user.password,
+            password_confirmation: super_admin_user.password
           })
 
         IO.puts("Super Admin created successfully!")

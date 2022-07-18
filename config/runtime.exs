@@ -49,17 +49,19 @@ config :derpy_coder, DerpyCoderWeb.Endpoint,
 # Configure Super Admin
 # ==============================================================================
 super_admin_user_ids = env!("SUPER_ADMIN_USER_IDS", fn str -> str |> String.split(",") end)
-admin_user_id = env!("ADMIN_USER_ID", :string)
-admin_user_name = env!("ADMIN_USER_NAME", :string)
-admin_user_email = env!("ADMIN_USER_EMAIL", :string)
-admin_user_password = env!("ADMIN_USER_PASSWORD", :string)
+super_admin_user_id = env!("SUPER_ADMIN_USER_ID", :string)
+super_admin_user_name = env!("SUPER_ADMIN_USER_NAME", :string)
+super_admin_user_email = env!("SUPER_ADMIN_USER_EMAIL", :string)
+super_admin_user_password = env!("SUPER_ADMIN_USER_PASSWORD", :string)
 
 config :derpy_coder,
   super_admin_user_ids: super_admin_user_ids,
-  admin_user_id: admin_user_id,
-  admin_user_name: admin_user_name,
-  admin_user_email: admin_user_email,
-  admin_user_password: admin_user_password
+  super_admin_user: %{
+    id: super_admin_user_id,
+    name: super_admin_user_name,
+    email: super_admin_user_email,
+    password: super_admin_user_password
+  }
 
 # ==============================================================================
 # Configure Databases
