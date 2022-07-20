@@ -62,6 +62,17 @@ defmodule DerpyCoderWeb.Router do
   end
 
   # ==============================================================================
+  # Following routes have Authentication mandatory
+  # ==============================================================================
+  scope "/", DerpyCoderWeb do
+    pipe_through [:browser, :require_authenticated_user, :user]
+
+    get "/users/settings", UserSettingsController, :edit
+    put "/users/settings", UserSettingsController, :update
+    get "/users/settings/confirm_email/:token", UserSettingsController, :confirm_email
+  end
+
+  # ==============================================================================
   # Following routes may require Authentication & Authorization on some actions.
   # ==============================================================================
   live_session :visitor, on_mount: {DerpyCoderWeb.CurrentUser, :maybe_required} do
@@ -82,10 +93,6 @@ defmodule DerpyCoderWeb.Router do
   live_session :user, on_mount: {DerpyCoderWeb.CurrentUser, :user_required} do
     scope "/", DerpyCoderWeb do
       pipe_through [:browser, :require_authenticated_user, :user]
-
-      get "/users/settings", UserSettingsController, :edit
-      put "/users/settings", UserSettingsController, :update
-      get "/users/settings/confirm_email/:token", UserSettingsController, :confirm_email
 
       live "/photos/:id/edit", PhotoLive.Index, :edit
       live "/photos/:id/show/edit", PhotoLive.Show, :edit
