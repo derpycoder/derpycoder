@@ -5,7 +5,7 @@
   <%= live_redirect("Photos", to: Routes.photo_index_path(@socket, :index)) %>
 
   <%= if @current_user do %>
-    <%= live_redirect("User Dashboard", to: Routes.user_dashboard_path(@socket, :index)) %>
+    <%= link("User Dashboard", to: Routes.user_dashboard_path(@socket, :index)) %>
   <% end %>
 
   <%= if Admin.can?(@current_user, :index, %{}) do %>
