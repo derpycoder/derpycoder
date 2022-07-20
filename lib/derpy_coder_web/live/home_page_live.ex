@@ -6,10 +6,9 @@ defmodule DerpyCoderWeb.HomePageLive do
 
   alias DerpyCoderWeb.Admin
 
-  def mount(_params, session, socket) do
+  def mount(_params, _session, socket) do
     socket =
       socket
-      |> maybe_assign_current_user(session)
       |> assign(title: "Home Page")
 
     {:ok, socket}

@@ -5,8 +5,13 @@ defmodule DerpyCoderWeb.AdminDashboardLive do
   use DerpyCoderWeb, :live_view
 
   @impl true
-  def mount(_params, session, socket) do
-    socket = assign_current_user(socket, session, [:super_admin, :admin])
+  def mount(_params, _session, socket) do
+    socket =
+      assign(socket,
+        mew: "Email: #{socket.assigns.current_user.email}",
+        mau: "Role: #{socket.assigns.current_user.role}"
+      )
+
     {:ok, socket}
   end
 
@@ -16,7 +21,7 @@ defmodule DerpyCoderWeb.AdminDashboardLive do
     <section class="flex flex-col items-center">
       <h1>Welcome to the admin dashboard!</h1>
 
-      <%= link("Live Dashboard", to: Routes.live_dashboard_path(@socket, :home)) %>
+      <%= live_redirect("Live Dashboard", to: Routes.live_dashboard_path(@socket, :home)) %>
     </section>
     """
   end

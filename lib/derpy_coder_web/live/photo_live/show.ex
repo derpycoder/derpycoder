@@ -7,11 +7,7 @@ defmodule DerpyCoderWeb.PhotoLive.Show do
   alias DerpyCoder.Photos
 
   @impl true
-  def mount(_params, session, socket) do
-    socket =
-      socket
-      |> maybe_assign_current_user(session)
-
+  def mount(_params, _session, socket) do
     {:ok, socket}
   end
 
@@ -31,8 +27,8 @@ defmodule DerpyCoderWeb.PhotoLive.Show do
       %{} ->
         if Photos.can?(current_user, live_action, photo) do
           socket
-          |> assign(:photo, photo)
           |> assign(:page_title, page_title(live_action))
+          |> assign(:photo, photo)
         else
           kick_unauthorized_user_out(socket)
         end

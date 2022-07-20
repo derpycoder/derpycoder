@@ -7,74 +7,7 @@ defmodule DerpyCoderWeb.LiveHelpers do
 
   alias Phoenix.LiveView.JS
 
-  alias DerpyCoder.Accounts
-  alias DerpyCoder.Accounts.User
   alias DerpyCoderWeb.Router.Helpers, as: Routes
-
-  @doc """
-  Used for live view routes, that do not require authentication for first render.
-  Assigns current_user to the socket.
-
-  Returns `socket`
-  """
-  def maybe_assign_current_user(socket, session) do
-    assign_new(socket, :current_user, fn ->
-      find_current_user(session)
-    end)
-  end
-
-  @doc """
-  Used for live view routes, that do require authentication for first render.
-  Assigns current_user to the socket.
-
-  If user is not authenticated, they are asked to login.
-
-  Returns `socket`
-  """
-  def assign_current_user(socket, session) do
-    socket =
-      assign_new(socket, :current_user, fn ->
-        find_current_user(session)
-      end)
-
-    case socket.assigns.current_user do
-      %User{} ->
-        socket
-
-      _ ->
-        ask_user_to_login(socket)
-    end
-  end
-
-  @doc """
-  Used for live view routes, that do require authentication and authorization for first render.
-  Assigns current_user to the socket.
-
-  If user is not authenticated, they are asked to login.
-  Else if user has no authorization, based on roles passed in, they are notified.
-
-  Returns `socket`
-  """
-  def assign_current_user(socket, session, roles) do
-    socket =
-      assign_new(socket, :current_user, fn ->
-        find_current_user(session)
-      end)
-
-    current_user = socket.assigns.current_user
-
-    case current_user do
-      %User{} ->
-        if role_matches?(current_user.role, roles) do
-          socket
-        else
-          kick_unauthorized_user_out(socket)
-        end
-
-      _ ->
-        ask_user_to_login(socket)
-    end
-  end
 
   def ask_user_to_login(socket) do
     socket
@@ -87,15 +20,6 @@ defmodule DerpyCoderWeb.LiveHelpers do
     |> put_flash(:error, "Unauthorized")
     |> redirect(to: "/")
   end
-
-  defp role_matches?(user_role, role) when is_atom(role), do: user_role === role
-  defp role_matches?(user_role, roles) when is_list(roles), do: user_role in roles
-
-  defp find_current_user(%{"user_token" => user_token}) do
-    Accounts.get_user_by_session_token(user_token)
-  end
-
-  defp find_current_user(_), do: nil
 
   @doc """
   Renders a live component inside a modal.

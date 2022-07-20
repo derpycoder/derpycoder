@@ -31,13 +31,6 @@ defmodule DerpyCoderWeb.Router do
   scope "/", DerpyCoderWeb do
     pipe_through :browser
 
-    live "/", HomePageLive, :index
-
-    # Following routes do have authenticated & authorized components, but not the whole page!
-    live "/photos", PhotoLive.Index, :index
-    live "/photos/new", PhotoLive.Index, :new
-    live "/photos/:id", PhotoLive.Show, :show
-
     get "/users/confirm", UserConfirmationController, :new
     post "/users/confirm", UserConfirmationController, :create
     get "/users/confirm/:token", UserConfirmationController, :edit
@@ -51,19 +44,6 @@ defmodule DerpyCoderWeb.Router do
   # scope "/api", DerpyCoderWeb do
   #   pipe_through :api
   # end
-
-  # ==============================================================================
-  # Enables the Swoosh mailbox preview in development.
-  # ==============================================================================
-  # Note that preview only shows emails that were sent by the same
-  # node running the Phoenix server.
-  if Mix.env() == :dev do
-    scope "/dev" do
-      pipe_through :browser
-
-      forward "/mailbox", Plug.Swoosh.MailboxPreview
-    end
-  end
 
   # ==============================================================================
   # Redirect Authenticated Users
@@ -82,17 +62,34 @@ defmodule DerpyCoderWeb.Router do
   end
 
   # ==============================================================================
+  # Following routes may require Authentication & Authorization on some actions.
+  # ==============================================================================
+  live_session :visitor, on_mount: {DerpyCoderWeb.CurrentUser, :maybe_required} do
+    scope "/", DerpyCoderWeb do
+      pipe_through [:browser]
+
+      live "/", HomePageLive, :index
+
+      live "/photos", PhotoLive.Index, :index
+      live "/photos/new", PhotoLive.Index, :new
+      live "/photos/:id", PhotoLive.Show, :show
+    end
+  end
+
+  # ==============================================================================
   # Following routes have Authentication as well as Authorization mandatory
   # ==============================================================================
-  scope "/", DerpyCoderWeb do
-    pipe_through [:browser, :require_authenticated_user, :user]
+  live_session :user, on_mount: {DerpyCoderWeb.CurrentUser, :user_required} do
+    scope "/", DerpyCoderWeb do
+      pipe_through [:browser, :require_authenticated_user, :user]
 
-    get "/users/settings", UserSettingsController, :edit
-    put "/users/settings", UserSettingsController, :update
-    get "/users/settings/confirm_email/:token", UserSettingsController, :confirm_email
+      get "/users/settings", UserSettingsController, :edit
+      put "/users/settings", UserSettingsController, :update
+      get "/users/settings/confirm_email/:token", UserSettingsController, :confirm_email
 
-    live "/photos/:id/edit", PhotoLive.Index, :edit
-    live "/photos/:id/show/edit", PhotoLive.Show, :edit
+      live "/photos/:id/edit", PhotoLive.Index, :edit
+      live "/photos/:id/show/edit", PhotoLive.Show, :edit
+    end
   end
 
   scope "/admin", DerpyCoderWeb do
@@ -106,7 +103,9 @@ defmodule DerpyCoderWeb.Router do
   # ==============================================================================
   # Below routes have custom root layout
   # ==============================================================================
-  live_session :user, root_layout: {DerpyCoderWeb.LayoutView, "user_dashboard.html"} do
+  live_session :user_dashboard,
+    on_mount: {DerpyCoderWeb.CurrentUser, :user_required},
+    root_layout: {DerpyCoderWeb.LayoutView, "user_dashboard.html"} do
     scope "/users", DerpyCoderWeb do
       pipe_through [:browser, :require_authenticated_user, :user]
 
@@ -114,11 +113,27 @@ defmodule DerpyCoderWeb.Router do
     end
   end
 
-  live_session :admin, root_layout: {DerpyCoderWeb.LayoutView, "admin_dashboard.html"} do
+  live_session :admin_dashboard,
+    on_mount: {DerpyCoderWeb.CurrentUser, :admin_required},
+    root_layout: {DerpyCoderWeb.LayoutView, "admin_dashboard.html"} do
     scope "/admin", DerpyCoderWeb do
       pipe_through [:browser, :require_authenticated_user, :admin]
 
       live "/dashboard", AdminDashboardLive, :index
+    end
+  end
+
+  # ==============================================================================
+  # Development Environment Specific Routes
+  # ==============================================================================
+  # Enables the Swoosh mailbox preview in development.
+  # Note that preview only shows emails that were sent by the same
+  # node running the Phoenix server.
+  if Mix.env() == :dev do
+    scope "/dev" do
+      pipe_through :browser
+
+      forward "/mailbox", Plug.Swoosh.MailboxPreview
     end
   end
 end

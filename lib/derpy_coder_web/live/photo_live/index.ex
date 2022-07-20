@@ -8,10 +8,9 @@ defmodule DerpyCoderWeb.PhotoLive.Index do
   alias DerpyCoder.Photos.Photo
 
   @impl true
-  def mount(_params, session, socket) do
+  def mount(_params, _session, socket) do
     socket =
       socket
-      |> maybe_assign_current_user(session)
       |> assign(:photos, [])
 
     {:ok, socket}

@@ -5,9 +5,8 @@ defmodule DerpyCoderWeb.UserDashboardLive do
   use DerpyCoderWeb, :live_view
 
   @impl true
-  def mount(_params, session, socket) do
-    socket = assign_current_user(socket, session)
-    socket = assign(socket, mew: "warbul gargul")
+  def mount(_params, _session, socket) do
+    socket = assign(socket, mew: "Email: #{socket.assigns.current_user.email}")
 
     {:ok, socket}
   end

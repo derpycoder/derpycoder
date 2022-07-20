@@ -135,15 +135,15 @@ defmodule DerpyCoder.Photos do
   @spec can?(User.t(), action(), entity()) :: boolean()
   def can?(user, action, entity)
 
-  def can?(%User{role: :super_admin}, _, %{}), do: true
+  def can?(%User{role: :super_admin}, _, _), do: true
 
-  def can?(%User{role: :admin} = user, :new, %{}),
+  def can?(%User{role: :admin} = user, :new, _),
     do: FunWithFlags.enabled?(:new_photos, for: user)
 
-  def can?(%User{role: :admin} = user, :edit, %{}),
+  def can?(%User{role: :admin} = user, :edit, _),
     do: FunWithFlags.enabled?(:edit_photos, for: user)
 
-  def can?(%User{role: :admin} = user, _, %{}), do: FunWithFlags.Group.in?(user, "photography")
+  def can?(%User{role: :admin} = user, _, _), do: FunWithFlags.Group.in?(user, "photography")
 
   # Public Accessible, so no need to check for indexing and show.
   # def can?(%User{} = user, :index, Photo), do: FunWithFlags.enabled?(:index_photos, for: user)
