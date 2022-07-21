@@ -75,7 +75,7 @@ defmodule DerpyCoderWeb.Router do
   # ==============================================================================
   # Following routes may require Authentication & Authorization on some actions.
   # ==============================================================================
-  live_session :visitor, on_mount: {DerpyCoderWeb.CurrentUser, :maybe_required} do
+  live_session :visitor, on_mount: {DerpyCoderWeb.Permit, :anyone} do
     scope "/", DerpyCoderWeb do
       pipe_through [:browser]
 
@@ -90,7 +90,7 @@ defmodule DerpyCoderWeb.Router do
   # ==============================================================================
   # Following routes have Authentication as well as Authorization mandatory
   # ==============================================================================
-  live_session :user, on_mount: {DerpyCoderWeb.CurrentUser, :user_required} do
+  live_session :user, on_mount: {DerpyCoderWeb.Permit, :any_user} do
     scope "/", DerpyCoderWeb do
       pipe_through [:browser, :require_authenticated_user, :user]
 
@@ -111,7 +111,7 @@ defmodule DerpyCoderWeb.Router do
   # Below routes have custom root layout
   # ==============================================================================
   live_session :user_dashboard,
-    on_mount: {DerpyCoderWeb.CurrentUser, :user_required},
+    on_mount: {DerpyCoderWeb.Permit, :any_user},
     root_layout: {DerpyCoderWeb.LayoutView, "user_dashboard.html"} do
     scope "/users", DerpyCoderWeb do
       pipe_through [:browser, :require_authenticated_user, :user]
@@ -121,7 +121,7 @@ defmodule DerpyCoderWeb.Router do
   end
 
   live_session :admin_dashboard,
-    on_mount: {DerpyCoderWeb.CurrentUser, :admin_required},
+    on_mount: {DerpyCoderWeb.Permit, :only_admin},
     root_layout: {DerpyCoderWeb.LayoutView, "admin_dashboard.html"} do
     scope "/admin", DerpyCoderWeb do
       pipe_through [:browser, :require_authenticated_user, :admin]

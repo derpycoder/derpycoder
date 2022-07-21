@@ -1,4 +1,4 @@
-defmodule DerpyCoderWeb.CurrentUser do
+defmodule DerpyCoderWeb.Permit do
   @moduledoc """
   Ensures common `assigns` are applied to all LiveViews attaching this hook.
   """
@@ -14,7 +14,7 @@ defmodule DerpyCoderWeb.CurrentUser do
 
   # Returns `socket`
   # ==============================================================================
-  def on_mount(:maybe_required, _params, session, socket) do
+  def on_mount(:anyone, _params, session, socket) do
     socket =
       assign_new(socket, :current_user, fn ->
         find_current_user(session)
@@ -31,7 +31,7 @@ defmodule DerpyCoderWeb.CurrentUser do
 
   # Returns `socket`
   # ==============================================================================
-  def on_mount(:user_required, _params, session, socket) do
+  def on_mount(:any_user, _params, session, socket) do
     socket =
       assign_new(socket, :current_user, fn ->
         find_current_user(session)
@@ -57,7 +57,7 @@ defmodule DerpyCoderWeb.CurrentUser do
 
   # Returns `socket`
   # ==============================================================================
-  def on_mount(:admin_required, _params, session, socket) do
+  def on_mount(:admin_only, _params, session, socket) do
     socket =
       assign_new(socket, :current_user, fn ->
         find_current_user(session)
