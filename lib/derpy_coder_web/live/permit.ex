@@ -5,111 +5,114 @@ defmodule DerpyCoderWeb.Permit do
   import Phoenix.LiveView
 
   alias DerpyCoder.Accounts
-  alias DerpyCoder.Accounts.User
-  alias DerpyCoderWeb.Router.Helpers, as: Routes
+  alias DerpyCoderWeb.LiveHelpers
 
   # ==============================================================================
   # Used for live view routes, that do not require authentication for first render.
-  # Assigns current_user to the socket.
+  # Assigns current_user to the socket, if available.
 
   # Returns `socket`
   # ==============================================================================
   def on_mount(:anyone, _params, session, socket) do
-    socket =
-      assign_new(socket, :current_user, fn ->
-        find_current_user(session)
-      end)
-
     {:cont, socket}
+    |> assign_user(session)
   end
 
   # ==============================================================================
   # Used for live view routes, that do require authentication for first render.
   # Assigns current_user to the socket.
 
+  # User must have confirmed their email.
   # If user is not authenticated, they are asked to login.
 
   # Returns `socket`
   # ==============================================================================
   def on_mount(:any_user, _params, session, socket) do
-    socket =
-      assign_new(socket, :current_user, fn ->
-        find_current_user(session)
-      end)
-
-    current_user = socket.assigns.current_user
-
-    case current_user do
-      %User{} ->
-        {:cont, socket}
-
-      _ ->
-        ask_user_to_login(socket)
-    end
+    {:cont, socket}
+    |> assign_user(session)
+    |> verify_user()
+    |> verify_email()
   end
 
   # ==============================================================================
-  # Used for live view routes, that do require authentication and authorization for first render.
+  # Used for live view routes, that requires authentication and authorization for first render.
   # Assigns current_user to the socket.
 
+  # User must have confirmed their email.
   # If user is not authenticated, they are asked to login.
-  # Else if user has no authorization, based on roles passed in, they are notified.
+  # Finally if user has no authorization, based on roles passed in, they are notified.
 
   # Returns `socket`
   # ==============================================================================
-  def on_mount(:admin_only, _params, session, socket) do
-    socket =
-      assign_new(socket, :current_user, fn ->
-        find_current_user(session)
-      end)
+  def on_mount(:only_admin, _params, session, socket) do
+    {:cont, socket}
+    |> assign_user(session)
+    |> verify_user()
+    |> verify_email()
+    |> verify_role(~w(super_admin admin)a)
+  end
 
+  # ==============================================================================
+  # Find and assign current user.
+  # ==============================================================================
+  defp assign_user({:cont, socket}, session) do
+    {:cont,
+     socket
+     |> assign_new(:current_user, fn ->
+       find_current_user(session)
+     end)}
+  end
+
+  # ==============================================================================
+  # Verify that user is there.
+  # ==============================================================================
+  defp verify_user({:cont, socket}) do
     current_user = socket.assigns.current_user
 
-    case current_user do
-      %User{} ->
-        if role_matches?(current_user.role, ~w(admin super_admin)a) do
-          {:cont, socket}
-        else
-          kick_unauthorized_user_out(socket)
-        end
-
-      _ ->
-        ask_user_to_login(socket)
+    if current_user do
+      {:cont, socket}
+    else
+      {:halt, socket |> LiveHelpers.ask_user_to_login()}
     end
   end
 
-  # ==============================================================================
-  # Can be used to check if user has confirmed their address.
-  # ==============================================================================
-  # def on_mount(:require_confirmed, _params, %{"user_id" => user_id} = _session, socket) do
-  #   socket =
-  #     assign_new(socket, :current_user, fn ->
-  #       Accounts.get_user!(user_id)
-  #     end)
+  defp verify_user({:halt, _} = arg), do: arg
 
-  #   if socket.assigns.current_user.confirmed_at do
-  #     {:cont, socket}
-  #   else
-  #     {:halt, redirect(socket, to: "/log_in")}
-  #   end
-  # end
+  # ==============================================================================
+  # Verify that user has confirmed their email.
+  # ==============================================================================
+  defp verify_email({:cont, socket}) do
+    current_user = socket.assigns.current_user
 
+    if current_user.confirmed_at do
+      {:cont, socket}
+    else
+      {:halt, socket |> LiveHelpers.ask_user_to_confirm_email()}
+    end
+  end
+
+  defp verify_email({:halt, _} = arg), do: arg
+
+  # ==============================================================================
+  # Verify that the current user has the roles required.
+  # ==============================================================================
+  defp verify_role({:cont, socket}, roles) do
+    current_user = socket.assigns.current_user
+
+    if role_matches?(current_user.role, roles) do
+      {:cont, socket}
+    else
+      {:halt, socket |> LiveHelpers.kick_unauthorized_user_out()}
+    end
+  end
+
+  defp verify_role({:halt, _} = arg, _), do: arg
+
+  # ==============================================================================
+  # Helpers
+  # ==============================================================================
   defp role_matches?(user_role, role) when is_atom(role), do: user_role === role
   defp role_matches?(user_role, roles) when is_list(roles), do: user_role in roles
-
-  defp ask_user_to_login(socket) do
-    {:halt,
-     socket
-     |> put_flash(:error, "You must log in to access this page.")
-     |> redirect(to: Routes.user_session_path(socket, :new))}
-  end
-
-  defp kick_unauthorized_user_out(socket) do
-    {:halt,
-     socket
-     |> put_flash(:error, "Unauthorized")
-     |> redirect(to: "/")}
-  end
 
   defp find_current_user(%{"user_token" => user_token}) do
     Accounts.get_user_by_session_token(user_token)

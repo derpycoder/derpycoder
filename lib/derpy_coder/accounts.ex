@@ -79,6 +79,13 @@ defmodule DerpyCoder.Accounts do
     |> User.registration_changeset(attrs)
     |> Repo.insert()
   end
+  # Useful for seeding database, with already confirmed user.
+  def seed_user(attrs) do
+    %User{}
+    |> User.registration_changeset(attrs)
+    |> User.confirm_changeset()
+    |> Repo.insert()
+  end
 
   @doc """
   Returns an `%Ecto.Changeset{}` for tracking user changes.
@@ -367,6 +374,14 @@ defmodule DerpyCoder.Accounts do
     |> Repo.insert()
   end
 
+  # Useful for seeding database, with already confirmed admin.
+  def seed_admin(attrs) do
+    %User{}
+    |> User.admin_registration_changeset(attrs)
+    |> User.confirm_changeset()
+    |> Repo.insert()
+  end
+
   @doc """
   Registers an super_admin.
 
@@ -380,6 +395,7 @@ defmodule DerpyCoder.Accounts do
   def register_super_admin(attrs) do
     %User{}
     |> User.super_admin_registration_changeset(attrs)
+    |> User.confirm_changeset()
     |> Repo.insert()
   end
 end

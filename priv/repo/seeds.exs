@@ -34,7 +34,7 @@ FunWithFlags.disable(:edit_photos, for_group: :admin)
 # Creating Default Users
 # ==============================================================================
 {:ok, admin} =
-  Accounts.register_admin(%{
+  Accounts.seed_admin(%{
     email: "admin@derpycoder.com",
     password: "123456789abc",
     password_confirmation: "123456789abc",
@@ -42,7 +42,7 @@ FunWithFlags.disable(:edit_photos, for_group: :admin)
   })
 
 {:ok, bobina} =
-  Accounts.register_user(%{
+  Accounts.seed_user(%{
     email: "bobina@derpycoder.com",
     password: "123456789abc",
     password_confirmation: "123456789abc",
@@ -50,7 +50,7 @@ FunWithFlags.disable(:edit_photos, for_group: :admin)
   })
 
 {:ok, abhijit} =
-  Accounts.register_user(%{
+  Accounts.seed_user(%{
     email: "abhijit@derpycoder.com",
     password: "123456789abc",
     password_confirmation: "123456789abc",
@@ -58,7 +58,7 @@ FunWithFlags.disable(:edit_photos, for_group: :admin)
   })
 
 {:ok, abhisek} =
-  Accounts.register_user(%{
+  Accounts.seed_user(%{
     email: "abhisek@derpycoder.com",
     password: "123456789abc",
     password_confirmation: "123456789abc",

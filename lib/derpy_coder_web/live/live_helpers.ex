@@ -15,6 +15,12 @@ defmodule DerpyCoderWeb.LiveHelpers do
     |> redirect(to: Routes.user_session_path(socket, :new))
   end
 
+  def ask_user_to_confirm_email(socket) do
+    socket
+    |> put_flash(:error, "You must confirm your email address to access this page.")
+    |> redirect(to: "/")
+  end
+
   def kick_unauthorized_user_out(socket) do
     socket
     |> put_flash(:error, "Unauthorized")
