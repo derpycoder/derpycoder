@@ -1,4 +1,8 @@
 defmodule DerpyCoder.Release do
+  @moduledoc """
+  Contains all the functions necessary to initialize the application on Release.
+  Like creating a Super Admin, or running Seeds.
+  """
   def init_super_admin do
     super_admin_user = Application.get_env(:derpy_coder, :super_admin_user)
 

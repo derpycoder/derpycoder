@@ -1,6 +1,6 @@
 defmodule DerpyCoderWeb.Permit do
   @moduledoc """
-  Ensures common `assigns` are applied to all LiveViews attaching this hook.
+  Ensures current_user is assigned to LiveViews attaching this hook.
   """
   import Phoenix.LiveView
 
