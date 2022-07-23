@@ -99,7 +99,7 @@ defmodule DerpyCoderWeb.LiveHelpers do
     do: socket |> redirect(to: "#{redirect_to}?return_to=#{return_to}")
 
   defp halt(%{assigns: %{redirect_to: redirect_to}} = socket),
-    do: socket |> redirect(to: "#{redirect_to}")
+    do: socket |> redirect(to: redirect_to)
 
   defp halt(%{assigns: %{return_to: return_to}} = socket),
     do: socket |> redirect(to: return_to)
