@@ -82,13 +82,13 @@ defmodule DerpyCoderWeb.LiveHelpers do
 
   defp ask_user_to_confirm_email(socket) do
     socket
-    |> put_flash(:error, "You must confirm your email address to access this page.")
+    |> put_flash(:error, "You must confirm your email address to proceed.")
     |> halt()
   end
 
   defp kick_unauthorized_user_out(socket) do
     socket
-    |> put_flash(:error, "Unauthorized")
+    |> put_flash(:error, "Unauthorized.")
     |> halt()
   end
 
