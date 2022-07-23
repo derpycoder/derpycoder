@@ -11,9 +11,9 @@ defmodule DerpyCoderWeb.PhotoLive.Index do
   def mount(_params, _session, socket) do
     socket =
       socket
-      |> assign(:photos, [])
+      |> assign(photos: [], return_to: Routes.photo_index_path(socket, :index))
 
-    {:ok, socket}
+    {:ok, socket, temporary_assigns: [photos: []]}
   end
 
   @impl true

@@ -14,17 +14,19 @@ defmodule DerpyCoderWeb.PhotoLive.Show do
   @impl true
   def handle_params(params, _url, socket) do
     action = socket.assigns.live_action
+    photo = photo_from_params(params)
 
     socket =
       socket
-      |> assign(:page_title, page_title(action))
+      |> assign(
+        page_title: page_title(action),
+        return_to: Routes.photo_show_path(socket, :show, photo)
+      )
 
-    {:noreply, apply_action(socket, action, params)}
+    {:noreply, apply_action(socket, action, photo)}
   end
 
-  defp apply_action(socket, :edit, %{"id" => id}) do
-    photo = Photos.get_photo!(id)
-
+  defp apply_action(socket, :edit, photo) do
     {:cont, socket}
     |> verify_user()
     |> verify_authorization(Photos, photo)
@@ -38,12 +40,12 @@ defmodule DerpyCoderWeb.PhotoLive.Show do
     end
   end
 
-  defp apply_action(socket, :show, %{"id" => id}) do
-    photo = Photos.get_photo!(id)
-
-    socket
-    |> assign(:photo, photo)
+  defp apply_action(socket, :show, photo) do
+    socket |> assign(photo: photo)
   end
+
+  defp photo_from_params(%{"id" => id}), do: Photos.get_photo!(id)
+  defp photo_from_params(_params), do: Photo
 
   defp page_title(:show), do: "Show Photo"
   defp page_title(:edit), do: "Edit Photo"

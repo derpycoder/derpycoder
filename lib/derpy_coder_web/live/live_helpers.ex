@@ -71,29 +71,36 @@ defmodule DerpyCoderWeb.LiveHelpers do
   def verify_authorization({:halt, _} = arg, _, _), do: arg
 
   # ==============================================================================
-  # Error Helpers
+  # Helpers
   # ==============================================================================
   defp ask_user_to_login(socket) do
     socket
     |> put_flash(:error, "You must log in to access this page.")
-    |> redirect(to: Routes.user_session_path(socket, :new))
+    |> assign(return_to: Routes.user_session_path(socket, :new))
+    |> halt()
   end
 
   defp ask_user_to_confirm_email(socket) do
     socket
     |> put_flash(:error, "You must confirm your email address to access this page.")
-    |> redirect(to: "/")
+    |> halt()
   end
 
   defp kick_unauthorized_user_out(socket) do
     socket
     |> put_flash(:error, "Unauthorized")
-    |> redirect(to: "/")
+    |> halt()
   end
 
   # ==============================================================================
-  # Helpers
+  # Misc
   # ==============================================================================
+  defp halt(%{assigns: %{return_to: return_to}} = socket),
+    do: socket |> redirect(to: return_to)
+
+  defp halt(%{assigns: _} = socket),
+    do: socket |> redirect(to: "/")
+
   defp role_matches?(user_role, role) when is_atom(role), do: user_role === role
   defp role_matches?(user_role, roles) when is_list(roles), do: user_role in roles
 

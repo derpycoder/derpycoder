@@ -1,7 +1,7 @@
 <h1>Listing Photos</h1>
 
 <%= if @live_action in [:new, :edit] do %>
-  <.modal return_to={Routes.photo_index_path(@socket, :index)}>
+  <.modal return_to={@return_to}>
     <.live_component
       module={DerpyCoderWeb.PhotoLive.FormComponent}
       id={@photo.id || :new}
@@ -9,7 +9,7 @@
       action={@live_action}
       photo={@photo}
       current_user={@current_user}
-      return_to={Routes.photo_index_path(@socket, :index)}
+      return_to={@return_to}
     />
   </.modal>
 <% end %>
