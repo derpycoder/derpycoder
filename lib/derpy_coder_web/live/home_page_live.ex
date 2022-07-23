@@ -4,7 +4,7 @@ defmodule DerpyCoderWeb.HomePageLive do
   """
   use DerpyCoderWeb, :live_view
 
-  alias DerpyCoderWeb.Admin
+  alias DerpyCoder.Accounts
 
   def mount(_params, _session, socket) do
     socket =

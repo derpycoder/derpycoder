@@ -5,7 +5,7 @@ defmodule DerpyCoderWeb.Permit do
   import Phoenix.LiveView
 
   alias DerpyCoder.Accounts
-  alias DerpyCoderWeb.LiveHelpers
+  import DerpyCoderWeb.LiveHelpers
 
   # ==============================================================================
   # Used for live view routes, that do not require authentication for first render.
@@ -72,7 +72,7 @@ defmodule DerpyCoderWeb.Permit do
     if current_user do
       {:cont, socket}
     else
-      {:halt, socket |> LiveHelpers.ask_user_to_login()}
+      {:halt, socket |> ask_user_to_login()}
     end
   end
 
@@ -87,7 +87,7 @@ defmodule DerpyCoderWeb.Permit do
     if current_user.confirmed_at do
       {:cont, socket}
     else
-      {:halt, socket |> LiveHelpers.ask_user_to_confirm_email()}
+      {:halt, socket |> ask_user_to_confirm_email()}
     end
   end
 
@@ -102,7 +102,7 @@ defmodule DerpyCoderWeb.Permit do
     if role_matches?(current_user.role, roles) do
       {:cont, socket}
     else
-      {:halt, socket |> LiveHelpers.kick_unauthorized_user_out()}
+      {:halt, socket |> kick_unauthorized_user_out()}
     end
   end
 

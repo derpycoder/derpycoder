@@ -1,4 +1,6 @@
 defmodule DerpyCoder.Accounts do
+  defdelegate can?(user, action, entity), to: DerpyCoder.Accounts.Policy
+
   @moduledoc """
   The Accounts context.
   """
@@ -79,6 +81,7 @@ defmodule DerpyCoder.Accounts do
     |> User.registration_changeset(attrs)
     |> Repo.insert()
   end
+
   # Useful for seeding database, with already confirmed user.
   def seed_user(attrs) do
     %User{}

@@ -4,10 +4,10 @@
 
   <%= live_redirect("Photos", to: Routes.photo_index_path(@socket, :index)) %>
 
-  <%= if @current_user do %>
+  <%= if Accounts.can?(@current_user, :view, DerpyCoderWeb.UserDashboardLive) do %>
     <%= live_redirect("User Dashboard", to: Routes.user_dashboard_path(@socket, :index)) %>
   <% end %>
-  <%= if Admin.can?(@current_user, :index, %{}) do %>
+  <%= if Accounts.can?(@current_user, :view, DerpyCoderWeb.AdminDashboardLive) do %>
     <%= live_redirect("Admin Dashboard", to: Routes.admin_dashboard_path(@socket, :index)) %>
   <% end %>
 </section>

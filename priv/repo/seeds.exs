@@ -14,21 +14,10 @@
 alias DerpyCoder.Accounts
 alias DerpyCoder.Accounts.User
 alias DerpyCoder.Photos
+alias DerpyCoderWeb.Permissions
 
-# ==============================================================================
-# Setting Fun With Flags Permissions
-# ==============================================================================
-# Since Indexing & Viewing is public by default, adding these permissions don't make sense!
-# FunWithFlags.enable(:index_photos, for_group: :photography)
-# FunWithFlags.enable(:show_photos, for_group: :photography)
-FunWithFlags.enable(:new_photos, for_group: :photography)
-FunWithFlags.enable(:edit_photos, for_group: :photography)
-FunWithFlags.enable(:delete_photos, for_group: :photography)
-
-# Or, if Admin, is to be treaded like normal user, then below flags can be removed.
-# And admin's new & edit power can be restricted in scope.
-FunWithFlags.disable(:new_photos, for_group: :admin)
-FunWithFlags.disable(:edit_photos, for_group: :admin)
+Permissions.grant()
+Permissions.deny()
 
 # ==============================================================================
 # Creating Default Users
@@ -58,7 +47,7 @@ FunWithFlags.disable(:edit_photos, for_group: :admin)
   })
 
 {:ok, abhisek} =
-  Accounts.seed_user(%{
+  Accounts.register_user(%{
     email: "abhisek@derpycoder.com",
     password: "123456789abc",
     password_confirmation: "123456789abc",

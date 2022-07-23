@@ -1,4 +1,6 @@
 defmodule DerpyCoder.Photos do
+  defdelegate can?(user, action, entity), to: DerpyCoder.Photos.Policy
+
   @moduledoc """
   The Photos context.
   """
@@ -6,7 +8,6 @@ defmodule DerpyCoder.Photos do
   import Ecto.Query, warn: false
   alias DerpyCoder.Repo
 
-  alias DerpyCoder.Accounts.User
   alias DerpyCoder.Photos.Photo
 
   @doc """
@@ -125,40 +126,4 @@ defmodule DerpyCoder.Photos do
 
   # Anonymous users can access only published photos
   # defp scope_photos(query, _user, _params), do: query |> where(state: :published)
-
-  # ==============================================================================
-  # Policy: Used to authorize user access
-  # ==============================================================================
-  @type entity :: struct()
-  @type action :: :new | :index | :edit | :show | :delete
-
-  @spec can?(User.t(), action(), entity()) :: boolean()
-  def can?(user, action, entity)
-
-  def can?(%User{role: :super_admin}, _, _), do: true
-
-  def can?(%User{role: :admin} = user, :new, _),
-    do: FunWithFlags.enabled?(:new_photos, for: user)
-
-  def can?(%User{role: :admin} = user, :edit, _),
-    do: FunWithFlags.enabled?(:edit_photos, for: user)
-
-  def can?(%User{role: :admin} = user, _, _), do: FunWithFlags.Group.in?(user, "photography")
-
-  # Public Accessible, so no need to check for indexing and show.
-  # def can?(%User{} = user, :index, Photo), do: FunWithFlags.enabled?(:index_photos, for: user)
-  # def can?(%User{} = user, :show, %Photo{}), do: FunWithFlags.enabled?(:show_photos, for: user)
-
-  def can?(%User{} = user, :new, Photo), do: FunWithFlags.enabled?(:new_photos, for: user)
-  # def can?(%User{}, %Photo{}, action) when action in ~w[index new show]a, do: true
-
-  def can?(%User{id: id} = user, :edit, %Photo{user_id: id}),
-    do: FunWithFlags.enabled?(:edit_photos, for: user)
-
-  def can?(%User{id: id} = user, :delete, %Photo{user_id: id}),
-    do: FunWithFlags.enabled?(:delete_photos, for: user)
-
-  # def can?(%User{id: id}, %Photo{user_id: id}, action) when action in ~w[edit delete]a, do: true
-
-  def can?(_, _, _), do: false
 end
