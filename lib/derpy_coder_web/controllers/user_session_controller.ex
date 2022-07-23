@@ -4,8 +4,10 @@ defmodule DerpyCoderWeb.UserSessionController do
   alias DerpyCoder.Accounts
   alias DerpyCoderWeb.UserAuth
 
-  def new(conn, _params) do
-    render(conn, "new.html", error_message: nil)
+  def new(conn, params) do
+    conn
+    |> maybe_store_return_to(params)
+    |> render("new.html", error_message: nil)
   end
 
   def create(conn, %{"user" => user_params}) do
@@ -24,4 +26,10 @@ defmodule DerpyCoderWeb.UserSessionController do
     |> put_flash(:info, "Logged out successfully.")
     |> UserAuth.log_out_user()
   end
+
+  defp maybe_store_return_to(conn, %{"return_to" => return_to}) do
+    put_session(conn, :user_return_to, return_to)
+  end
+
+  defp maybe_store_return_to(conn, _), do: conn
 end

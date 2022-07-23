@@ -76,7 +76,7 @@ defmodule DerpyCoderWeb.LiveHelpers do
   defp ask_user_to_login(socket) do
     socket
     |> put_flash(:error, "You must log in to access this page.")
-    |> assign(return_to: Routes.user_session_path(socket, :new))
+    |> assign(redirect_to: Routes.user_session_path(socket, :new))
     |> halt()
   end
 
@@ -95,6 +95,9 @@ defmodule DerpyCoderWeb.LiveHelpers do
   # ==============================================================================
   # Misc
   # ==============================================================================
+  defp halt(%{assigns: %{redirect_to: redirect_to, return_to: return_to}} = socket),
+    do: socket |> redirect(to: "#{redirect_to}?return_to=#{return_to}")
+
   defp halt(%{assigns: %{return_to: return_to}} = socket),
     do: socket |> redirect(to: return_to)
 
