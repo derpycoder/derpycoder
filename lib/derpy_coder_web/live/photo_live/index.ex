@@ -18,76 +18,69 @@ defmodule DerpyCoderWeb.PhotoLive.Index do
 
   @impl true
   def handle_params(params, _url, socket) do
-    live_action = socket.assigns.live_action
+    action = socket.assigns.live_action
 
-    {:noreply, apply_action(socket, live_action, params)}
+    socket =
+      socket
+      |> assign(:page_title, page_title(action))
+
+    {:noreply, apply_action(socket, action, params)}
   end
 
   defp apply_action(socket, :edit, params) do
-    live_action = socket.assigns.live_action
-    current_user = socket.assigns.current_user
     photo = photo_from_params(params)
 
-    case current_user do
-      %{} ->
-        if Photos.can?(current_user, live_action, photo) do
-          socket
-          |> assign(:page_title, "Edit Photo")
-          |> assign(:photo, photo)
-        else
-          kick_unauthorized_user_out(socket)
-        end
+    {:cont, socket}
+    |> verify_user()
+    |> verify_authorization(Photos, photo)
+    |> case do
+      {:cont, socket} ->
+        socket
+        |> assign(:photo, photo)
 
-      _ ->
-        ask_user_to_login(socket)
+      {:halt, socket} ->
+        socket
     end
   end
 
   defp apply_action(socket, :new, _params) do
-    live_action = socket.assigns.live_action
-    current_user = socket.assigns.current_user
+    {:cont, socket}
+    |> verify_user()
+    |> verify_email()
+    |> verify_authorization(Photos, Photo)
+    |> case do
+      {:cont, socket} ->
+        socket
+        |> assign(:photo, %Photo{})
 
-    case current_user do
-      %{} ->
-        if Photos.can?(current_user, live_action, Photo) do
-          socket
-          |> assign(:page_title, "New Photo")
-          |> assign(:photo, %Photo{})
-        else
-          kick_unauthorized_user_out(socket)
-        end
-
-      _ ->
-        ask_user_to_login(socket)
+      {:halt, socket} ->
+        socket
     end
   end
 
   defp apply_action(socket, :index, _params) do
     socket
-    |> assign(:page_title, "Listing Photos")
     |> assign(:photos, list_photos())
   end
 
   @impl true
   def handle_event("delete", params, socket) do
-    current_user = socket.assigns.current_user
     photo = photo_from_params(params)
 
-    socket =
-      case current_user do
-        %{} ->
-          if Photos.can?(current_user, :delete, photo) do
-            {:ok, _} = Photos.delete_photo(photo)
-            assign(socket, :photos, list_photos())
-          else
-            kick_unauthorized_user_out(socket)
-          end
+    {:cont, socket}
+    |> verify_user()
+    |> verify_authorization(Photos, photo)
+    |> case do
+      {:cont, socket} ->
+        {:ok, _} = Photos.delete_photo(photo)
 
-        _ ->
-          ask_user_to_login(socket)
-      end
+        {:noreply,
+         socket
+         |> assign(:photos, list_photos())}
 
-    {:noreply, socket}
+      {:halt, socket} ->
+        {:noreply, socket}
+    end
   end
 
   def handle_event("show-photo", %{"id" => id}, socket) do
@@ -101,4 +94,9 @@ defmodule DerpyCoderWeb.PhotoLive.Index do
   defp list_photos do
     Photos.list_photos()
   end
+
+  defp page_title(:new), do: "New Photo"
+  defp page_title(:show), do: "Show Photo"
+  defp page_title(:edit), do: "Edit Photo"
+  defp page_title(:index), do: "Listing Photo"
 end

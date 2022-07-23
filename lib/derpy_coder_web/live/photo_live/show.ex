@@ -13,38 +13,36 @@ defmodule DerpyCoderWeb.PhotoLive.Show do
 
   @impl true
   def handle_params(params, _url, socket) do
-    live_action = socket.assigns.live_action
+    action = socket.assigns.live_action
 
-    {:noreply, apply_action(socket, live_action, params)}
+    socket =
+      socket
+      |> assign(:page_title, page_title(action))
+
+    {:noreply, apply_action(socket, action, params)}
   end
 
   defp apply_action(socket, :edit, %{"id" => id}) do
-    current_user = socket.assigns.current_user
-    live_action = socket.assigns.live_action
     photo = Photos.get_photo!(id)
 
-    case current_user do
-      %{} ->
-        if Photos.can?(current_user, live_action, photo) do
-          socket
-          |> assign(:page_title, page_title(live_action))
-          |> assign(:photo, photo)
-        else
-          kick_unauthorized_user_out(socket)
-        end
+    {:cont, socket}
+    |> verify_user()
+    |> verify_authorization(Photos, photo)
+    |> case do
+      {:cont, socket} ->
+        socket
+        |> assign(:photo, photo)
 
-      _ ->
-        ask_user_to_login(socket)
+      {:halt, socket} ->
+        socket
     end
   end
 
   defp apply_action(socket, :show, %{"id" => id}) do
-    live_action = socket.assigns.live_action
     photo = Photos.get_photo!(id)
 
     socket
     |> assign(:photo, photo)
-    |> assign(:page_title, page_title(live_action))
   end
 
   defp page_title(:show), do: "Show Photo"

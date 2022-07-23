@@ -9,23 +9,93 @@ defmodule DerpyCoderWeb.LiveHelpers do
 
   alias DerpyCoderWeb.Router.Helpers, as: Routes
 
-  def ask_user_to_login(socket) do
+  # ==============================================================================
+  # Verify that user is there.
+  # ==============================================================================
+  def verify_user({:cont, socket}) do
+    current_user = socket.assigns.current_user
+
+    if current_user do
+      {:cont, socket}
+    else
+      {:halt, socket |> ask_user_to_login()}
+    end
+  end
+
+  def verify_user({:halt, _} = arg), do: arg
+
+  # ==============================================================================
+  # Verify that user has confirmed their email.
+  # ==============================================================================
+  def verify_email({:cont, socket}) do
+    current_user = socket.assigns.current_user
+
+    if current_user.confirmed_at do
+      {:cont, socket}
+    else
+      {:halt, socket |> ask_user_to_confirm_email()}
+    end
+  end
+
+  def verify_email({:halt, _} = arg), do: arg
+
+  # ==============================================================================
+  # Verify that the current user has the roles required.
+  # ==============================================================================
+  def verify_role({:cont, socket}, roles) do
+    current_user = socket.assigns.current_user
+
+    if role_matches?(current_user.role, roles) do
+      {:cont, socket}
+    else
+      {:halt, socket |> kick_unauthorized_user_out()}
+    end
+  end
+
+  def verify_role({:halt, _} = arg, _), do: arg
+
+  # ==============================================================================
+  # Verify that the user is authorized.
+  # ==============================================================================
+  def verify_authorization({:cont, socket}, policy, entity) do
+    user = socket.assigns.current_user
+    action = socket.assigns.live_action
+
+    if policy.can?(user, action, entity) do
+      {:cont, socket}
+    else
+      {:halt, socket |> kick_unauthorized_user_out()}
+    end
+  end
+
+  def verify_authorization({:halt, _} = arg, _, _), do: arg
+
+  # ==============================================================================
+  # Error Helpers
+  # ==============================================================================
+  defp ask_user_to_login(socket) do
     socket
     |> put_flash(:error, "You must log in to access this page.")
     |> redirect(to: Routes.user_session_path(socket, :new))
   end
 
-  def ask_user_to_confirm_email(socket) do
+  defp ask_user_to_confirm_email(socket) do
     socket
     |> put_flash(:error, "You must confirm your email address to access this page.")
     |> redirect(to: "/")
   end
 
-  def kick_unauthorized_user_out(socket) do
+  defp kick_unauthorized_user_out(socket) do
     socket
     |> put_flash(:error, "Unauthorized")
     |> redirect(to: "/")
   end
+
+  # ==============================================================================
+  # Helpers
+  # ==============================================================================
+  defp role_matches?(user_role, role) when is_atom(role), do: user_role === role
+  defp role_matches?(user_role, roles) when is_list(roles), do: user_role in roles
 
   @doc """
   Renders a live component inside a modal.

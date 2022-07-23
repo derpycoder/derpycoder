@@ -63,57 +63,6 @@ defmodule DerpyCoderWeb.Permit do
      end)}
   end
 
-  # ==============================================================================
-  # Verify that user is there.
-  # ==============================================================================
-  defp verify_user({:cont, socket}) do
-    current_user = socket.assigns.current_user
-
-    if current_user do
-      {:cont, socket}
-    else
-      {:halt, socket |> ask_user_to_login()}
-    end
-  end
-
-  defp verify_user({:halt, _} = arg), do: arg
-
-  # ==============================================================================
-  # Verify that user has confirmed their email.
-  # ==============================================================================
-  defp verify_email({:cont, socket}) do
-    current_user = socket.assigns.current_user
-
-    if current_user.confirmed_at do
-      {:cont, socket}
-    else
-      {:halt, socket |> ask_user_to_confirm_email()}
-    end
-  end
-
-  defp verify_email({:halt, _} = arg), do: arg
-
-  # ==============================================================================
-  # Verify that the current user has the roles required.
-  # ==============================================================================
-  defp verify_role({:cont, socket}, roles) do
-    current_user = socket.assigns.current_user
-
-    if role_matches?(current_user.role, roles) do
-      {:cont, socket}
-    else
-      {:halt, socket |> kick_unauthorized_user_out()}
-    end
-  end
-
-  defp verify_role({:halt, _} = arg, _), do: arg
-
-  # ==============================================================================
-  # Helpers
-  # ==============================================================================
-  defp role_matches?(user_role, role) when is_atom(role), do: user_role === role
-  defp role_matches?(user_role, roles) when is_list(roles), do: user_role in roles
-
   defp find_current_user(%{"user_token" => user_token}) do
     Accounts.get_user_by_session_token(user_token)
   end
