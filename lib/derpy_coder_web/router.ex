@@ -24,6 +24,16 @@ defmodule DerpyCoderWeb.Router do
     plug :fetch_current_user
   end
 
+  pipeline :minimalist do
+    plug :accepts, ["html"]
+    plug :fetch_session
+    plug :fetch_live_flash
+    plug :put_root_layout, {DerpyCoderWeb.LayoutView, :minimalist}
+    plug :protect_from_forgery
+    plug :put_secure_browser_headers
+    plug :fetch_current_user
+  end
+
   pipeline :api do
     plug :accepts, ["json"]
   end
@@ -49,7 +59,7 @@ defmodule DerpyCoderWeb.Router do
   # Redirect Authenticated Users
   # ==============================================================================
   scope "/users", DerpyCoderWeb do
-    pipe_through [:browser, :redirect_if_user_is_authenticated]
+    pipe_through [:minimalist, :redirect_if_user_is_authenticated]
 
     get "/register", UserRegistrationController, :new
     post "/register", UserRegistrationController, :create
