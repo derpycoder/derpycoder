@@ -10,6 +10,13 @@ defmodule DerpyCoder.Accounts do
 
   alias DerpyCoder.Accounts.{User, UserToken, UserNotifier}
 
+  @spec lock(map()) :: {:ok, map()} | {:error, map()}
+  def lock(user) do
+    user
+    |> User.lock_changeset()
+    |> Repo.update()
+  end
+
   ## Database getters
 
   @doc """

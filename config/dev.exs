@@ -15,7 +15,7 @@ config :derpy_coder, DerpyCoderWeb.Endpoint,
   server: true,
   check_origin: false,
   code_reloader: true,
-  debug_errors: false,
+  debug_errors: true,
   watchers: [
     # Start the esbuild watcher by calling Esbuild.install_and_run(:default, args)
     esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]},

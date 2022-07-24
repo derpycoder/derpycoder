@@ -14,8 +14,6 @@ defmodule DerpyCoderWeb.EnsureRolePlug do
   """
 
   import Plug.Conn
-  alias DerpyCoder.Accounts
-  alias DerpyCoder.Accounts.User
   alias Phoenix.Controller
   alias Plug.Conn
 
@@ -26,18 +24,15 @@ defmodule DerpyCoderWeb.EnsureRolePlug do
   @doc false
   @spec call(Conn.t(), atom() | [atom()]) :: Conn.t()
   def call(conn, roles) do
-    user_token = get_session(conn, :user_token)
-
-    (user_token &&
-       Accounts.get_user_by_session_token(user_token))
+    conn.assigns.current_user
     |> has_role?(roles)
     |> maybe_halt(conn)
   end
 
-  defp has_role?(%User{} = user, roles) when is_list(roles),
+  defp has_role?(%{} = user, roles) when is_list(roles),
     do: Enum.any?(roles, &has_role?(user, &1))
 
-  defp has_role?(%User{role: role}, role), do: true
+  defp has_role?(%{role: role}, role), do: true
   defp has_role?(_user, _role), do: false
 
   defp maybe_halt(true, conn), do: conn

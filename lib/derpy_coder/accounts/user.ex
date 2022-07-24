@@ -21,16 +21,31 @@ defmodule DerpyCoder.Accounts.User do
   use Ecto.Schema
   import Ecto.Changeset
 
+  alias Ecto.{Changeset, Schema}
+
   @primary_key {:id, ExKsuid.EctoType, autogenerate: true}
   schema "users" do
     field :email, :string
     field :password, :string, virtual: true, redact: true
     field :hashed_password, :string, redact: true
     field :confirmed_at, :naive_datetime
+
     field :role, RolesEnum, default: :user
     field :groups, {:array, GroupsEnum}
+    field :locked_at, :utc_datetime
 
     timestamps()
+  end
+
+  @spec lock_changeset(Schema.t() | Changeset.t()) :: Changeset.t()
+  def lock_changeset(user_or_changeset) do
+    changeset = Changeset.change(user_or_changeset)
+    locked_at = DateTime.truncate(DateTime.utc_now(), :second)
+
+    case Changeset.get_field(changeset, :locked_at) do
+      nil -> Changeset.change(changeset, locked_at: locked_at)
+      _any -> Changeset.add_error(changeset, :locked_at, "already set")
+    end
   end
 
   @doc """

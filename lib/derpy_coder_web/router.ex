@@ -1,18 +1,10 @@
 defmodule DerpyCoderWeb.Router do
   use DerpyCoderWeb, :router
 
-  alias DerpyCoderWeb.EnsureRolePlug
+  alias DerpyCoderWeb.{EnsureRolePlug, KickLockedUserOut}
 
   import DerpyCoderWeb.UserAuth
   import Phoenix.LiveDashboard.Router
-
-  pipeline :user do
-    plug EnsureRolePlug, [:super_admin, :admin, :super_user, :user]
-  end
-
-  pipeline :admin do
-    plug EnsureRolePlug, [:super_admin, :admin]
-  end
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -22,9 +14,10 @@ defmodule DerpyCoderWeb.Router do
     plug :protect_from_forgery
     plug :put_secure_browser_headers
     plug :fetch_current_user
+    plug KickLockedUserOut
   end
 
-  pipeline :minimalist do
+  pipeline :authentication do
     plug :accepts, ["html"]
     plug :fetch_session
     plug :fetch_live_flash
@@ -32,6 +25,16 @@ defmodule DerpyCoderWeb.Router do
     plug :protect_from_forgery
     plug :put_secure_browser_headers
     plug :fetch_current_user
+  end
+
+  pipeline :any_user do
+    plug :require_authenticated_user
+    plug EnsureRolePlug, [:super_admin, :admin, :super_user, :user]
+  end
+
+  pipeline :only_admin do
+    plug :require_authenticated_user
+    plug EnsureRolePlug, [:super_admin, :admin]
   end
 
   pipeline :api do
@@ -59,7 +62,7 @@ defmodule DerpyCoderWeb.Router do
   # Redirect Authenticated Users
   # ==============================================================================
   scope "/users", DerpyCoderWeb do
-    pipe_through [:minimalist, :redirect_if_user_is_authenticated]
+    pipe_through [:authentication, :redirect_if_user_is_authenticated]
 
     get "/register", UserRegistrationController, :new
     post "/register", UserRegistrationController, :create
@@ -75,7 +78,7 @@ defmodule DerpyCoderWeb.Router do
   # Following routes have Authentication mandatory
   # ==============================================================================
   scope "/", DerpyCoderWeb do
-    pipe_through [:browser, :require_authenticated_user, :user]
+    pipe_through [:browser, :any_user]
 
     get "/users/settings", UserSettingsController, :edit
     put "/users/settings", UserSettingsController, :update
@@ -102,7 +105,7 @@ defmodule DerpyCoderWeb.Router do
   # ==============================================================================
   live_session :user, on_mount: {DerpyCoderWeb.Permit, :any_user} do
     scope "/", DerpyCoderWeb do
-      pipe_through [:browser, :require_authenticated_user, :user]
+      pipe_through [:browser, :any_user]
 
       live "/photos/:id/edit", PhotoLive.Index, :edit
       live "/photos/:id/show/edit", PhotoLive.Show, :edit
@@ -110,7 +113,7 @@ defmodule DerpyCoderWeb.Router do
   end
 
   scope "/admin", DerpyCoderWeb do
-    pipe_through [:browser, :require_authenticated_user, :admin]
+    pipe_through [:browser, :only_admin]
 
     live_dashboard "/live_dashboard",
       metrics: DerpyCoderWeb.Telemetry,
@@ -124,7 +127,7 @@ defmodule DerpyCoderWeb.Router do
     on_mount: {DerpyCoderWeb.Permit, :any_user},
     root_layout: {DerpyCoderWeb.LayoutView, "user_dashboard.html"} do
     scope "/users", DerpyCoderWeb do
-      pipe_through [:browser, :require_authenticated_user, :user]
+      pipe_through [:browser, :any_user]
 
       live "/dashboard", UserDashboardLive, :index
     end
@@ -134,7 +137,7 @@ defmodule DerpyCoderWeb.Router do
     on_mount: {DerpyCoderWeb.Permit, :only_admin},
     root_layout: {DerpyCoderWeb.LayoutView, "admin_dashboard.html"} do
     scope "/admin", DerpyCoderWeb do
-      pipe_through [:browser, :require_authenticated_user, :admin]
+      pipe_through [:browser, :only_admin]
 
       live "/dashboard", AdminDashboardLive, :index
     end

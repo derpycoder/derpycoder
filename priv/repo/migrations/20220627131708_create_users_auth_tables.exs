@@ -12,8 +12,10 @@ defmodule DerpyCoder.Repo.Migrations.CreateUsersAuthTables do
       add(:email, :citext, null: false)
       add(:hashed_password, :string, null: false)
       add(:confirmed_at, :naive_datetime)
+
       add(:role, RolesEnum.type())
       add(:groups, {:array, GroupsEnum.type()})
+      add(:locked_at, :utc_datetime)
 
       timestamps()
     end
@@ -26,6 +28,7 @@ defmodule DerpyCoder.Repo.Migrations.CreateUsersAuthTables do
       add(:token, :binary, null: false)
       add(:context, :string, null: false)
       add(:sent_to, :string)
+
       timestamps(updated_at: false)
     end
 
