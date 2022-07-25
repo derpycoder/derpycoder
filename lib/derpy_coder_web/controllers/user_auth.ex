@@ -87,6 +87,8 @@ defmodule DerpyCoderWeb.UserAuth do
     |> redirect(to: "/")
   end
 
+  # TODO: Delete all session tokens belonging to user, to log out from all sessions.
+
   @doc """
   Authenticates the user by looking into the session
   and remember me token.
