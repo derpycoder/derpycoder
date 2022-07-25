@@ -13,6 +13,7 @@ defmodule DerpyCoderWeb.UserSessionController do
   def create(conn, %{"user" => user_params}) do
     %{"email" => email, "password" => password} = user_params
 
+    # TODO: Prevent User Login, if account is already locked.
     if user = Accounts.get_user_by_email_and_password(email, password) do
       UserAuth.log_in_user(conn, user, user_params)
     else

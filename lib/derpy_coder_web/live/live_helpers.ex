@@ -29,10 +29,10 @@ defmodule DerpyCoderWeb.LiveHelpers do
   def verify_lock({:cont, socket}) do
     current_user = socket.assigns.current_user
 
-    if !current_user.locked_at do
-      {:cont, socket}
-    else
+    if current_user.locked_at do
       {:halt, socket |> kick_locked_user_out()}
+    else
+      {:cont, socket}
     end
   end
 

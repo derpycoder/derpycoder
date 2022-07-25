@@ -10,3 +10,10 @@ Visit [`localhost:4000`](http://localhost:4000), for magic!!
 
 * To reset DB: `mix ecto.reset`
 * To start just iex: `PHX_SERVER=false iex -S mix`
+* To run software quality analytics: `mix credo`
+* To test: `mix test`
+
+* To test
+  * mix test --cover --export-coverage default
+  * mix test.coverage
+  * mix test —cover

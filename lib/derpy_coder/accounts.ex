@@ -18,6 +18,8 @@ defmodule DerpyCoder.Accounts do
     |> broadcast(:lock_account)
   end
 
+  # TODO: Add another broadcast for logging user out of all devices.
+
   def subscribe(user) do
     Phoenix.PubSub.subscribe(DerpyCoder.PubSub, topic(user))
   end
