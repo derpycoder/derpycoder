@@ -47,6 +47,10 @@ defmodule DerpyCoderWeb do
       use Phoenix.LiveView,
         layout: {DerpyCoderWeb.LayoutView, "live.html"}
 
+      def handle_info({:lock_account, _}, socket) do
+        {:noreply, socket |> redirect(to: "/")}
+      end
+
       unquote(view_helpers())
     end
   end

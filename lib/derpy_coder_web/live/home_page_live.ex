@@ -13,4 +13,9 @@ defmodule DerpyCoderWeb.HomePageLive do
 
     {:ok, socket}
   end
+
+  def handle_event("lock-self", _, socket) do
+    Accounts.lock(socket.assigns.current_user)
+    {:noreply, socket}
+  end
 end

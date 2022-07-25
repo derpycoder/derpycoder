@@ -16,6 +16,8 @@ defmodule DerpyCoderWeb.Permit do
   def on_mount(:anyone, _params, session, socket) do
     {:cont, socket}
     |> assign_user(session)
+    |> maybe_verify_lock()
+    |> maybe_subscribe_user()
   end
 
   # ==============================================================================
@@ -31,7 +33,9 @@ defmodule DerpyCoderWeb.Permit do
     {:cont, socket}
     |> assign_user(session)
     |> verify_user()
+    |> verify_lock()
     |> verify_email()
+    |> subscribe_user()
   end
 
   # ==============================================================================
@@ -48,19 +52,60 @@ defmodule DerpyCoderWeb.Permit do
     {:cont, socket}
     |> assign_user(session)
     |> verify_user()
+    |> verify_lock()
     |> verify_email()
     |> verify_role(~w(super_admin admin)a)
+    |> subscribe_user()
   end
 
   # ==============================================================================
   # Find and assign current user.
   # ==============================================================================
   defp assign_user({:cont, socket}, session) do
-    {:cont,
-     socket
-     |> assign_new(:current_user, fn ->
-       find_current_user(session)
-     end)}
+    socket =
+      socket
+      |> assign_new(:current_user, fn ->
+        find_current_user(session)
+      end)
+
+    {:cont, socket}
+  end
+
+  # ==============================================================================
+  # If current user exists, do something.
+  # ==============================================================================
+  defp maybe_verify_lock({:cont, socket}) do
+    current_user = socket.assigns.current_user
+
+    if current_user do
+      {:cont, socket}
+      |> verify_lock()
+    end
+
+    {:cont, socket}
+  end
+
+  defp maybe_subscribe_user({:cont, socket}) do
+    current_user = socket.assigns.current_user
+
+    if current_user do
+      {:cont, socket}
+      |> subscribe_user()
+    end
+
+    {:cont, socket}
+  end
+
+  # ==============================================================================
+  # Subscribe to user_centric topic, for broadcasts, like:
+  # Notifications, Account Lock, etc.
+  # ==============================================================================
+  defp subscribe_user({:cont, socket}) do
+    current_user = socket.assigns.current_user
+
+    if connected?(socket), do: Accounts.subscribe(current_user)
+
+    {:cont, socket}
   end
 
   defp find_current_user(%{"user_token" => user_token}) do

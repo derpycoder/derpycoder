@@ -6,7 +6,6 @@ defmodule DerpyCoderWeb.LiveHelpers do
   import Phoenix.LiveView.Helpers
 
   alias Phoenix.LiveView.JS
-
   alias DerpyCoderWeb.Router.Helpers, as: Routes
 
   # ==============================================================================
@@ -23,6 +22,21 @@ defmodule DerpyCoderWeb.LiveHelpers do
   end
 
   def verify_user({:halt, _} = arg), do: arg
+
+  # ==============================================================================
+  # Verify that user's Account isn't locked.
+  # ==============================================================================
+  def verify_lock({:cont, socket}) do
+    current_user = socket.assigns.current_user
+
+    if !current_user.locked_at do
+      {:cont, socket}
+    else
+      {:halt, socket |> kick_locked_user_out()}
+    end
+  end
+
+  def verify_lock({:halt, _} = arg), do: arg
 
   # ==============================================================================
   # Verify that user has confirmed their email.
@@ -89,6 +103,12 @@ defmodule DerpyCoderWeb.LiveHelpers do
   defp kick_unauthorized_user_out(socket) do
     socket
     |> put_flash(:error, "Unauthorized.")
+    |> halt()
+  end
+
+  defp kick_locked_user_out(socket) do
+    socket
+    |> put_flash(:error, "Your account is locked.")
     |> halt()
   end
 

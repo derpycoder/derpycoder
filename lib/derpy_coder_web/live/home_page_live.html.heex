@@ -10,4 +10,10 @@
   <%= if Accounts.can?(@current_user, :view, DerpyCoderWeb.AdminDashboardLive) do %>
     <%= live_redirect("Admin Dashboard", to: Routes.admin_dashboard_path(@socket, :index)) %>
   <% end %>
+
+  <%= if @current_user do %>
+    <button phx-click="lock-self">
+      Lock Self
+    </button>
+  <% end %>
 </section>
