@@ -9,7 +9,7 @@ tasks:
       - mix ecto.create
       - mix ecto.migrate
 
-  start:
+  server:
     desc: Run the server
     cmds:
       - elixir --name derpy-coder@127.0.0.1 -S mix phx.server

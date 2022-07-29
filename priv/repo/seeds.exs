@@ -12,7 +12,6 @@
 # and so on) as they will fail if something goes wrong.
 # ==============================================================================
 alias DerpyCoder.Accounts
-alias DerpyCoder.Accounts.User
 alias DerpyCoder.Photos
 alias DerpyCoderWeb.Permissions
 

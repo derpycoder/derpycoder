@@ -23,16 +23,17 @@ defmodule DerpyCoder.Accounts.User do
 
   alias Ecto.{Changeset, Schema}
 
+  @timestamps_opts [type: :utc_datetime_usec]
   @primary_key {:id, ExKsuid.EctoType, autogenerate: true}
   schema "users" do
     field :email, :string
     field :password, :string, virtual: true, redact: true
     field :hashed_password, :string, redact: true
-    field :confirmed_at, :naive_datetime
+    field :confirmed_at, :utc_datetime_usec
 
     field :role, RolesEnum, default: :user
     field :groups, {:array, GroupsEnum}
-    field :locked_at, :utc_datetime
+    field :locked_at, :utc_datetime_usec
 
     timestamps()
   end
@@ -40,7 +41,7 @@ defmodule DerpyCoder.Accounts.User do
   @spec lock_changeset(Schema.t() | Changeset.t()) :: Changeset.t()
   def lock_changeset(user_or_changeset) do
     changeset = Changeset.change(user_or_changeset)
-    locked_at = DateTime.truncate(DateTime.utc_now(), :second)
+    locked_at = DateTime.utc_now()
 
     case Changeset.get_field(changeset, :locked_at) do
       nil -> Changeset.change(changeset, locked_at: locked_at)
@@ -142,7 +143,7 @@ defmodule DerpyCoder.Accounts.User do
   Confirms the account by setting `confirmed_at`.
   """
   def confirm_changeset(user) do
-    now = NaiveDateTime.utc_now() |> NaiveDateTime.truncate(:second)
+    now = DateTime.utc_now()
     change(user, confirmed_at: now)
   end
 

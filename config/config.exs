@@ -10,7 +10,8 @@
 import Config
 
 config :derpy_coder,
-  ecto_repos: [DerpyCoder.Repo]
+  ecto_repos: [DerpyCoder.Repo],
+  migration_timestamps: [type: :utc_datetime_usec]
 
 # ==============================================================================
 # Configure Endpoint

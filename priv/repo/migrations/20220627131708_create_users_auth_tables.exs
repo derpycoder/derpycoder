@@ -11,11 +11,11 @@ defmodule DerpyCoder.Repo.Migrations.CreateUsersAuthTables do
       add(:id, :binary, primary_key: true)
       add(:email, :citext, null: false)
       add(:hashed_password, :string, null: false)
-      add(:confirmed_at, :naive_datetime)
+      add(:confirmed_at, :utc_datetime_usec)
 
       add(:role, RolesEnum.type())
       add(:groups, {:array, GroupsEnum.type()})
-      add(:locked_at, :utc_datetime)
+      add(:locked_at, :utc_datetime_usec)
 
       timestamps()
     end

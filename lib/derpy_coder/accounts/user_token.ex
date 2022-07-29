@@ -16,6 +16,7 @@ defmodule DerpyCoder.Accounts.UserToken do
   @change_email_validity_in_days 7
   @session_validity_in_days 60
 
+  @timestamps_opts [type: :utc_datetime_usec]
   @primary_key {:id, ExKsuid.EctoType, autogenerate: true}
   schema "users_tokens" do
     field :token, :binary
