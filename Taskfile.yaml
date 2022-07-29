@@ -1,0 +1,46 @@
+---
+version: "3"
+
+tasks:
+  install:
+    desc: Install the server
+    cmds:
+      - mix do deps.get, deps.compile
+      - mix ecto.create
+      - mix ecto.migrate
+
+  start:
+    desc: Run the server
+    cmds:
+      - elixir --name derpy-coder@127.0.0.1 -S mix phx.server
+
+  console:
+    desc: Run iex in conjunction with the server
+    summary: |
+      Make sure the server is running.
+      This is useful for running iex alongside server. Which means any PubSub events fired from iex is received by the server.
+    cmds:
+      - iex --name "console@127.0.0.1" --remsh "derpy-coder@127.0.0.1"
+
+  iex:
+    desc: Run iex standalone
+    cmds:
+      - PHX_SERVER=$PHX_SERVER iex -S mix
+    env:
+      PHX_SERVER: false
+
+  reset:
+    desc: Reset the database and its tables
+    cmds:
+      - mix ecto.reset
+
+  analyze:
+    desc: Analyze code for consistency
+    cmds:
+      - cmd: mix credo
+        ignore_error: true
+
+  format:
+    desc: Format code
+    cmds:
+      - mix format --check-formatted
