@@ -14,7 +14,7 @@ For more commands:
 - [ ] Later clickhouse
 
 ## Fix:
-  * To test: `mix test`
-  * mix test --cover --export-coverage default
-  * mix test.coverage
-  * mix test —cover
+- [ ] To test: `mix test`
+- [ ] mix test --cover --export-coverage default
+- [ ] mix test.coverage
+- [ ] mix test —cover
