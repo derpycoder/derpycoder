@@ -10,8 +10,8 @@ For more commands:
 * task -l
 
 ## To Add:
-- [] Instruction for installing Postgres
-- [] Later clickhouse
+- [ ] Instruction for installing Postgres
+- [ ] Later clickhouse
 
 ## Fix:
   * To test: `mix test`
