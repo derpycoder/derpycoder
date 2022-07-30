@@ -43,7 +43,7 @@ tasks:
   analyze:sobelow:
     desc: Analyze code for vulnerabilities
     cmds:
-      - cmd: mix sobelow
+      - cmd: mix sobelow --compact
         ignore_error: true
 
   format:check:
