@@ -5,7 +5,7 @@ tasks:
   install:
     desc: Install the server
     cmds:
-      - mix do deps.get, deps.compile
+      - tasks: [compile]
       - mix ecto.create
       - mix ecto.migrate
 
@@ -40,13 +40,29 @@ tasks:
       - cmd: mix credo
         ignore_error: true
 
-  format:
+  analyze:sobelow:
+    desc: Analyze code for vulnerabilities
+    cmds:
+      - cmd: mix sobelow
+        ignore_error: true
+
+  format:check:
     desc: Format code
     cmds:
       - mix format --check-formatted
+
+  format:
+    desc: Format code
+    cmds:
+      - mix format
 
   update:
     desc: Update all dependencies
     cmds:
       - mix deps.update --all
+      - tasks: [compile]
+
+  compile:
+    desc: Fetch & Compile dependencies
+    cmds:
       - mix do deps.get, deps.compile
