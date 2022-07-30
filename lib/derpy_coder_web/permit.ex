@@ -108,6 +108,8 @@ defmodule DerpyCoderWeb.Permit do
     {:cont, socket}
   end
 
+  defp subscribe_user({:halt, _} = arg), do: arg
+
   defp find_current_user(%{"user_token" => user_token}) do
     Accounts.get_user_by_session_token(user_token)
   end

@@ -71,6 +71,16 @@ defmodule DerpyCoderWeb.LiveHelpers do
   # ==============================================================================
   # Verify that the user is authorized.
   # ==============================================================================
+  def verify_authorization({:cont, socket}, policy, entity, action) do
+    user = socket.assigns.current_user
+
+    if policy.can?(user, action, entity) do
+      {:cont, socket}
+    else
+      {:halt, socket |> kick_unauthorized_user_out()}
+    end
+  end
+
   def verify_authorization({:cont, socket}, policy, entity) do
     user = socket.assigns.current_user
     action = socket.assigns.live_action

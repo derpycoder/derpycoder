@@ -44,6 +44,8 @@ defmodule DerpyCoderWeb.PhotoLive.FormComponent do
   end
 
   defp save_photo(socket, :new, photo_params) do
+    IO.inspect(photo_params, label: "photo_params")
+
     case Photos.create_photo(photo_params) do
       {:ok, _photo} ->
         {:noreply,

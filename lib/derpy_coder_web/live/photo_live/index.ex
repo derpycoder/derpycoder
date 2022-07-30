@@ -69,7 +69,7 @@ defmodule DerpyCoderWeb.PhotoLive.Index do
 
     {:cont, socket}
     |> verify_user()
-    |> verify_authorization(Photos, photo)
+    |> verify_authorization(Photos, photo, :delete)
     |> case do
       {:cont, socket} ->
         {:ok, _} = Photos.delete_photo(photo)
