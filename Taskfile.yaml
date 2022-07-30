@@ -2,7 +2,7 @@
 version: "3"
 
 tasks:
-  install:
+  setup:server:
     desc: Install the server
     cmds:
       - tasks: [compile]
@@ -18,7 +18,8 @@ tasks:
     desc: Run iex in conjunction with the server
     summary: |
       Make sure the server is running.
-      This is useful for running iex alongside server. Which means any PubSub events fired from iex is received by the server.
+      This is useful for running iex alongside server.
+      Which means any PubSub events fired from iex is received by the server.
     cmds:
       - iex --name "console@127.0.0.1" --remsh "derpy-coder@127.0.0.1"
 
@@ -28,6 +29,14 @@ tasks:
       - PHX_SERVER=$PHX_SERVER iex -S mix
     env:
       PHX_SERVER: false
+
+  start:psql:
+    desc: Starts psql
+    summary: |
+      \du - For Listing all
+      quit - To quit
+    cmds:
+      - psql -U postgres
 
   reset:
     desc: Reset the database and its tables
