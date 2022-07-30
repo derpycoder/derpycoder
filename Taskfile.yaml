@@ -9,12 +9,12 @@ tasks:
       - mix ecto.create
       - mix ecto.migrate
 
-  server:
+  start:server:
     desc: Run the server
     cmds:
       - elixir --name derpy-coder@127.0.0.1 -S mix phx.server
 
-  console:
+  start:console:
     desc: Run iex in conjunction with the server
     summary: |
       Make sure the server is running.
@@ -22,7 +22,7 @@ tasks:
     cmds:
       - iex --name "console@127.0.0.1" --remsh "derpy-coder@127.0.0.1"
 
-  iex:
+  start:iex:
     desc: Run iex standalone
     cmds:
       - PHX_SERVER=$PHX_SERVER iex -S mix
@@ -34,7 +34,7 @@ tasks:
     cmds:
       - mix ecto.reset
 
-  analyze:
+  analyze:credo:
     desc: Analyze code for consistency
     cmds:
       - cmd: mix credo
