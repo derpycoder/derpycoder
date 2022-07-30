@@ -2,6 +2,15 @@
 version: "3"
 
 tasks:
+  install:tools:
+    desc: Install all tools with help of asdf
+    summary: |
+      It will pickup up versions from .tool-versions file and install them.
+
+      Postgres is kept out of that file, because we want to manage it via brew services.
+    cmds:
+      - asdf install
+
   setup:server:
     desc: Install the server
     cmds:
