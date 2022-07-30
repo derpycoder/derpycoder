@@ -44,3 +44,9 @@ tasks:
     desc: Format code
     cmds:
       - mix format --check-formatted
+
+  update:
+    desc: Update all dependencies
+    cmds:
+      - mix deps.update --all
+      - mix do deps.get, deps.compile
