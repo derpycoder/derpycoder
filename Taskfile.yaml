@@ -10,6 +10,7 @@ tasks:
       Postgres is kept out of that file, because we want to manage it via brew services.
     cmds:
       - asdf install
+      - mix local.hex
 
   install.deps:
     desc: Fetch & Compile dependencies
@@ -40,9 +41,7 @@ tasks:
   start.iex:
     desc: Run iex standalone
     cmds:
-      - PHX_SERVER=$PHX_SERVER iex -S mix
-    env:
-      PHX_SERVER: false
+      - PHX_SERVER=false iex -S mix
 
   start.psql:
     desc: Starts psql
@@ -89,3 +88,12 @@ tasks:
     desc: Reset the unused dependencies
     cmds:
       - mix deps.clean --unused
+
+  open.file:
+    desc: Open any file from Module or Function name.
+    summary: |
+      task open.file -- DerpyCoder.Accounts.lock
+      or
+      task open.file -- DerpyCoder.Accounts
+    cmds:
+      - PHX_SERVER=false iex -S mix phx.server <<< "open {{.CLI_ARGS}}"
