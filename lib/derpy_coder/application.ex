@@ -29,6 +29,7 @@ defmodule DerpyCoder.Application do
     # ==============================================================================
     # Initialize application specific code
     # ==============================================================================
+    # TODO: Initialize Super Admin via TaskFile.
     DerpyCoder.Release.init_super_admin()
 
     supervisor
