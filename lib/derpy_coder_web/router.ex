@@ -12,7 +12,7 @@ defmodule DerpyCoderWeb.Router do
     plug :fetch_live_flash
     plug :put_root_layout, {DerpyCoderWeb.LayoutView, :root}
     plug :protect_from_forgery
-    plug :put_secure_browser_headers, %{"content-security-policy" => "default-src 'self'"}
+    plug :put_secure_browser_headers
     plug :fetch_current_user
     plug KickLockedUserOut
   end
@@ -23,7 +23,7 @@ defmodule DerpyCoderWeb.Router do
     plug :fetch_live_flash
     plug :put_root_layout, {DerpyCoderWeb.LayoutView, :minimalist}
     plug :protect_from_forgery
-    plug :put_secure_browser_headers, %{"content-security-policy" => "default-src 'self'"}
+    plug :put_secure_browser_headers
     plug :fetch_current_user
   end
 
