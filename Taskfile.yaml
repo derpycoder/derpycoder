@@ -80,12 +80,12 @@ tasks:
       - mix deps.update --all
       - tasks: [install:deps]
 
-  clear.db:
+  reset.db:
     desc: Reset the database and its tables
     cmds:
       - mix ecto.reset
 
-  clear.deps:
+  reset.deps:
     desc: Reset the unused dependencies
     cmds:
       - mix deps.clean --unused
