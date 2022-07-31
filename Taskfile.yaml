@@ -2,7 +2,7 @@
 version: "3"
 
 tasks:
-  install:tools:
+  install.tools:
     desc: Install all tools with help of asdf
     summary: |
       It will pickup up versions from .tool-versions file and install them.
@@ -11,24 +11,24 @@ tasks:
     cmds:
       - asdf install
 
-  install:deps:
+  install.deps:
     desc: Fetch & Compile dependencies
     cmds:
       - mix do deps.get, deps.compile
 
-  setup:server:
+  setup.server:
     desc: Install the server
     cmds:
       - tasks: [install:deps]
       - mix ecto.create
       - mix ecto.migrate
 
-  start:server:
+  start.server:
     desc: Run the server
     cmds:
       - elixir --name derpy-coder@127.0.0.1 -S mix phx.server
 
-  start:console:
+  start.console:
     desc: Run iex in conjunction with the server
     summary: |
       Make sure the server is running.
@@ -37,14 +37,14 @@ tasks:
     cmds:
       - iex --name "console@127.0.0.1" --remsh "derpy-coder@127.0.0.1"
 
-  start:iex:
+  start.iex:
     desc: Run iex standalone
     cmds:
       - PHX_SERVER=$PHX_SERVER iex -S mix
     env:
       PHX_SERVER: false
 
-  start:psql:
+  start.psql:
     desc: Starts psql
     summary: |
       \du - For Listing all
@@ -52,40 +52,40 @@ tasks:
     cmds:
       - psql -U postgres
 
-  analyze:cons:
+  analyze.cons:
     desc: Analyze code, using Credo, for consistency
     cmds:
       - cmd: mix credo
         ignore_error: true
 
-  analyze:vuln:
+  analyze.vuln:
     desc: Analyze code, using Sobelow, for vulnerabilities
     cmds:
       - cmd: mix sobelow --compact
         ignore_error: true
 
-  format:check:
+  format.check:
     desc: Format code
     cmds:
       - mix format --check-formatted
 
-  format:code:
+  format.code:
     desc: Format code
     cmds:
       - mix format
 
-  update:deps:
+  update.deps:
     desc: Update all dependencies
     cmds:
       - mix deps.update --all
       - tasks: [install:deps]
 
-  reset:db:
+  reset.db:
     desc: Reset the database and its tables
     cmds:
       - mix ecto.reset
 
-  reset:deps:
+  reset.deps:
     desc: Reset the unused dependencies
     cmds:
-      - mix deps.clean
+      - mix deps.clean --unused
