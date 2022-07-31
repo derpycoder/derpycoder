@@ -11,10 +11,15 @@ tasks:
     cmds:
       - asdf install
 
+  install:deps:
+    desc: Fetch & Compile dependencies
+    cmds:
+      - mix do deps.get, deps.compile
+
   setup:server:
     desc: Install the server
     cmds:
-      - tasks: [compile]
+      - tasks: [install:deps]
       - mix ecto.create
       - mix ecto.migrate
 
@@ -47,19 +52,14 @@ tasks:
     cmds:
       - psql -U postgres
 
-  reset:
-    desc: Reset the database and its tables
-    cmds:
-      - mix ecto.reset
-
-  analyze:credo:
-    desc: Analyze code for consistency
+  analyze:cons:
+    desc: Analyze code, using Credo, for consistency
     cmds:
       - cmd: mix credo
         ignore_error: true
 
-  analyze:sobelow:
-    desc: Analyze code for vulnerabilities
+  analyze:vuln:
+    desc: Analyze code, using Sobelow, for vulnerabilities
     cmds:
       - cmd: mix sobelow --compact
         ignore_error: true
@@ -69,18 +69,23 @@ tasks:
     cmds:
       - mix format --check-formatted
 
-  format:
+  format:code:
     desc: Format code
     cmds:
       - mix format
 
-  update:
+  update:deps:
     desc: Update all dependencies
     cmds:
       - mix deps.update --all
-      - tasks: [compile]
+      - tasks: [install:deps]
 
-  compile:
-    desc: Fetch & Compile dependencies
+  reset:db:
+    desc: Reset the database and its tables
     cmds:
-      - mix do deps.get, deps.compile
+      - mix ecto.reset
+
+  reset:deps:
+    desc: Reset the unused dependencies
+    cmds:
+      - mix deps.clean
