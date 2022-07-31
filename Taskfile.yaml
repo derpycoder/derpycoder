@@ -80,12 +80,17 @@ tasks:
       - mix deps.update --all
       - tasks: [install:deps]
 
-  reset.db:
+  clear.db:
     desc: Reset the database and its tables
     cmds:
       - mix ecto.reset
 
-  reset.deps:
+  clear.deps:
     desc: Reset the unused dependencies
     cmds:
       - mix deps.clean --unused
+
+  clear.branches:
+    desc: Clear local branches which are already merged.
+    cmds:
+      - git for-each-ref --format '%(refname:short)' refs/heads --no-merged | grep -v "master\|main" | xargs git branch -D
