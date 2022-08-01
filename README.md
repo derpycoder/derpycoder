@@ -25,6 +25,10 @@ Global Env Variables:
 
 > Must have installed `code` command in path, for file to open in VS Code!!
 
+## Icon:
+- [HeroIcons](https://heroicons.com)
+- [SVG OMG](https://jakearchibald.github.io/svgomg/)
+
 ## To Add:
 - [ ] Instruction for installing Postgres
 - [ ] Later clickhouse
