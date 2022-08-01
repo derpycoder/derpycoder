@@ -2,6 +2,14 @@
 version: "3"
 
 tasks:
+  install.asdf:
+    desc: Install asdf and related plugins using brew
+    cmds:
+      - brew install asdf
+      - asdf plugin-add elixir https://github.com/asdf-vm/asdf-elixir.git
+      - asdf plugin-add erlang https://github.com/asdf-vm/asdf-erlang.git
+      - asdf plugin-add postgres
+
   install.tools:
     desc: Install all tools with help of asdf
     summary: |
@@ -23,6 +31,16 @@ tasks:
       - tasks: [install:deps]
       - mix ecto.create
       - mix ecto.migrate
+
+  start.postgres:
+    desc: Start Postgres server
+    cmds:
+      - pg_ctl start
+
+  seed.db:
+    desc: Runs the seeds file
+    cmds:
+      - mix ecto.seed
 
   start.server:
     desc: Run the server
@@ -88,6 +106,11 @@ tasks:
     desc: Reset the unused dependencies
     cmds:
       - mix deps.clean --unused
+
+  stop.postgres:
+    desc: Stop Postgres server
+    cmds:
+      - pg_ctl stop
 
   open.file:
     desc: Open any file from Module or Function name.

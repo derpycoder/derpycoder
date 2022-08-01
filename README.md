@@ -1,13 +1,19 @@
 # DerpyCoder
 
 To begin:
+* Install brew
+* Install asdf
 * brew install go-task/tap/go-task
+
+* task install.asdf
 * task install.tools
 * task install.deps
+
+* task start.postgres
+* task seed.db
 * task start.server
 
-> Pre requisites: Brew & ASDF must be installed along with latest Postgres version.
-> DBeaver is nice to have as well.
+> Install DBeaver for inspecting the database.
 
 For more commands:
 * mix help
