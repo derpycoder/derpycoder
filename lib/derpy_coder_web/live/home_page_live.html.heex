@@ -11,6 +11,10 @@
     <%= live_redirect("Admin Dashboard", to: Routes.admin_dashboard_path(@socket, :index)) %>
   <% end %>
 
+  <button phx-click="inspect-source" class="normal-case">
+    Inspect <%= module_name(__MODULE__) %>
+  </button>
+
   <%= if @current_user do %>
     <button phx-click="lock-self">
       Lock Self
