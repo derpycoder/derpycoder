@@ -68,6 +68,8 @@ config :derpy_coder, DerpyCoder.Repo,
 # ==============================================================================
 # Configure Super Admin
 # ==============================================================================
+environment = env!("ENVIRONMENT", :string, "prod")
+
 super_admin_user_ids = env!("SUPER_ADMIN_USER_IDS", fn str -> str |> String.split(",") end)
 super_admin_user_id = env!("SUPER_ADMIN_USER_ID", :string)
 super_admin_user_name = env!("SUPER_ADMIN_USER_NAME", :string)
@@ -75,6 +77,7 @@ super_admin_user_email = env!("SUPER_ADMIN_USER_EMAIL", :string)
 super_admin_user_password = env!("SUPER_ADMIN_USER_PASSWORD", :string)
 
 config :derpy_coder,
+  environment: environment,
   super_admin_user_ids: super_admin_user_ids,
   super_admin_user: %{
     id: super_admin_user_id,
