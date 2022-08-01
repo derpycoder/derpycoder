@@ -11,10 +11,6 @@ defmodule DerpyCoderWeb.LiveHelpers do
   # ==============================================================================
   # Helpers for UI Debugging feature
   # ==============================================================================
-  def module_name(module) do
-    module |> to_string() |> String.split(".") |> List.last()
-  end
-
   def inspect_source(path, line \\ 1) do
     System.cmd("code", ["--goto", "#{path}:#{line}"])
   end

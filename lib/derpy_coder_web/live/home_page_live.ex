@@ -14,12 +14,6 @@ defmodule DerpyCoderWeb.HomePageLive do
     {:ok, socket}
   end
 
-  def handle_event("inspect-source", _, socket) do
-    inspect_source(__ENV__.file)
-
-    {:noreply, socket}
-  end
-
   # TODO: Move user lock functionality to admin dashboard using live view generator.
   def handle_event("lock-self", _, socket) do
     Accounts.lock(socket.assigns.current_user)
