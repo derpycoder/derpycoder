@@ -10,7 +10,27 @@ import Dotenvy
 
 source!(["config/.env.#{config_env()}", System.get_env()])
 
+# ==============================================================================
+# Configure App
+# ==============================================================================
 app_version = env!("APP_VERSION", :string)
+environment = env!("ENVIRONMENT", :string, "prod")
+
+super_admin_user_ids = env!("SUPER_ADMIN_USER_IDS", fn str -> str |> String.split(",") end)
+super_admin_user_id = env!("SUPER_ADMIN_USER_ID", :string)
+super_admin_user_name = env!("SUPER_ADMIN_USER_NAME", :string)
+super_admin_user_email = env!("SUPER_ADMIN_USER_EMAIL", :string)
+super_admin_user_password = env!("SUPER_ADMIN_USER_PASSWORD", :string)
+
+config :derpy_coder,
+  environment: environment,
+  super_admin_user_ids: super_admin_user_ids,
+  super_admin_user: %{
+    id: super_admin_user_id,
+    name: super_admin_user_name,
+    email: super_admin_user_email,
+    password: super_admin_user_password
+  }
 
 # ==============================================================================
 # Configure Endpoint
@@ -64,27 +84,6 @@ config :derpy_coder, DerpyCoder.Repo,
   stacktrace: stacktrace,
   show_sensitive_data_on_connection_error: show_sensitive_data,
   migration_primary_key: [name: :id, type: :binary]
-
-# ==============================================================================
-# Configure Super Admin
-# ==============================================================================
-environment = env!("ENVIRONMENT", :string, "prod")
-
-super_admin_user_ids = env!("SUPER_ADMIN_USER_IDS", fn str -> str |> String.split(",") end)
-super_admin_user_id = env!("SUPER_ADMIN_USER_ID", :string)
-super_admin_user_name = env!("SUPER_ADMIN_USER_NAME", :string)
-super_admin_user_email = env!("SUPER_ADMIN_USER_EMAIL", :string)
-super_admin_user_password = env!("SUPER_ADMIN_USER_PASSWORD", :string)
-
-config :derpy_coder,
-  environment: environment,
-  super_admin_user_ids: super_admin_user_ids,
-  super_admin_user: %{
-    id: super_admin_user_id,
-    name: super_admin_user_name,
-    email: super_admin_user_email,
-    password: super_admin_user_password
-  }
 
 # ==============================================================================
 # Configure Fun With Flags

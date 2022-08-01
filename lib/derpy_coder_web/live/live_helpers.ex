@@ -8,21 +8,9 @@ defmodule DerpyCoderWeb.LiveHelpers do
   alias Phoenix.LiveView.JS
   alias DerpyCoderWeb.Router.Helpers, as: Routes
 
-  # ==============================================================================
-  # Helpers for UI Debugging feature
-  # ==============================================================================
-  def env(atom) when is_atom(atom) do
-    atom = to_string(atom)
-    Application.get_env(:derpy_coder, :environment) == atom
-  end
-
-  def env(str) when is_binary(str) do
-    Application.get_env(:derpy_coder, :environment) == str
-  end
-
-  def env(list) when is_list(list) do
-    Application.get_env(:derpy_coder, :environment) in list
-  end
+  def env(atom) when is_atom(atom), do: Application.get_env(:derpy_coder, :environment) == to_string(atom)
+  def env(str) when is_binary(str), do: Application.get_env(:derpy_coder, :environment) == str
+  def env(list) when is_list(list), do: Application.get_env(:derpy_coder, :environment) in list
 
   def inspect_source(path, line \\ 1) do
     System.cmd("code", ["--goto", "#{path}:#{line}"])
