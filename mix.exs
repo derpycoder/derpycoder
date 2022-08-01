@@ -60,7 +60,8 @@ defmodule DerpyCoder.MixProject do
       {:phoenix_pubsub, "~> 2.1"},
       {:ecto_psql_extras, "~> 0.7.4"},
       {:dotenvy, "~> 0.6.0"},
-      {:sobelow, "~> 0.11.1"}
+      {:sobelow, "~> 0.11.1"},
+      {:heroicons, "~> 0.3.2"}
     ]
   end
 
