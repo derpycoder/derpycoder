@@ -6,8 +6,4 @@ defmodule DerpyCoderWeb.InspectorComponent do
 
     {:noreply, socket}
   end
-
-  def component_name(module) do
-    module |> to_string() |> String.split(".") |> List.last()
-  end
 end

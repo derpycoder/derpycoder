@@ -1,3 +1,13 @@
-<button phx-click="inspect-source" phx-value-file={@file} class="normal-case" phx-target={@myself}>
-  <%= component_name(@component) %>
-</button>
+<div class="absolute -top-10 flex">
+  <button class="rounded-tl-lg rounded-bl-lg p-2 bg-slate-100 m-0">
+    <Heroicons.Solid.eye class="h-6 w-6 text-gray-500" />
+  </button>
+  <button
+    phx-click="inspect-source"
+    phx-value-file={@file}
+    class="rounded-tr-lg rounded-br-lg p-2 bg-slate-100 m-0 border-l border-slate-200"
+    phx-target={@myself}
+  >
+    <Heroicons.Solid.code class="h-6 w-6 text-gray-500" />
+  </button>
+</div>

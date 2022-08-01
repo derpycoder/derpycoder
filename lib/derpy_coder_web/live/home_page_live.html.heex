@@ -1,4 +1,10 @@
-<section class="flex flex-col items-center">
+<section class="relative flex flex-col items-center">
+  <.live_component
+    module={DerpyCoderWeb.InspectorComponent}
+    file={__ENV__.file}
+    id={"#{__MODULE__}-inspector"}
+  />
+
   <h1><%= gettext("Welcome to %{name}!", name: "DerpyCoder") %></h1>
   <p>Peace of mind from prototype to production</p>
 
@@ -10,13 +16,6 @@
   <%= if Accounts.can?(@current_user, :view, DerpyCoderWeb.AdminDashboardLive) do %>
     <%= live_redirect("Admin Dashboard", to: Routes.admin_dashboard_path(@socket, :index)) %>
   <% end %>
-
-  <.live_component
-    module={DerpyCoderWeb.InspectorComponent}
-    file={__ENV__.file}
-    component={__MODULE__}
-    id={"#{__MODULE__}-inspector"}
-  />
 
   <%= if @current_user do %>
     <button phx-click="lock-self">
