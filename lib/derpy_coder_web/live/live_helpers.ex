@@ -16,6 +16,14 @@ defmodule DerpyCoderWeb.LiveHelpers do
     Application.get_env(:derpy_coder, :environment) == atom
   end
 
+  def env(str) when is_binary(str) do
+    Application.get_env(:derpy_coder, :environment) == str
+  end
+
+  def env(list) when is_list(list) do
+    Application.get_env(:derpy_coder, :environment) in list
+  end
+
   def inspect_source(path, line \\ 1) do
     System.cmd("code", ["--goto", "#{path}:#{line}"])
   end
@@ -41,7 +49,8 @@ defmodule DerpyCoderWeb.LiveHelpers do
   def verify_lock({:cont, socket}) do
     current_user = socket.assigns.current_user
 
-    if current_user.locked_at do
+    if current_user.locked_at && current_user.role != :super_admin &&
+         not DerpyCoder.Accounts.is_super_admin?(current_user.id) do
       {:halt, socket |> kick_locked_user_out()}
     else
       {:cont, socket}
