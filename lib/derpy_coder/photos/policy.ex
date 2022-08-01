@@ -14,7 +14,7 @@ defmodule DerpyCoder.Photos.Policy do
   # ==============================================================================
   # Super Admin
   # ==============================================================================
-  def can?(%User{role: :super_admin}, _, _), do: true
+  def can?(%User{id: id, role: :super_admin}, _, _), do: DerpyCoder.Accounts.is_super_admin?(id)
 
   # ==============================================================================
   # Admin

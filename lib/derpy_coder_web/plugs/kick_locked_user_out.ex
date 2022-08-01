@@ -24,7 +24,9 @@ defmodule DerpyCoderWeb.KickLockedUserOut do
     |> maybe_halt(conn)
   end
 
-  defp locked?(%{locked_at: locked_at}) when not is_nil(locked_at), do: true
+  defp locked?(%{id: id, locked_at: locked_at}) when not is_nil(locked_at),
+    do: not DerpyCoder.Accounts.is_super_admin?(id)
+
   defp locked?(_user), do: false
 
   defp maybe_halt(true, conn) do

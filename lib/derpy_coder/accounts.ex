@@ -10,7 +10,21 @@ defmodule DerpyCoder.Accounts do
 
   alias DerpyCoder.Accounts.{User, UserToken, UserNotifier}
 
+  # ==============================================================================
+  # Used to verify if the user is actually a Super Admin!!
+  # ==============================================================================
+  def is_super_admin?(nil), do: false
+
+  def is_super_admin?(user_id) do
+    user_id in Application.get_env(:derpy_coder, :super_admin_user_ids)
+  end
+
+  # ==============================================================================
+  # Used to lock user out, across all devices!!
+  # ==============================================================================
   @spec lock(map()) :: {:ok, map()} | {:error, map()}
+  def lock(%User{id: id, role: :super_admin}), do: not is_super_admin?(id)
+
   def lock(user) do
     user
     |> User.lock_changeset()
