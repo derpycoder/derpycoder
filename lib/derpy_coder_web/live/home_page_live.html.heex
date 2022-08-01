@@ -1,9 +1,11 @@
 <section class="relative flex flex-col items-center">
-  <.live_component
-    module={DerpyCoderWeb.InspectorComponent}
-    file={__ENV__.file}
-    id={"#{__MODULE__}-inspector"}
-  />
+  <%= if env(:dev) do %>
+    <.live_component
+      module={DerpyCoderWeb.InspectorComponent}
+      file={__ENV__.file}
+      id={"#{__MODULE__}-inspector"}
+    />
+  <% end %>
 
   <h1><%= gettext("Welcome to %{name}!", name: "DerpyCoder") %></h1>
   <p>Peace of mind from prototype to production</p>

@@ -1,55 +1,63 @@
-<h1>Show Photo</h1>
-
-<%= if @live_action in [:edit] do %>
-  <.modal return_to={@return_to}>
+<div class="relative">
+  <h1>Show Photo</h1>
+  <%= if env(:dev) do %>
     <.live_component
-      module={DerpyCoderWeb.PhotoLive.FormComponent}
-      id={@photo.id}
-      title={@page_title}
-      action={@live_action}
-      photo={@photo}
-      current_user={@current_user}
-      return_to={@return_to}
+      module={DerpyCoderWeb.InspectorComponent}
+      file={__ENV__.file}
+      id={"#{__MODULE__}-inspector"}
     />
-  </.modal>
-<% end %>
-
-<ul>
-  <li>
-    <strong>Title:</strong>
-    <%= @photo.title %>
-  </li>
-
-  <li>
-    <strong>Description:</strong>
-    <%= @photo.description %>
-  </li>
-
-  <li>
-    <strong>Photo url:</strong>
-    <%= @photo.photo_url %>
-  </li>
-
-  <li>
-    <strong>Views:</strong>
-    <%= @photo.views %>
-  </li>
-
-  <li>
-    <strong>Downloads:</strong>
-    <%= @photo.downloads %>
-  </li>
-
-  <li>
-    <strong>Likes:</strong>
-    <%= @photo.likes %>
-  </li>
-</ul>
-
-<span>
-  <%= if Photos.can?(@current_user, :edit, @photo) do %>
-    <%= live_patch("Edit", to: Routes.photo_show_path(@socket, :edit, @photo), class: "button") %>
   <% end %>
-</span>
-|
-<span><%= live_redirect("Back", to: Routes.photo_index_path(@socket, :index)) %></span>
+
+  <%= if @live_action in [:edit] do %>
+    <.modal return_to={@return_to}>
+      <.live_component
+        module={DerpyCoderWeb.PhotoLive.FormComponent}
+        id={@photo.id}
+        title={@page_title}
+        action={@live_action}
+        photo={@photo}
+        current_user={@current_user}
+        return_to={@return_to}
+      />
+    </.modal>
+  <% end %>
+
+  <ul>
+    <li>
+      <strong>Title:</strong>
+      <%= @photo.title %>
+    </li>
+
+    <li>
+      <strong>Description:</strong>
+      <%= @photo.description %>
+    </li>
+
+    <li>
+      <strong>Photo url:</strong>
+      <%= @photo.photo_url %>
+    </li>
+
+    <li>
+      <strong>Views:</strong>
+      <%= @photo.views %>
+    </li>
+
+    <li>
+      <strong>Downloads:</strong>
+      <%= @photo.downloads %>
+    </li>
+
+    <li>
+      <strong>Likes:</strong>
+      <%= @photo.likes %>
+    </li>
+  </ul>
+
+  <span>
+    <%= if Photos.can?(@current_user, :edit, @photo) do %>
+      <%= live_patch("Edit", to: Routes.photo_show_path(@socket, :edit, @photo), class: "button") %>
+    <% end %>
+  </span>
+  | <span><%= live_redirect("Back", to: Routes.photo_index_path(@socket, :index)) %></span>
+</div>

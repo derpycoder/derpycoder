@@ -1,4 +1,12 @@
 <div>
+  <%= if env(:dev) do %>
+    <.live_component
+      module={DerpyCoderWeb.InspectorComponent}
+      file={__ENV__.file}
+      id={"#{__MODULE__}-inspector"}
+    />
+  <% end %>
+
   <h2><%= @title %></h2>
 
   <.form

@@ -11,6 +11,11 @@ defmodule DerpyCoderWeb.LiveHelpers do
   # ==============================================================================
   # Helpers for UI Debugging feature
   # ==============================================================================
+  def env(atom) when is_atom(atom) do
+    atom = to_string(atom)
+    Application.get_env(:derpy_coder, :environment) == atom
+  end
+
   def inspect_source(path, line \\ 1) do
     System.cmd("code", ["--goto", "#{path}:#{line}"])
   end
@@ -154,17 +159,17 @@ defmodule DerpyCoderWeb.LiveHelpers do
   the URL when the modal is closed.
 
   ## Examples
-
-      <.modal return_to={Routes.photo_index_path(@socket, :index)}>
-        <.live_component
-          module={DerpyCoderWeb.PhotoLive.FormComponent}
-          id={@photo.id || :new}
-          title={@page_title}
-          action={@live_action}
-          return_to={Routes.photo_index_path(@socket, :index)}
-          photo: @photo
-        />
-      </.modal>
+  <.modal return_to={Routes.photo_index_path(@socket, :index)}>
+    <.live_component
+      module={DerpyCoderWeb.PhotoLive.FormComponent}
+      id={@photo.id || :new}
+      title={@page_title}
+      action={@live_action}
+      return_to={Routes.photo_index_path(@socket, :index)}
+      photo:
+      @photo
+    />
+  </.modal>
   """
   def modal(assigns) do
     assigns = assign_new(assigns, :return_to, fn -> nil end)
