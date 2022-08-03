@@ -25,25 +25,36 @@ tasks:
     cmds:
       - mix do deps.get, deps.compile
 
-  setup:server:
-    desc: Install the server
-    cmds:
-      - tasks: [install:deps]
-      - mix ecto.create
-      - mix ecto.migrate
-
   start:postgres:
     desc: Start Postgres server
     cmds:
       - pg_ctl start
 
-  seed:db:
+  setup:ecto:
+    desc: Runs create, migrate, initializes super admin and finally seeds the database.
+    cmds:
+      - mix ecto.setup
+
+  setup:super_admin:
+    desc: Initializes the first Super Admin
+    summary: |
+      Useful for securely setting up the first super admin, by taking the values from
+      the following environment variables:
+        - SUPER_ADMIN_USER_IDS
+        - SUPER_ADMIN_USER_ID
+        - SUPER_ADMIN_USER_NAME
+        - SUPER_ADMIN_USER_EMAIL
+        - SUPER_ADMIN_USER_PASSWORD
+    cmds:
+      - mix app.setup super_admin
+
+  seed:ecto:
     desc: Runs the seeds file
     cmds:
       - mix ecto.seed
 
   start:server:
-    desc: Run the server
+    desc: Runs the server with a custom name
     cmds:
       - elixir --name derpy-coder@127.0.0.1 -S mix phx.server
 
@@ -59,7 +70,7 @@ tasks:
   start:iex:
     desc: Run iex standalone
     cmds:
-      - PHX_SERVER=false iex -S mix
+      - iex -S mix
 
   start:psql:
     desc: Starts psql
@@ -97,8 +108,8 @@ tasks:
       - mix deps.update --all
       - tasks: [install:deps]
 
-  reset:db:
-    desc: Reset the database and its tables
+  reset:ecto:
+    desc: Resets Ecto, by dropping, creating, migrating, adding super admin and finally seeding the database.
     cmds:
       - mix ecto.reset
 
@@ -112,6 +123,16 @@ tasks:
     cmds:
       - pg_ctl stop
 
+  open:zsh:
+    desc: Opens ZSH Path file, to add Paths
+    summary: |
+      Run the task and then add the following to end of the file:
+      - source $(brew --prefix asdf)/libexec/asdf.sh
+      - export ELIXIR_EDITOR="code --goto __FILE__:__LINE__"
+    cmds:
+      - code ~/.zshrc
+      - code ~/.zshenv
+
   open:file:
     desc: Open any file from Module or Function name.
     summary: |
@@ -119,4 +140,4 @@ tasks:
       or
       task open.file -- DerpyCoder.Accounts
     cmds:
-      - PHX_SERVER=false iex -S mix phx.server <<< "open {{.CLI_ARGS}}"
+      - iex -S mix phx.server <<< "open {{.CLI_ARGS}}"

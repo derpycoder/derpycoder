@@ -56,7 +56,10 @@ port = env!("PORT", :integer)
 # variable instead.
 secret_key_base = env!("SECRET_KEY_BASE", :string)
 
-phx_server = env!("PHX_SERVER", :boolean, true)
+# Used only while release. Need to explicitly set PHX_SERVER to true!
+if env!("PHX_SERVER", :boolean, false) do
+  config :derpy_coder, DerpyCoderWeb.Endpoint, server: true
+end
 
 config :derpy_coder, DerpyCoderWeb.Endpoint,
   url: [scheme: base_url.scheme, host: base_url.host, port: base_url.port, path: base_url.path],
@@ -65,8 +68,7 @@ config :derpy_coder, DerpyCoderWeb.Endpoint,
   # See the documentation on https://hexdocs.pm/plug_cowboy/Plug.Cowboy.html
   # for details about using IPv6 vs IPv4 and loopback vs public addresses.
   http: [ip: ip_addr, port: port, transport_options: [max_connections: :infinity]],
-  secret_key_base: secret_key_base,
-  server: phx_server
+  secret_key_base: secret_key_base
 
 # ==============================================================================
 # Configure Databases

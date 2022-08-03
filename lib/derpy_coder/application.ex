@@ -24,15 +24,7 @@ defmodule DerpyCoder.Application do
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options
     opts = [strategy: :one_for_one, name: DerpyCoder.Supervisor]
-    supervisor = Supervisor.start_link(children, opts)
-
-    # ==============================================================================
-    # Initialize application specific code
-    # ==============================================================================
-    # TODO: Initialize Super Admin via TaskFile.
-    DerpyCoder.Release.init_super_admin()
-
-    supervisor
+    Supervisor.start_link(children, opts)
   end
 
   # Tell Phoenix to update the endpoint configuration

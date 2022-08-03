@@ -1,29 +1,38 @@
 # DerpyCoder
 
-To begin:
+## Setup
+### For Environment Setup:
 * Install brew
 * Install asdf
+
+### For Tools & Dependencies
 * brew install go-task/tap/go-task
+* task install:asdf
+* task install:tools
+* task install:deps
 
-* task install.asdf
-* task install.tools
-* task install.deps
+* task start:postgres
+* task setup:ecto
 
-* task start.postgres
-* task seed.db
-* task start.server
+* task start:server
 
 > Install DBeaver for inspecting the database.
 
-For more commands:
+## For more commands:
 * mix help
 * task -l
 
-Global Env Variables:
+## Global Paths & Env vars:
+> Must have installed `code` command in path, for file to open in VS Code!!
+
+* task open:zsh
+
+### Add following to zshrc:
 * source $(brew --prefix asdf)/libexec/asdf.sh
+
+### Add following to zshenv:
 * export ELIXIR_EDITOR="code --goto __FILE__:__LINE__"
 
-> Must have installed `code` command in path, for file to open in VS Code!!
 
 ## Icon:
 - [HeroIcons](https://heroicons.com)
