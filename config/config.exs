@@ -69,21 +69,21 @@ if Mix.env() == :dev do
     auto_install: true,
     verbose: true,
     branches: [
-      whitelist: ["feature-.*", "master"],
-      # blacklist: ["master"]
+      whitelist: ["master"],
+      blacklist: ["release-.*"]
     ],
     hooks: [
-      pre_commit: [
-        tasks: [
-          # {:cmd, "task format:check"}
-        ]
-      ],
-      # pre_push: [
-      #   verbose: false,
-      #   tasks: [
-      #     {:cmd, "mix format:code"},
-      #     {:cmd, "echo 'success!'"}
-      #   ]
-      # ]
+    #   pre_commit: [
+    #     tasks: [
+    #       {:cmd, "task format:check"}
+    #     ]
+    #   ],
+    #   pre_push: [
+    #     verbose: false,
+    #     tasks: [
+    #       {:cmd, "mix format:code"},
+    #       {:cmd, "echo 'success!'"}
+    #     ]
+    #   ]
     ]
 end
