@@ -81,7 +81,6 @@ if Mix.env() == :dev do
     #   pre_push: [
     #     verbose: false,
     #     tasks: [
-    #       {:cmd, "mix format:code"},
     #       {:cmd, "echo 'success!'"}
     #     ]
     #   ]
