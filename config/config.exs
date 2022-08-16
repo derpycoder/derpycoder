@@ -63,3 +63,27 @@ config :phoenix, :json_library, Jason
 # of this file so it overrides the configuration defined above.
 # ==============================================================================
 import_config "#{config_env()}.exs"
+
+if Mix.env() == :dev do
+  config :git_hooks,
+    auto_install: true,
+    verbose: true,
+    branches: [
+      whitelist: ["feature-.*"],
+      blacklist: ["master"]
+    ],
+    hooks: [
+      pre_commit: [
+        tasks: [
+          {:cmd, "task format:check"}
+        ]
+      ],
+      # pre_push: [
+      #   verbose: false,
+      #   tasks: [
+      #     {:cmd, "mix format:code"},
+      #     {:cmd, "echo 'success!'"}
+      #   ]
+      # ]
+    ]
+end
