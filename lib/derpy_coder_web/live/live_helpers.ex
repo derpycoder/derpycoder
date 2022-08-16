@@ -78,54 +78,28 @@ defmodule DerpyCoderWeb.LiveHelpers do
   def verify_role({:halt, _} = arg, _), do: arg
 
   # ==============================================================================
-  # Verify that the user is authorized.
-  # ==============================================================================
-  def verify_authorization({:cont, socket}, policy, entity, action) do
-    user = socket.assigns.current_user
-
-    if policy.can?(user, action, entity) do
-      {:cont, socket}
-    else
-      {:halt, socket |> kick_unauthorized_user_out()}
-    end
-  end
-
-  def verify_authorization({:cont, socket}, policy, entity) do
-    user = socket.assigns.current_user
-    action = socket.assigns.live_action
-
-    if policy.can?(user, action, entity) do
-      {:cont, socket}
-    else
-      {:halt, socket |> kick_unauthorized_user_out()}
-    end
-  end
-
-  def verify_authorization({:halt, _} = arg, _, _), do: arg
-
-  # ==============================================================================
   # Helpers
   # ==============================================================================
-  defp ask_user_to_login(socket) do
+  def ask_user_to_login(socket) do
     socket
     |> put_flash(:error, "You must log in to access this page.")
     |> assign(redirect_to: Routes.user_session_path(socket, :new))
     |> halt()
   end
 
-  defp ask_user_to_confirm_email(socket) do
+  def ask_user_to_confirm_email(socket) do
     socket
     |> put_flash(:error, "You must confirm your email address to proceed.")
     |> halt()
   end
 
-  defp kick_unauthorized_user_out(socket) do
+  def kick_unauthorized_user_out(socket) do
     socket
     |> put_flash(:error, "Unauthorized.")
     |> halt()
   end
 
-  defp kick_locked_user_out(socket) do
+  def kick_locked_user_out(socket) do
     socket
     |> put_flash(:error, "Your account is locked.")
     |> halt()

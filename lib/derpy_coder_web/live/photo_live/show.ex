@@ -29,7 +29,7 @@ defmodule DerpyCoderWeb.PhotoLive.Show do
   defp apply_action(socket, :edit, photo) do
     {:cont, socket}
     |> verify_user()
-    |> verify_authorization(Photos, photo)
+    |> Photos.verify_authorization(photo)
     |> case do
       {:cont, socket} ->
         socket

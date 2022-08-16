@@ -62,8 +62,7 @@ defmodule DerpyCoder.MixProject do
       {:dotenvy, "~> 0.6.0"},
       {:sobelow, "~> 0.11.1", only: [:dev], runtime: false},
       {:heroicons, "~> 0.3.2"},
-      {:git_hooks, "~> 0.7.3", only: [:dev], runtime: false}
-    ]
+      {:git_hooks, "~> 0.7.3", only: [:dev], runtime: false}    ]
   end
 
   # Aliases are shortcuts or tasks specific to the current project.

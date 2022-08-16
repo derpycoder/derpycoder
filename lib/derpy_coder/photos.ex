@@ -9,6 +9,48 @@ defmodule DerpyCoder.Photos do
   alias DerpyCoder.Repo
 
   alias DerpyCoder.Photos.Photo
+  alias DerpyCoderWeb.LiveHelpers
+
+  # ==============================================================================
+  # Verify that the user is authorized.
+  # ==============================================================================
+    def verify_authorization({:cont, socket}, action, entity) do
+      user = socket.assigns.current_user
+
+      if can?(user, action, entity) do
+        {:cont, socket}
+      else
+        {:halt, socket |> LiveHelpers.kick_unauthorized_user_out()}
+      end
+    end
+
+    def verify_authorization({:halt, _} = arg, _, _), do: arg
+
+    def verify_authorization({:cont, socket}, entity) do
+      user = socket.assigns.current_user
+      action = socket.assigns.live_action
+
+      if can?(user, action, entity) do
+        {:cont, socket}
+      else
+        {:halt, socket |> LiveHelpers.kick_unauthorized_user_out()}
+      end
+    end
+
+    def verify_authorization({:halt, _} = arg, _), do: arg
+
+    def verify_authorization({:cont, socket}) do
+      user = socket.assigns.current_user
+      action = socket.assigns.live_action
+
+      if can?(user, action, Photo) do
+        {:cont, socket}
+      else
+        {:halt, socket |> LiveHelpers.kick_unauthorized_user_out()}
+      end
+    end
+
+    def verify_authorization({:halt, _} = arg), do: arg
 
   @doc """
   Returns the list of photos.
