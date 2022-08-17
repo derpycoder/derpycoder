@@ -29,7 +29,7 @@ config :derpy_coder, DerpyCoderWeb.Endpoint,
 config :derpy_coder, DerpyCoderWeb.Endpoint,
   live_reload: [
     patterns: [
-      ~r"priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",
+      ~r"priv/static/.*(js|css|png|jpeg|jpg|gif)$",
       ~r"priv/gettext/.*(po)$",
       ~r"lib/derpy_coder_web/(live|views)/.*(ex)$",
       ~r"lib/derpy_coder_web/templates/.*(eex)$"
