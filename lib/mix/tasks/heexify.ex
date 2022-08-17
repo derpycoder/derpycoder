@@ -3,6 +3,9 @@ defmodule Mix.Tasks.App.Heexify do
   Used to convert static SVGs to Heex components.
 
   command: `mix app.heexify`
+
+  Inspired by: PetalFramework
+  Git: https://github.com/petalframework/petal_components/blob/main/lib/mix/tasks/heroicons/generate.ex
   """
 
   @shortdoc "Used to enable usage of SVGs in project"
