@@ -99,6 +99,16 @@ tasks:
     cmds:
       - mix format
 
+  optimize:svgs:
+    desc: Optimize SVGs in Assets folder.
+    cmds:
+      - open -a ImageOptim ./priv/static/svgs
+
+  optimize:images:
+    desc: Optimize All Images in Assets folder.
+    cmds:
+      - open -a ImageOptim ./priv/static/images
+
   update:deps:
     desc: Update all dependencies
     cmds:

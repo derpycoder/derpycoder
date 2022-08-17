@@ -37,6 +37,7 @@
 ## Icon:
 - [HeroIcons](https://heroicons.com)
 - [SVG OMG](https://jakearchibald.github.io/svgomg/)
+- [SVG Repo](https://www.svgrepo.com)
 
 ## To Add:
 - [ ] Instruction for installing Postgres
@@ -46,3 +47,8 @@
 - [ ] mix test --cover --export-coverage default
 - [ ] mix test.coverage
 - [ ] mix test --color
+
+# TODO:
+- [ ] Robots.txt
+- [ ] Warrant Canary
+- [ ] Ads.txt
