@@ -36,8 +36,8 @@
 
 ## Icon:
 - [HeroIcons](https://heroicons.com)
-- [SVG OMG](https://jakearchibald.github.io/svgomg/)
 - [SVG Repo](https://www.svgrepo.com)
+- [SVG OMG](https://jakearchibald.github.io/svgomg/) - Never Automatically Compress SVG Images!!
 
 ## To Add:
 - [ ] Instruction for installing Postgres

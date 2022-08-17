@@ -13,6 +13,7 @@ source!(["config/.env.#{config_env()}", System.get_env()])
 # ==============================================================================
 # Configure App
 # ==============================================================================
+app_name = env!("APP_NAME", :string)
 app_version = env!("APP_VERSION", :string)
 environment = env!("ENVIRONMENT", :string, "prod")
 
@@ -23,6 +24,7 @@ super_admin_user_email = env!("SUPER_ADMIN_USER_EMAIL", :string)
 super_admin_user_password = env!("SUPER_ADMIN_USER_PASSWORD", :string)
 
 config :derpy_coder,
+  app_name: app_name,
   environment: environment,
   super_admin_user_ids: super_admin_user_ids,
   super_admin_user: %{

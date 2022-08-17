@@ -91,22 +91,15 @@ tasks:
     cmds:
       - mix format
 
-  optimize:svgs:
-    desc: Optimize SVGs in Assets folder.
-    summary: |
-      Run the following code manually in case SVGO is not enabled in Image Optim.
-
-      sudo ln -s /opt/homebrew/bin/svgo /usr/local/bin/svgo
-      sudo ln -s /opt/homebrew/bin/node /usr/local/bin/node
-
-      Image Optim requires Node.js to make use of SVGO plugin,
-      also enable Lossy compression for better results.
-    cmds:
-      - open -a ImageOptim ./priv/static/svgs
   optimize:images:
     desc: Optimize All Images in Assets folder.
     cmds:
       - open -a ImageOptim ./priv/static/images
+
+  heexify:svgs:
+    desc: Convers SVGs to Heex Components.
+    cmds:
+      - mix app.heexify
 
   update:deps:
     desc: Update all dependencies
