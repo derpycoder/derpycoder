@@ -166,9 +166,7 @@ defmodule Mix.Tasks.App.Heexify do
         assigns = assigns
           |> assign_new(:title, fn -> nil end)
           |> assign_new(:class, fn -> nil end)
-          |> assign_new(:extra, fn ->
-             assigns_to_attributes(assigns, ~w(class)a)
-          end)
+          |> assign_new(:extra, fn -> assigns_to_attributes(assigns, ~w(class)a) end)
 
         ~H\"\"\"
         #{svg}

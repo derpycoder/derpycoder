@@ -24,9 +24,7 @@ defmodule HeroIcons.Solid do
     assigns = assigns
       |> assign_new(:title, fn -> nil end)
       |> assign_new(:class, fn -> nil end)
-      |> assign_new(:extra, fn ->
-         assigns_to_attributes(assigns, ~w(class)a)
-      end)
+      |> assign_new(:extra, fn -> assigns_to_attributes(assigns, ~w(class)a) end)
 
     ~H"""
     <svg class={@class} {@extra} xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
@@ -49,9 +47,7 @@ defmodule HeroIcons.Solid do
     assigns = assigns
       |> assign_new(:title, fn -> nil end)
       |> assign_new(:class, fn -> nil end)
-      |> assign_new(:extra, fn ->
-         assigns_to_attributes(assigns, ~w(class)a)
-      end)
+      |> assign_new(:extra, fn -> assigns_to_attributes(assigns, ~w(class)a) end)
 
     ~H"""
     <svg class={@class} {@extra} xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
