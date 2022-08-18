@@ -190,6 +190,7 @@ defmodule Mix.Tasks.App.Heexify do
   # Writes the Assembled Module to file.
   # ==============================================================================
   defp write_module({module_path, module}) do
+    module_path = String.replace(module_path, "-", "_")
     destination = "lib/#{Naming.underscore(@app_name)}_web/components/_svg/#{module_path}.ex"
 
     unless File.exists?(destination) do
