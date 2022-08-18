@@ -20,107 +20,154 @@ defmodule Mix.Tasks.App.Heexify do
   def run(_) do
     Mix.Task.run("app.start")
 
-    heexify()
+    crunch_svgs_folder()
   end
 
-  defp heexify() do
+
+  # ==============================================================================
+  # It Crunches SVGs and for that it:
+  # - Goes over each file in SVGs folder.
+  # - Segments modules based on folder structure by building hashmap.
+  # - Assembles the module with helper functions.
+  # - Writes them into Separate files.
+  # ==============================================================================
+  defp crunch_svgs_folder() do
     @svg_path <> "**/*.svg"
     |> Path.wildcard()
-    |> Enum.map(fn path ->
-      path
-      |> String.replace(@svg_path, "")
-    end)
-    |> Enum.reduce(%{}, fn (path, acc) ->
-      value = case Map.get(acc, Path.dirname(path)) do
-        nil -> [path]
-        array -> [path | array]
-      end
-
-      Map.put(acc, Path.dirname(path), value)
-    end)
-    |> Enum.each(fn {module_path, file_paths} -> build_module(module_path, file_paths) end)
+    |> Enum.map(&String.replace(&1, @svg_path, ""))
+    |> Enum.reduce(%{}, &build_hashmap/2)
+    |> Enum.map(&assemble_module/1)
+    |> Enum.each(&write_module/1)
   end
 
-  defp build_module(module_path, file_paths) do
-    module_name =
-      module_path
-      |> String.replace("-", "_")
-      |> String.split("/")
-      |> Enum.map(&Naming.camelize/1)
-
-    module_name = if length(module_name) > 0 do
-      Enum.join(module_name, ".")
-    else
-      ""
+  # ==============================================================================
+  # Hashmap
+  # It goes over array of paths, which looks like:
+  # ["hero-icons/solid/eye", "hero-icons/solid/code"]
+  #
+  # And groups them based on immediate containing folder.
+  # Which looks like:
+  # %{
+  #   "hero-icons/solid => ["hero-icons/solid/eye", "hero-icons/solid/code"]
+  # }
+  #
+  # This helps us with colocating each file inside their respective modules.
+  # So the key in above hashmap becomes the module: HeroIcons.Solid
+  # And the value becomes the HEEX Component: HeroIcons.Solid.code
+  # ==============================================================================
+  defp build_hashmap(path, acc) do
+    value = case Map.get(acc, Path.dirname(path)) do
+      nil -> [path]
+      array -> [path | array]
     end
 
-    module_start = """
+    Map.put(acc, Path.dirname(path), value)
+  end
+
+  # ==============================================================================
+  # Module Assembler
+  # It creates the file structure for the Module.
+  # Adds sensible commments with examples.
+  # And assimilates all the svgs withing as functions.
+  # ==============================================================================
+  defp assemble_module({module_path, file_paths}) do
+    module_name = module_name(module_path)
+    module = """
       defmodule #{module_name} do
         @moduledoc \"\"\"
-        Usage.
+        # #{module_name}
+        Contains Heexified SVG Components, to ease usage of SVG without cluttering markup.
+
+        ## Examples:
             <#{module_name}.svg class="w-5 h-5" />
-            <#{module_name}.svg title="Optional title for accessibility" class="w-5 h-5" />
+            <#{module_name}.svg class="w-5 h-5" title="Accessible Title" />
         \"\"\"
         use Phoenix.Component
-        alias #{@app_name}Web.SVG
+        import #{@app_name}Web.SVG
 
         # coveralls-ignore-start
-      """
 
-    functions = build_functions(file_paths)
-    # IO.puts(functions)
-
-    module_end =
-      """
+      #{assimilate_svg(file_paths)}
         # coveralls-ignore-stop
       end
       """
 
-    module = module_start <> functions <> module_end
-
-    destination = "lib/#{Naming.underscore(@app_name)}_web/components/_svg/#{module_path}.ex"
-
-    unless File.exists?(destination) do
-      File.mkdir_p(Path.dirname(destination))
-    end
-
-    File.write!(destination, module)
+      {module_path, module}
   end
 
-  defp build_functions(file_paths) do
+  # ==============================================================================
+  # Module Name Helper
+  # ==============================================================================
+  defp module_name(module_path) do
+    module_path
+      |> String.replace("-", "_")
+      |> String.split("/")
+      |> Enum.map(&Naming.camelize/1)
+      |> case do
+        nil -> ""
+        module_name -> Enum.join(module_name, ".")
+      end
+  end
+
+  # ==============================================================================
+  # Loops over each file.
+  # And Creates HEEX Components array.
+  # ==============================================================================
+  defp assimilate_svg(file_paths) do
     file_paths
-      |> Enum.map(fn src_path ->
-        create_component(src_path)
-      end)
+      |> Enum.map(&create_component/1)
       |> Enum.join("\n")
   end
 
-  defp create_component(src_path) do
-    svg =
-      File.read!(@svg_path <> src_path)
-      |> String.trim()
-      |> String.replace(~r/<svg /, "<svg class={@class} {@rest} ")
-      |> String.replace(~r/<path/, "\n      <SVG.title title={@title} />\n      <path")
-      |> String.replace(~r/<\/svg/, "\n     <\/svg")
-
-    build_component(src_path, svg)
+  # ==============================================================================
+  # Creates HEEX Component.
+  # Reads SVG Files.
+  # Alters and Assemble it.
+  # ==============================================================================
+  defp create_component(file_path) do
+    File.read!(@svg_path <> file_path)
+    |> alter_svg()
+    |> assemble_component(file_path)
   end
 
-  defp build_component(src_path, svg) do
-    function_name =
-      src_path
-      |> Path.basename(".svg")
-      |> String.replace("-", "_")
+  # ==============================================================================
+  # Trims and adds some new lines to beautify the svg.
+  # Also adds the ability to pass in class, title and any attributes to the SVG.
+  # ==============================================================================
+  defp alter_svg(svg) do
+    svg
+    |> String.trim()
+    |> String.replace(~r/<svg /, "<svg class={@class} {@extra} ")
+    |> String.replace(~r/\"><path/, "\">\n      <.title title={@title} />\n      <path")
+    |> String.replace(~r/><path/, ">\n      <path")
+    |> String.replace(~r/<\/svg/, "\n    <\/svg")
+  end
 
+  # ==============================================================================
+  # Assembles the HEEX Component.
+  # Adds Comments and Assigns to create flexible HEEX Component.
+  # ==============================================================================
+  defp assemble_component(svg, file_path) do
+    module_name =
+      file_path
+      |> Path.dirname()
+      |> module_name()
+    function_name = function_name(file_path)
     """
+      @doc \"\"\"
+      # #{module_name}.#{function_name}
+      A Heexified SVG component, that can be passed class, title and extra attributes, to alter it.
+
+      ## Examples:
+          <#{module_name}.#{function_name} class="w-5 h-5" />
+          <#{module_name}.#{function_name} class="w-5 h-5" title="Accessible Title" />
+      \"\"\"
       def #{function_name}(assigns) do
         assigns = assigns
           |> assign_new(:title, fn -> nil end)
           |> assign_new(:class, fn -> nil end)
-          |> assign_new(:rest, fn ->
-            assigns_to_attributes(assigns, ~w(
-              class
-            )a)
+          |> assign_new(:extra, fn ->
+             assigns_to_attributes(assigns, ~w(class)a)
           end)
 
         ~H\"\"\"
@@ -128,5 +175,27 @@ defmodule Mix.Tasks.App.Heexify do
         \"\"\"
       end
     """
+  end
+
+  # ==============================================================================
+  # Function Name Helper
+  # ==============================================================================
+  defp function_name(file_path) do
+    file_path
+      |> Path.basename(".svg")
+      |> String.replace("-", "_")
+  end
+
+  # ==============================================================================
+  # Writes the Assembled Module to file.
+  # ==============================================================================
+  defp write_module({module_path, module}) do
+    destination = "lib/#{Naming.underscore(@app_name)}_web/components/_svg/#{module_path}.ex"
+
+    unless File.exists?(destination) do
+      File.mkdir_p(Path.dirname(destination))
+    end
+
+    File.write!(destination, module)
   end
 end
