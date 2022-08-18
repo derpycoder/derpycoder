@@ -25,7 +25,7 @@ defmodule Mix.Tasks.App.Heexify do
 
 
   # ==============================================================================
-  # It Crunches SVGs and for that it:
+  # It Crunches SVGs and for that, it:
   # - Goes over each file in SVGs folder.
   # - Segments modules based on folder structure by building hashmap.
   # - Assembles the module with helper functions.
