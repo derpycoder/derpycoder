@@ -15,6 +15,7 @@ tasks:
       It will pickup up versions from .tool-versions file and install them.
     cmds:
       - asdf install
+      - brew install imgproxy
       - mix local.hex
   install:deps:
     desc: Fetch & Compile dependencies

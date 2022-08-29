@@ -52,3 +52,5 @@
 - [ ] Robots.txt
 - [ ] Warrant Canary
 - [ ] Ads.txt
+- IMGPROXY_LOCAL_FILESYTEM_ROOT=~/Pictures imgproxy
+- http://localhost:8080/insecure/rs:fit:1024:768:no:0/plain/local:///Unsplash/pexels-bongvideos-production-2524378.jpg@png
