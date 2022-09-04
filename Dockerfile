@@ -38,7 +38,7 @@ RUN mix release
 # ============================================================================
 # Main Docker Image
 # ============================================================================
-FROM alpine:3.16.2
+FROM alpine:3.16.2 as app_container
 
 ARG BUILD_METADATA={}
 ENV BUILD_METADATA=$BUILD_METADATA
