@@ -34,3 +34,6 @@ npm-debug.log
 
 # Useless Files
 .DS_Store
+
+# Env
+.env.prod

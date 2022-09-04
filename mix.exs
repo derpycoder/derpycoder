@@ -10,7 +10,15 @@ defmodule DerpyCoder.MixProject do
       compilers: Mix.compilers(),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
-      deps: deps()
+      deps: deps(),
+      releases: [
+        derpy_coder: [
+          include_executables_for: [:unix],
+          applications: [derpy_coder: :permanent],
+          steps: [:assemble, :tar],
+          validate_compile_env: false
+        ]
+      ]
     ]
   end
 

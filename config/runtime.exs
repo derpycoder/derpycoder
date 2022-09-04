@@ -38,15 +38,19 @@ config :derpy_coder,
 # Configure Endpoint
 # ==============================================================================
 ip_addr =
-  env!("IP_ADDR", fn str ->
-    case :inet.parse_address(String.to_charlist(str)) do
-      {:ok, ip_addr} ->
-        ip_addr
+  env!(
+    "IP_ADDR",
+    fn str ->
+      case :inet.parse_address(String.to_charlist(str)) do
+        {:ok, ip_addr} ->
+          ip_addr
 
-      {:error, reason} ->
-        raise "Invalid LISTEN_IP '#{str}' error: #{inspect(reason)}"
-    end
-  end)
+        {:error, reason} ->
+          raise "Invalid IP_ADDR (#{str}) error: #{inspect(reason)}"
+      end
+    end,
+    {0, 0, 0, 0}
+  )
 
 base_url = env!("BASE_URL", fn url -> URI.parse(url) end)
 port = env!("PORT", :integer)

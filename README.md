@@ -14,7 +14,7 @@
 * task start:postgres
 * task setup:ecto
 
-* task start:server
+* task start:server (http://localhost:4000)
 
 > Install DBeaver for inspecting the database.
 
@@ -54,3 +54,6 @@
 - [ ] Ads.txt
 - IMGPROXY_LOCAL_FILESYTEM_ROOT=~/Pictures imgproxy
 - http://localhost:8080/insecure/rs:fit:1024:768:no:0/plain/local:///Unsplash/pexels-bongvideos-production-2524378.jpg@png
+
+- DOCKER_BUILDKIT=1 docker build -t derpy_coder .
+- docker run --env-file ./config/.env.prod -dp 3000:3000 derpy_coder
