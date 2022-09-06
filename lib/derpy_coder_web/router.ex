@@ -115,9 +115,7 @@ defmodule DerpyCoderWeb.Router do
   scope "/admin", DerpyCoderWeb do
     pipe_through [:browser, :only_admin]
 
-    live_dashboard "/live_dashboard",
-      metrics: DerpyCoderWeb.Telemetry,
-      ecto_repos: [DerpyCoder.Repo]
+    live_dashboard "/live_dashboard", metrics: DerpyCoderWeb.Telemetry
   end
 
   # ==============================================================================

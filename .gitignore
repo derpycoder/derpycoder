@@ -37,3 +37,7 @@ npm-debug.log
 
 # Env
 .env.prod
+
+# Cockroach DB Data
+cockroach-data
+roach-*

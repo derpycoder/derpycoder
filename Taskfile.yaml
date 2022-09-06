@@ -4,11 +4,14 @@ version: "3"
 tasks:
   install:asdf:
     desc: Install asdf and related plugins using brew
+    summary: |
+      Type `asdf list all elixir` to list all versions of elixir and
+      Type `asdf list elixir` to list only the version installed.
     cmds:
       - brew install asdf
       - asdf plugin-add elixir https://github.com/asdf-vm/asdf-elixir.git
       - asdf plugin-add erlang https://github.com/asdf-vm/asdf-erlang.git
-      - asdf plugin-add postgres
+      - asdf plugin-add cockroach https://github.com/salasrod/asdf-cockroach.git
   install:tools:
     desc: Install all tools with help of asdf
     summary: |
@@ -22,10 +25,24 @@ tasks:
     cmds:
       - mix do deps.get, deps.compile
 
-  start:postgres:
-    desc: Start Postgres server
+  spawn:cockroaches:
+    desc: Start Cockroach DB Server & Initiate
     cmds:
-      - pg_ctl start
+      - cockroach start
+        --insecure
+        --store=roach-prime
+        --listen-addr=localhost:26257
+        --http-addr=localhost:9999
+        --join=localhost:26257,localhost:26258,localhost:26259
+        --background
+  disperse:cockroaches:
+    desc: Initialize the Cockroach DB Cluster
+    summary: |
+      Need to be called only once!
+    cmds:
+      - cockroach init
+        --insecure
+        --host=localhost:26257
 
   setup:ecto:
     desc: Runs create, migrate, initializes super admin and finally seeds the database.
@@ -65,13 +82,10 @@ tasks:
     desc: Run iex standalone
     cmds:
       - iex -S mix
-  start:psql:
-    desc: Starts psql
-    summary: |
-      \du - For Listing all
-      quit - To quit
+  start:csql:
+    desc: Starts Cockroach CLI
     cmds:
-      - psql -U postgres
+      - cockroach sql --insecure --host=localhost:26257
 
   analyze:cons:
     desc: Analyze code, using Credo, for consistency
@@ -108,6 +122,28 @@ tasks:
       - mix deps.update --all
       - tasks: [install:deps]
 
+  locate:cockroaches:
+    desc: List all the Cockroach DB instances
+    cmds:
+      - ps -ef | grep cockroach | grep -v grep
+  terminate:cockroach:
+    desc: Kill a Cockroach DB instance
+    summary: |
+      task stop:cockroach -- <pid>
+    cmds:
+      - kill -TERM {{.CLI_ARGS}}
+
+  exterminate:cockroaches:
+    desc: Kill all Cockroach DB instances
+    cmds:
+      - TODO
+  cremate:cockroaches:
+    desc: Eradicate all Cockroaches
+    summary: |
+      task eradicate:cockroaches -- <roach-name>
+    cmds:
+      - rm -rf roach-prime {{.CLI_ARGS}}
+
   reset:ecto:
     desc: Resets Ecto, by dropping, creating, migrating, adding super admin and finally seeding the database.
     cmds:
@@ -116,11 +152,6 @@ tasks:
     desc: Reset the unused dependencies
     cmds:
       - mix deps.clean --unused
-
-  stop:postgres:
-    desc: Stop Postgres server
-    cmds:
-      - pg_ctl stop
 
   open:zsh:
     desc: Opens ZSH Path file, to add Paths
@@ -139,3 +170,15 @@ tasks:
       task open.file -- DerpyCoder.Accounts
     cmds:
       - iex -S mix phx.server <<< "open {{.CLI_ARGS}}"
+
+  build:docker:
+    desc: Build a Docker Image
+    cmds:
+      - DOCKER_BUILDKIT=1 docker build -t derpy_coder .
+  run:docker:
+    desc: Run the built Docker Image
+    summary: |
+      Visit: localhost:3000
+      P.S. Doesn't work without running database, which should be accessible inside the container!
+    cmds:
+      - docker run --env-file ./config/.env.prod -dp 3000:3000 derpy_coder

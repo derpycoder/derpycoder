@@ -79,15 +79,27 @@ config :derpy_coder, DerpyCoderWeb.Endpoint,
 # ==============================================================================
 # Configure Databases
 # ==============================================================================
-database_url = env!("DATABASE_URL", :string)
+user_name = env!("USER_NAME", :string)
+user_password = env!("USER_PASSWORD", :string)
+host_name = env!("HOST_NAME", :string)
+database_name = env!("DATABASE_NAME", :string)
+database_port = env!("DATABASE_PORT", :string)
+enable_ssl = env!("ENABLE_SSL", :boolean)
 pool_size = env!("POOL_SIZE", :integer, 10)
 maybe_ipv6 = if env!("ECTO_IPV6", :boolean, false), do: [:inet6], else: []
 stacktrace = env!("STACK_TRACE", :boolean, false)
 show_sensitive_data = env!("SHOW_SENSITIVE_DATA", :boolean, false)
 
 config :derpy_coder, DerpyCoder.Repo,
-  url: database_url,
+  username: user_name,
+  password: user_password,
+  database: database_name,
+  hostname: host_name,
+  port: database_port,
+  ssl: enable_ssl,
   pool_size: pool_size,
+  migration_lock: false,
+  parameters: [options: "--cluster=roach-infestation"],
   socket_options: maybe_ipv6,
   stacktrace: stacktrace,
   show_sensitive_data_on_connection_error: show_sensitive_data,
