@@ -32,9 +32,23 @@ tasks:
         --insecure
         --store=roach-prime
         --listen-addr=localhost:26257
-        --http-addr=localhost:9999
+        --http-addr=localhost:9080
         --join=localhost:26257,localhost:26258,localhost:26259
         --background
+      # - cockroach start
+      #   --insecure
+      #   --store=roach-alpha
+      #   --listen-addr=localhost:26258
+      #   --http-addr=localhost:9081
+      #   --join=localhost:26257,localhost:26258,localhost:26259
+      #   --background
+      # - cockroach start
+      #   --insecure
+      #   --store=roach-beta
+      #   --listen-addr=localhost:26259
+      #   --http-addr=localhost:9082
+      #   --join=localhost:26257,localhost:26258,localhost:26259
+      #   --background
   disperse:cockroaches:
     desc: Initialize the Cockroach DB Cluster
     summary: |
@@ -132,11 +146,10 @@ tasks:
       task stop:cockroach -- <pid>
     cmds:
       - kill -TERM {{.CLI_ARGS}}
-
   exterminate:cockroaches:
     desc: Kill all Cockroach DB instances
     cmds:
-      - TODO
+      - pkill -9 -f "roach-"
   cremate:cockroaches:
     desc: Eradicate all Cockroaches
     summary: |
