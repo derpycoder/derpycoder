@@ -141,15 +141,24 @@ tasks:
     cmds:
       - ps -ef | grep cockroach | grep -v grep
   terminate:cockroach:
-    desc: Kill a Cockroach DB instance
+    desc: Terminate a Cockroach DB instance
     summary: |
       task stop:cockroach -- <pid>
     cmds:
       - kill -TERM {{.CLI_ARGS}}
   exterminate:cockroaches:
-    desc: Kill all Cockroach DB instances
+    desc: Terminate all Cockroach DB instances
+    summary: |
+      Graceful, long command:
+      for pid in $(ps -ef | grep cockroach | grep -v grep | awk '{print $2}'); do kill -SIGTERM $pid; done
+
+      Better command: task exterminate:cockroaches
     cmds:
-      - pkill -9 -f "roach-"
+      - pkill -SIGTERM -f "roach-"
+  eradicate:cockroaches:
+    desc: Force kill all Cockroach DB instances
+    cmds:
+      - pkill -SIGKILL -f "roach-"
   cremate:cockroaches:
     desc: Eradicate all Cockroaches
     summary: |
