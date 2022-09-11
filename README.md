@@ -12,7 +12,7 @@
 * task install:deps
 
 * task spawn:cockroaches
-* task disperse:cockroaches (http://localhost:9999)
+* task disperse:cockroaches (http://localhost:9080)
 
 * task setup:ecto
 
@@ -53,6 +53,36 @@
 - [ ] Warrant Canary
 - [ ] Ads.txt
 
+## MinIO
+- brew install minio
+- minio server start (http://localhost:9000) [minioadmin, minioadmin]
+- asdf plugin add minio https://github.com/aeons/asdf-minio.git
+- minio 2022-09-01T23-53-36Z (In ASDF file)
+
+- brew install minio-mc
+- asdf plugin-add mc https://github.com/penpyt/asdf-mc.git
+
+- mc alias set minio http://192.168.43.106:9000 minioadmin minioadmin
+- mc mb minio/honeycomb
+- mc cp priv/static/images/phoenix.png minio/honeycomb
+
 ## Figure out Imgproxy
-- IMGPROXY_LOCAL_FILESYTEM_ROOT=~/Pictures/ imgproxy
-- http://localhost:8080/insecure/rs:fit:512:512:no:0/plain/local:///Personal/References/1.jpg@png
+- IMGPROXY_USE_S3=true\
+  AWS_ACCESS_KEY_ID=minioadmin\
+  AWS_SECRET_ACCESS_KEY=minioadmin\
+  IMGPROXY_S3_ENDPOINT=http://192.168.43.106:9000\
+  imgproxy
+- http://localhost:8080/insecure/rs:fit:512:64:no:0/plain/s3://honeycomb/phoenix.png@png
+
+## PGWeb
+- brew install pgweb
+- pgweb --host localhost --user root --db derpy_coder_dev --port 26257
+
+## Monitoring
+- brew install prometheus
+- brew install grafana
+- brew install loki
+
+## Proxy & Cache
+- brew install varnish
+- brew install haproxy
