@@ -159,7 +159,7 @@ tasks:
     desc: Force kill all Cockroach DB instances
     cmds:
       - pkill -SIGKILL -f "roach-"
-  cremate:cockroaches:
+  obliviate:cockroaches:
     desc: Eradicate all Cockroaches
     summary: |
       task eradicate:cockroaches -- <roach-name>
