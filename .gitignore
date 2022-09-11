@@ -41,3 +41,6 @@ npm-debug.log
 # Cockroach DB Data
 cockroach-data
 roach-*
+
+# MinIO
+start/
