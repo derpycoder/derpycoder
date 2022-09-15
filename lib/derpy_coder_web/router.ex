@@ -9,13 +9,13 @@ defmodule DerpyCoderWeb.Router do
   @content_security_policy (case Mix.env() do
                               :prod ->
                                 "default-src 'self';" <>
-                                  "connect-src wss://derpycoder.com wss://derpycoder.wip;" <>
+                                  "connect-src wss://derpycoder.com wss://derpycoder.site;" <>
                                   "img-src 'self' data:;" <>
                                   "font-src data:;"
 
                               _ ->
                                 "default-src 'self' 'unsafe-inline';" <>
-                                  "connect-src wss://derpycoder.wip ws://localhost:*;" <>
+                                  "connect-src wss://derpycoder.site ws://localhost:*;" <>
                                   "img-src 'self' data: https:;" <>
                                   "font-src data:;"
                             end)

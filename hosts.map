@@ -1,6 +1,6 @@
 # Domain                            Backend
-pgweb.derpycoder.wip                pgweb
-roaches.derpycoder.wip              roaches
+pgweb.derpycoder.site                pgweb
+roaches.derpycoder.site              roaches
 
 # Minio
 # http://localhost:9000

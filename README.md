@@ -84,7 +84,7 @@
 - brew install varnish
 
 ## Subdomains & Domains
-- https://derpycoder.wip
-- https://www.derpycoder.wip
-- https://pgweb.derpycoder.wip
-- https://roaches.derpycoder.wip
+- https://derpycoder.site
+- https://www.derpycoder.site
+- https://pgweb.derpycoder.site
+- https://roaches.derpycoder.site

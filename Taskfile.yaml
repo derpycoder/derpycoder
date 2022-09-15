@@ -83,14 +83,14 @@ tasks:
   setup:hostsfile:
     desc: Modifies the hostsfile, to allow development using named url and https.
     summary: |
-      It allows us to use derpycoder.wip or derpycoder.piv for local development.
+      It allows us to use derpycoder.site or derpycoder.piv for local development.
       Run: `cat /etc/hosts` to check if the command ran successfully
     cmds:
       - sudo hostsfile add
-        derpycoder.wip
-        www.derpycoder.wip
-        pgweb.derpycoder.wip
-        roaches.derpycoder.wip
+        derpycoder.site
+        www.derpycoder.site
+        pgweb.derpycoder.site
+        roaches.derpycoder.site
         127.0.0.1
   setup:mkcert:
     desc: Installs and Initiates the SSL Certificates
@@ -99,9 +99,9 @@ tasks:
       localhost.pem & localhost.pem.key
     cmds:
       - mkcert -install
-      - mkcert derpycoder derpycoder.wip derpycoder.piv "*.derpycoder.wip" "*.derpycoder.piv"
-      - mv derpycoder+4.pem derpycoder.pem
-      - mv derpycoder+4-key.pem derpycoder.pem.key
+      - mkcert derpycoder derpycoder.site "*.derpycoder.site"
+      - mv derpycoder+2.pem derpycoder.pem
+      - mv derpycoder+2-key.pem derpycoder.pem.key
 
   seed:ecto:
     desc: Runs the seeds file
