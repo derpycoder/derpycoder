@@ -6,13 +6,27 @@ defmodule DerpyCoderWeb.Router do
   import DerpyCoderWeb.UserAuth
   import Phoenix.LiveDashboard.Router
 
+  @content_security_policy (case Mix.env() do
+                              :prod ->
+                                "default-src 'self';" <>
+                                  "connect-src wss://derpycoder.com wss://derpycoder.wip;" <>
+                                  "img-src 'self' data:;" <>
+                                  "font-src data:;"
+
+                              _ ->
+                                "default-src 'self' 'unsafe-inline';" <>
+                                  "connect-src wss://derpycoder.wip ws://localhost:*;" <>
+                                  "img-src 'self' data: https:;" <>
+                                  "font-src data:;"
+                            end)
+
   pipeline :browser do
     plug :accepts, ["html"]
     plug :fetch_session
     plug :fetch_live_flash
     plug :put_root_layout, {DerpyCoderWeb.LayoutView, :root}
     plug :protect_from_forgery
-    plug :put_secure_browser_headers
+    plug :put_secure_browser_headers, %{"Content-Security-Policy" => @content_security_policy}
     plug :fetch_current_user
     plug KickLockedUserOut
   end
@@ -23,7 +37,7 @@ defmodule DerpyCoderWeb.Router do
     plug :fetch_live_flash
     plug :put_root_layout, {DerpyCoderWeb.LayoutView, :minimalist}
     plug :protect_from_forgery
-    plug :put_secure_browser_headers
+    plug :put_secure_browser_headers, %{"Content-Security-Policy" => @content_security_policy}
     plug :fetch_current_user
   end
 

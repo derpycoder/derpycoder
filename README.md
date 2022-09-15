@@ -67,16 +67,13 @@
 - mc cp priv/static/images/phoenix.png minio/honeycomb
 
 ## Figure out Imgproxy
+- Configurations: https://github.com/imgproxy/imgproxy/blob/master/docs/configuration.md
 - IMGPROXY_USE_S3=true\
   AWS_ACCESS_KEY_ID=minioadmin\
   AWS_SECRET_ACCESS_KEY=minioadmin\
   IMGPROXY_S3_ENDPOINT=http://192.168.43.106:9000\
   imgproxy
 - http://localhost:8080/insecure/rs:fit:512:64:no:0/plain/s3://honeycomb/phoenix.png@png
-
-## PGWeb
-- brew install pgweb
-- pgweb --host localhost --user root --db derpy_coder_dev --port 26257
 
 ## Monitoring
 - brew install prometheus
@@ -85,4 +82,9 @@
 
 ## Proxy & Cache
 - brew install varnish
-- brew install haproxy
+
+## Subdomains & Domains
+- https://derpycoder.wip
+- https://www.derpycoder.wip
+- https://pgweb.derpycoder.wip
+- https://roaches.derpycoder.wip

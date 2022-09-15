@@ -44,3 +44,6 @@ roach-*
 
 # MinIO
 start/
+
+# Mkcert
+derpycoder.pem*

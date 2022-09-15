@@ -19,6 +19,10 @@ tasks:
     cmds:
       - asdf install
       - brew install imgproxy
+      - brew install pgweb
+      - brew install kevinburke/safe/hostsfile
+      - brew install mkcert
+      - brew install haproxy
       - mix local.hex
   install:deps:
     desc: Fetch & Compile dependencies
@@ -27,6 +31,8 @@ tasks:
 
   spawn:cockroaches:
     desc: Start Cockroach DB Server & Initiate
+    summary: |
+      Visit: http://localhost:9080
     cmds:
       - cockroach start
         --insecure
@@ -74,12 +80,42 @@ tasks:
         - SUPER_ADMIN_USER_PASSWORD
     cmds:
       - mix app.setup super_admin
+  setup:hostsfile:
+    desc: Modifies the hostsfile, to allow development using named url and https.
+    summary: |
+      It allows us to use derpycoder.wip or derpycoder.piv for local development.
+      Run: `cat /etc/hosts` to check if the command ran successfully
+    cmds:
+      - sudo hostsfile add
+        derpycoder.wip
+        www.derpycoder.wip
+        pgweb.derpycoder.wip
+        roaches.derpycoder.wip
+        127.0.0.1
+  setup:mkcert:
+    desc: Installs and Initiates the SSL Certificates
+    summary: |
+      We must rename whatever certificate file name gets generated to:
+      localhost.pem & localhost.pem.key
+    cmds:
+      - mkcert -install
+      - mkcert derpycoder derpycoder.wip derpycoder.piv "*.derpycoder.wip" "*.derpycoder.piv"
+      - mv derpycoder+4.pem derpycoder.pem
+      - mv derpycoder+4-key.pem derpycoder.pem.key
 
   seed:ecto:
     desc: Runs the seeds file
     cmds:
       - mix ecto.seed
 
+  start:haproxy:
+    desc: Starts HAproxy
+    cmds:
+      - sudo haproxy -f haproxy.cfg
+  start:pgweb:
+    desc: Runs PGWeb in the browser
+    cmds:
+      - pgweb --host localhost --user root --db derpy_coder_dev --port 26257
   start:server:
     desc: Runs the server with a custom name
     cmds:
