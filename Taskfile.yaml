@@ -155,7 +155,7 @@ tasks:
   start:varnish:
     desc: Starts Varnish Cache
     cmds:
-      - sudo varnishd -s file,/tmp,100M -a 127.0.0.1:3000 -f `realpath varnish.vcl`
+      - sudo varnishd -s file,/tmp,100M -a 127.0.0.1:3000 -f `realpath ./varnish/varnish.vcl`
   start:server:
     desc: Runs the server with a custom name
     cmds:
