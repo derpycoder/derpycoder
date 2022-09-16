@@ -60,13 +60,9 @@
 
 ## Subdomains & Domains
 - https://derpycoder.site
+- https://s3.derpycoder.site
+- https://img.derpycoder.site
 - https://www.derpycoder.site
 - https://pgweb.derpycoder.site
-- https://roaches.derpycoder.site
-- https://s3.derpycoder.site
 - https://minio.derpycoder.site
-- https://imgproxy.derpycoder.site (Hide this, because it's useless, with Varnish)
-- https://img.derpycoder.site (TODO)
-
-## Proxy & Cache
-- brew install varnish
+- https://cockroach.derpycoder.site

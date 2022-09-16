@@ -25,11 +25,23 @@ tasks:
       - brew install kevinburke/safe/hostsfile
       - brew install mkcert
       - brew install haproxy
+      - brew install varnish
       - mix local.hex
   install:deps:
     desc: Fetch & Compile dependencies
     cmds:
       - mix do deps.get, deps.compile
+
+  generate:mkcert:
+    desc: Installs and Initiates the SSL Certificates
+    summary: |
+      We must rename whatever certificate file name gets generated to:
+      localhost.pem & localhost.pem.key
+    cmds:
+      - mkcert -install
+      - mkcert derpycoder derpycoder.site "*.derpycoder.site"
+      - mv derpycoder+2.pem derpycoder.pem
+      - mv derpycoder+2-key.pem derpycoder.pem.key
 
   spawn:cockroaches:
     desc: Start Cockroach DB Server & Initiate
@@ -66,6 +78,22 @@ tasks:
         --insecure
         --host=localhost:26257
 
+  setup:hosts:
+    desc: Modifies the hostsfile, to allow development using named url and https.
+    summary: |
+      It allows us to use derpycoder.site or derpycoder.piv for local development.
+      Run: `cat /etc/hosts` to check if the command ran successfully
+      Or edit manually using `code /etc/hosts`
+    cmds:
+      - sudo hostsfile add
+        derpycoder.site
+        s3.derpycoder.site
+        www.derpycoder.site
+        img.derpycoder.site
+        minio.derpycoder.site
+        pgweb.derpycoder.site
+        cockroach.derpycoder.site
+        127.0.0.1
   setup:ecto:
     desc: Runs create, migrate, initializes super admin and finally seeds the database.
     cmds:
@@ -82,70 +110,12 @@ tasks:
         - SUPER_ADMIN_USER_PASSWORD
     cmds:
       - mix app.setup super_admin
-  setup:hostsfile:
-    desc: Modifies the hostsfile, to allow development using named url and https.
-    summary: |
-      It allows us to use derpycoder.site or derpycoder.piv for local development.
-      Run: `cat /etc/hosts` to check if the command ran successfully
-      Or edit manually using `sudo code /etc/hosts`
-    cmds:
-      - sudo hostsfile add
-        derpycoder.site
-        s3.derpycoder.site
-        www.derpycoder.site
-        minio.derpycoder.site
-        pgweb.derpycoder.site
-        roaches.derpycoder.site
-        imgproxy.derpycoder.site
-        127.0.0.1
-  setup:minio:
-    desc: Minio MC is the command line tool for Minio
-    summary: |
-      Make Bucket:
-      mc mb minio/honeycomb
-
-      Copy file to the bucket:
-      mc cp priv/static/images/phoenix.png minio/honeycomb
-    cmds:
-      - mc alias set minio http://localhost:9000 minioadmin minioadmin
-
-  generate:mkcert:
-    desc: Installs and Initiates the SSL Certificates
-    summary: |
-      We must rename whatever certificate file name gets generated to:
-      localhost.pem & localhost.pem.key
-    cmds:
-      - mkcert -install
-      - mkcert derpycoder derpycoder.site "*.derpycoder.site"
-      - mv derpycoder+2.pem derpycoder.pem
-      - mv derpycoder+2-key.pem derpycoder.pem.key
 
   seed:ecto:
     desc: Runs the seeds file
     cmds:
       - mix ecto.seed
 
-  start:minio:
-    desc: Starts MinIO
-    summary: |
-      Host: http://localhost:9000
-      Username & Password: [minioadmin, minioadmin]
-    cmds:
-      - MINIO_SERVER_URL=https://s3.derpycoder.site
-        MINIO_BROWSER_REDIRECT_URL=https://minio.derpycoder.site
-        minio server start -address :9000 --console-address :9443
-  start:imgproxy:
-    desc: Starts Imgproxy server
-    summary: |
-      - Configurations: https://github.com/imgproxy/imgproxy/blob/master/docs/configuration.md
-      - https://imgproxy.derpycoder.site/insecure/rs:fit:512:64:no:0/plain/s3://honeycomb/phoenix.png@png
-    cmds:
-      - IMGPROXY_USE_S3=true
-        AWS_ACCESS_KEY_ID=minioadmin
-        AWS_SECRET_ACCESS_KEY=minioadmin
-        IMGPROXY_S3_ENDPOINT=https://s3.derpycoder.site
-        IMGPROXY_BIND=:9080
-        imgproxy
   start:haproxy:
     desc: Starts HAproxy
     cmds:
@@ -154,6 +124,38 @@ tasks:
     desc: Runs PGWeb in the browser
     cmds:
       - pgweb --host localhost --user root --db derpy_coder_dev --port 26257 --listen 8000
+  start:minio:
+    desc: Starts MinIO
+    summary: |
+      Host: https://s3.derpycoder.site
+      Username & Password: [minioadmin, minioadmin]
+
+      Make Bucket:
+      mc mb minio/honeycomb
+
+      Copy file to the bucket:
+      mc cp priv/static/images/phoenix.png minio/honeycomb
+    cmds:
+      - MINIO_SERVER_URL=https://s3.derpycoder.site
+        MINIO_BROWSER_REDIRECT_URL=https://minio.derpycoder.site
+        minio server start -address :9000 --console-address :9443
+      - mc alias set minio https://s3.derpycoder.site minioadmin minioadmin
+  start:imgproxy:
+    desc: Starts Imgproxy server
+    summary: |
+      - Configurations: https://github.com/imgproxy/imgproxy/blob/master/docs/configuration.md
+      - https://img.derpycoder.site/insecure/rs:fit:512:64:no:0/plain/s3://honeycomb/phoenix.png@png
+    cmds:
+      - IMGPROXY_USE_S3=true
+        AWS_ACCESS_KEY_ID=minioadmin
+        AWS_SECRET_ACCESS_KEY=minioadmin
+        IMGPROXY_S3_ENDPOINT=https://s3.derpycoder.site
+        IMGPROXY_BIND=:9080
+        imgproxy
+  start:varnish:
+    desc: Starts Varnish Cache
+    cmds:
+      - sudo varnishd -s file,/tmp,100M -a 127.0.0.1:3000 -f `realpath varnish.vcl`
   start:server:
     desc: Runs the server with a custom name
     cmds:
@@ -239,6 +241,11 @@ tasks:
       task eradicate:cockroaches -- <roach-name>
     cmds:
       - rm -rf roach-prime {{.CLI_ARGS}}
+
+  terminate:varnish:
+    desc: Kill Varnish
+    cmds:
+      - sudo pkill varnish
 
   reset:ecto:
     desc: Resets Ecto, by dropping, creating, migrating, adding super admin and finally seeding the database.

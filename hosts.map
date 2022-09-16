@@ -1,9 +1,9 @@
 # Domain                                Backend
 
 s3.derpycoder.site                      s3
+img.derpycoder.site                     img
 minio.derpycoder.site                   minio
 pgweb.derpycoder.site                   pgweb
-roaches.derpycoder.site                 roaches
-imgproxy.derpycoder.site                imgproxy
+cockroach.derpycoder.site               cockroach
 
 # Haproxy, Varnish, Prometheus, Grafana
