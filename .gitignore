@@ -47,3 +47,9 @@ start/
 
 # Mkcert
 derpycoder.pem*
+
+# Dialyzer
+.elixir_ls
+
+# Keys
+keys
