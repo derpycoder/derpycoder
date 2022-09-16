@@ -1,11 +1,9 @@
-# Domain                            Backend
-pgweb.derpycoder.site                pgweb
-roaches.derpycoder.site              roaches
+# Domain                                Backend
 
-# Minio
-# http://localhost:9000
-
-# Imageproxy
-# 8080
+s3.derpycoder.site                      s3
+minio.derpycoder.site                   minio
+pgweb.derpycoder.site                   pgweb
+roaches.derpycoder.site                 roaches
+imgproxy.derpycoder.site                imgproxy
 
 # Haproxy, Varnish, Prometheus, Grafana

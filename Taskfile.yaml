@@ -12,6 +12,8 @@ tasks:
       - asdf plugin-add elixir https://github.com/asdf-vm/asdf-elixir.git
       - asdf plugin-add erlang https://github.com/asdf-vm/asdf-erlang.git
       - asdf plugin-add cockroach https://github.com/salasrod/asdf-cockroach.git
+      - asdf plugin add minio https://github.com/aeons/asdf-minio.git
+      - asdf plugin-add mc https://github.com/penpyt/asdf-mc.git
   install:tools:
     desc: Install all tools with help of asdf
     summary: |
@@ -38,21 +40,21 @@ tasks:
         --insecure
         --store=roach-prime
         --listen-addr=localhost:26257
-        --http-addr=localhost:9080
+        --http-addr=localhost:8080
         --join=localhost:26257,localhost:26258,localhost:26259
         --background
       # - cockroach start
       #   --insecure
       #   --store=roach-alpha
       #   --listen-addr=localhost:26258
-      #   --http-addr=localhost:9081
+      #   --http-addr=localhost:8081
       #   --join=localhost:26257,localhost:26258,localhost:26259
       #   --background
       # - cockroach start
       #   --insecure
       #   --store=roach-beta
       #   --listen-addr=localhost:26259
-      #   --http-addr=localhost:9082
+      #   --http-addr=localhost:8082
       #   --join=localhost:26257,localhost:26258,localhost:26259
       #   --background
   disperse:cockroaches:
@@ -85,14 +87,29 @@ tasks:
     summary: |
       It allows us to use derpycoder.site or derpycoder.piv for local development.
       Run: `cat /etc/hosts` to check if the command ran successfully
+      Or edit manually using `sudo code /etc/hosts`
     cmds:
       - sudo hostsfile add
         derpycoder.site
+        s3.derpycoder.site
         www.derpycoder.site
+        minio.derpycoder.site
         pgweb.derpycoder.site
         roaches.derpycoder.site
+        imgproxy.derpycoder.site
         127.0.0.1
-  setup:mkcert:
+  setup:minio:
+    desc: Minio MC is the command line tool for Minio
+    summary: |
+      Make Bucket:
+      mc mb minio/honeycomb
+
+      Copy file to the bucket:
+      mc cp priv/static/images/phoenix.png minio/honeycomb
+    cmds:
+      - mc alias set minio http://localhost:9000 minioadmin minioadmin
+
+  generate:mkcert:
     desc: Installs and Initiates the SSL Certificates
     summary: |
       We must rename whatever certificate file name gets generated to:
@@ -108,6 +125,27 @@ tasks:
     cmds:
       - mix ecto.seed
 
+  start:minio:
+    desc: Starts MinIO
+    summary: |
+      Host: http://localhost:9000
+      Username & Password: [minioadmin, minioadmin]
+    cmds:
+      - MINIO_SERVER_URL=https://s3.derpycoder.site
+        MINIO_BROWSER_REDIRECT_URL=https://minio.derpycoder.site
+        minio server start -address :9000 --console-address :9443
+  start:imgproxy:
+    desc: Starts Imgproxy server
+    summary: |
+      - Configurations: https://github.com/imgproxy/imgproxy/blob/master/docs/configuration.md
+      - https://imgproxy.derpycoder.site/insecure/rs:fit:512:64:no:0/plain/s3://honeycomb/phoenix.png@png
+    cmds:
+      - IMGPROXY_USE_S3=true
+        AWS_ACCESS_KEY_ID=minioadmin
+        AWS_SECRET_ACCESS_KEY=minioadmin
+        IMGPROXY_S3_ENDPOINT=https://s3.derpycoder.site
+        IMGPROXY_BIND=:9080
+        imgproxy
   start:haproxy:
     desc: Starts HAproxy
     cmds:
@@ -115,7 +153,7 @@ tasks:
   start:pgweb:
     desc: Runs PGWeb in the browser
     cmds:
-      - pgweb --host localhost --user root --db derpy_coder_dev --port 26257
+      - pgweb --host localhost --user root --db derpy_coder_dev --port 26257 --listen 8000
   start:server:
     desc: Runs the server with a custom name
     cmds:

@@ -53,38 +53,20 @@
 - [ ] Warrant Canary
 - [ ] Ads.txt
 
-## MinIO
-- brew install minio
-- minio server start (http://localhost:9000) [minioadmin, minioadmin]
-- asdf plugin add minio https://github.com/aeons/asdf-minio.git
-- minio 2022-09-01T23-53-36Z (In ASDF file)
-
-- brew install minio-mc
-- asdf plugin-add mc https://github.com/penpyt/asdf-mc.git
-
-- mc alias set minio http://192.168.43.106:9000 minioadmin minioadmin
-- mc mb minio/honeycomb
-- mc cp priv/static/images/phoenix.png minio/honeycomb
-
-## Figure out Imgproxy
-- Configurations: https://github.com/imgproxy/imgproxy/blob/master/docs/configuration.md
-- IMGPROXY_USE_S3=true\
-  AWS_ACCESS_KEY_ID=minioadmin\
-  AWS_SECRET_ACCESS_KEY=minioadmin\
-  IMGPROXY_S3_ENDPOINT=http://192.168.43.106:9000\
-  imgproxy
-- http://localhost:8080/insecure/rs:fit:512:64:no:0/plain/s3://honeycomb/phoenix.png@png
-
 ## Monitoring
 - brew install prometheus
 - brew install grafana
 - brew install loki
-
-## Proxy & Cache
-- brew install varnish
 
 ## Subdomains & Domains
 - https://derpycoder.site
 - https://www.derpycoder.site
 - https://pgweb.derpycoder.site
 - https://roaches.derpycoder.site
+- https://s3.derpycoder.site
+- https://minio.derpycoder.site
+- https://imgproxy.derpycoder.site (Hide this, because it's useless, with Varnish)
+- https://img.derpycoder.site (TODO)
+
+## Proxy & Cache
+- brew install varnish
