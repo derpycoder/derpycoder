@@ -60,9 +60,13 @@
 
 ## Subdomains & Domains
 - https://derpycoder.site
-- https://s3.derpycoder.site
 - https://img.derpycoder.site
-- https://www.derpycoder.site
-- https://pgweb.derpycoder.site
 - https://minio.derpycoder.site
 - https://cockroach.derpycoder.site
+
+## Imgproxy Code
+- Imgproxy.new("https://placekitten.com/200/300") |> to_string()
+- Imgproxy.new("s3://honeycomb/phoenix.png") \
+  |> Imgproxy.resize(512, 64) \
+  |> Imgproxy.set_extension("png") \
+  |> to_string()

@@ -1,6 +1,12 @@
 ---
 version: "3"
 
+# https://taskfile.dev/usage/#env-files
+# env:
+#   ENV: testing
+
+# dotenv: ['.env', '{{.ENV}}/.env.', '{{.HOME}}/.env']
+
 tasks:
   install:asdf:
     desc: Install asdf and related plugins using brew
@@ -20,19 +26,18 @@ tasks:
       It will pickup up versions from .tool-versions file and install them.
     cmds:
       - asdf install
-      - brew install imgproxy
-      - brew install pgweb
       - brew install kevinburke/safe/hostsfile
       - brew install mkcert
       - brew install haproxy
       - brew install varnish
+      - brew install imgproxy
       - mix local.hex
   install:deps:
     desc: Fetch & Compile dependencies
     cmds:
       - mix do deps.get, deps.compile
 
-  generate:mkcert:
+  generate:haproxy_cert:
     desc: Installs and Initiates the SSL Certificates
     summary: |
       We must rename whatever certificate file name gets generated to:
@@ -40,8 +45,47 @@ tasks:
     cmds:
       - mkcert -install
       - mkcert derpycoder derpycoder.site "*.derpycoder.site"
-      - mv derpycoder+2.pem derpycoder.pem
-      - mv derpycoder+2-key.pem derpycoder.pem.key
+      - mv derpycoder+2.pem certs/haproxy/ui.pem
+      - mv derpycoder+2-key.pem certs/haproxy/ui.pem.key
+  generate:cockroach_cert:
+    desc: Generates all the certificates necessary to run a cockroach db cluster
+    cmds:
+      - cockroach cert create-ca
+        --certs-dir=certs/cockroach_db
+        --ca-key=keys/ca.key
+      - cockroach cert create-node
+        localhost
+        cockroach.derpycoder.site
+        --certs-dir=certs/cockroach_db
+        --ca-key=keys/ca.key
+      - cockroach cert create-client
+        root
+        --certs-dir=certs/cockroach_db
+        --ca-key=keys/ca.key
+      - cockroach cert create-client
+        derp
+        --certs-dir=certs/cockroach_db
+        --ca-key=keys/ca.key
+      - openssl pkcs8 -topk8 -inform PEM -outform DER
+        -in certs/cockroach_db/client.derp.key
+        -out certs/cockroach_db/client.derp.pk8
+        -nocrypt
+      - cockroach cert list
+        --certs-dir=certs/cockroach_db
+      - mkcert localhost cockroach.derpycoder.site
+      - mv localhost+1.pem certs/cockroach_db/ui.crt
+      - mv localhost+1-key.pem certs/cockroach_db/ui.key
+  generate:minio_cert:
+    desc: Generates the certificates necessary to run Minio
+    cmds:
+      - mkcert localhost minio.derpycoder.site s3.derpycoder.site
+      - mv localhost+2.pem certs/minio/public.crt
+      - mv localhost+2-key.pem certs/minio/private.key
+  generate:imgproxy_hash:
+    desc: Generates salt & key for Imgproxy
+    cmds:
+      - echo "salt:" `mix imgproxy.gen.secret`
+      - echo "key:" `mix imgproxy.gen.secret`
 
   spawn:cockroaches:
     desc: Start Cockroach DB Server & Initiate
@@ -49,21 +93,20 @@ tasks:
       Visit: http://localhost:9080
     cmds:
       - cockroach start
-        --insecure
+        --certs-dir=certs/cockroach_db
         --store=roach-prime
         --listen-addr=localhost:26257
         --http-addr=localhost:8080
         --join=localhost:26257,localhost:26258,localhost:26259
-        --background
       # - cockroach start
-      #   --insecure
+      #   --certs-dir=certs/cockroach_db
       #   --store=roach-alpha
       #   --listen-addr=localhost:26258
       #   --http-addr=localhost:8081
       #   --join=localhost:26257,localhost:26258,localhost:26259
       #   --background
       # - cockroach start
-      #   --insecure
+      #   --certs-dir=certs/cockroach_db
       #   --store=roach-beta
       #   --listen-addr=localhost:26259
       #   --http-addr=localhost:8082
@@ -75,7 +118,7 @@ tasks:
       Need to be called only once!
     cmds:
       - cockroach init
-        --insecure
+        --certs-dir=certs/cockroach_db
         --host=localhost:26257
 
   setup:hosts:
@@ -91,7 +134,6 @@ tasks:
         www.derpycoder.site
         img.derpycoder.site
         minio.derpycoder.site
-        pgweb.derpycoder.site
         cockroach.derpycoder.site
         127.0.0.1
   setup:ecto:
@@ -120,15 +162,11 @@ tasks:
     desc: Starts HAproxy
     cmds:
       - sudo haproxy -f haproxy.cfg
-  start:pgweb:
-    desc: Runs PGWeb in the browser
-    cmds:
-      - pgweb --host localhost --user root --db derpy_coder_dev --port 26257 --listen 8000
   start:minio:
     desc: Starts MinIO
     summary: |
       Host: https://s3.derpycoder.site
-      Username & Password: [minioadmin, minioadmin]
+      Username & Password: [derp, wubalubadubdub]
 
       Make Bucket:
       mc mb minio/honeycomb
@@ -136,22 +174,29 @@ tasks:
       Copy file to the bucket:
       mc cp priv/static/images/phoenix.png minio/honeycomb
     cmds:
-      - MINIO_SERVER_URL=https://s3.derpycoder.site
-        MINIO_BROWSER_REDIRECT_URL=https://minio.derpycoder.site
-        minio server start -address :9000 --console-address :9443
-      - mc alias set minio https://s3.derpycoder.site minioadmin minioadmin
+      - minio server start -address :9000 --console-address :9443 --certs-dir certs/minio
+      - mc alias set minio https://s3.derpycoder.site derp wubalubadubdub
+    env:
+      MINIO_ROOT_USER: derp
+      MINIO_ROOT_PASSWORD: wubalubadubdub
+      MINIO_SERVER_URL: https://s3.derpycoder.site:9000
+      MINIO_BROWSER_REDIRECT_URL: https://minio.derpycoder.site:9443
   start:imgproxy:
     desc: Starts Imgproxy server
     summary: |
       - Configurations: https://github.com/imgproxy/imgproxy/blob/master/docs/configuration.md
-      - https://img.derpycoder.site/insecure/rs:fit:512:64:no:0/plain/s3://honeycomb/phoenix.png@png
+      - https://img.derpycoder.site/WZpVXkfpVNOqY0NVeMMR-es6py3OKJPgRWO07QG40Bg/aHR0cHM6Ly9wbGFjZWtpdHRlbi5jb20vMjAwLzMwMA
+      - https://img.derpycoder.site/EsO27O7uG9o1ibaMyo2-JR1ca33mMaGkeGfQYzoBijs/rs:fit:512:64:false/czM6Ly9ob25leWNvbWIvcGhvZW5peC5wbmc.png
     cmds:
-      - IMGPROXY_USE_S3=true
-        AWS_ACCESS_KEY_ID=minioadmin
-        AWS_SECRET_ACCESS_KEY=minioadmin
-        IMGPROXY_S3_ENDPOINT=https://s3.derpycoder.site
-        IMGPROXY_BIND=:9080
-        imgproxy
+      - imgproxy
+    env:
+      IMGPROXY_USE_S3: true
+      AWS_ACCESS_KEY_ID: derp
+      AWS_SECRET_ACCESS_KEY: wubalubadubdub
+      IMGPROXY_S3_ENDPOINT: https://s3.derpycoder.site:9000
+      IMGPROXY_BIND: :9080
+      IMGPROXY_KEY: 943dba783daf474a38beee580326cb28a90c48de7a504f23de7c8f5689d96426eccdafc3e8280c8747a82d39a332ebc14611079689d7ac1938623a909adfa273
+      IMGPROXY_SALT: acd0087624cc841a557be9b82002cbcb818e2b024cbdf7e32fabd2ed22655da5724d40e729ed79e1c12c53960c400bad9a3ee7a5d1fd930887104119d83672e3
   start:varnish:
     desc: Starts Varnish Cache
     cmds:
@@ -174,8 +219,14 @@ tasks:
       - iex -S mix
   start:csql:
     desc: Starts Cockroach CLI
+    summary: |
+      - cockroach sql --certs-dir=certs/cockroach_db --host=localhost:26257
+      - CREATE USER derp WITH PASSWORD 'wubalubadubdub';
+      - GRANT admin TO derp;
+      - SHOW USERS;
+      - \q
     cmds:
-      - cockroach sql --insecure --host=localhost:26257
+      - cockroach sql --certs-dir=certs/cockroach_db --user=derp --host=localhost:26257
 
   analyze:cons:
     desc: Analyze code, using Credo, for consistency

@@ -68,7 +68,8 @@ defmodule DerpyCoder.MixProject do
       {:phoenix_pubsub, "~> 2.1"},
       {:dotenvy, "~> 0.6.0"},
       {:sobelow, "~> 0.11.1", only: [:dev], runtime: false},
-      {:git_hooks, "~> 0.7.3", only: [:dev], runtime: false}
+      {:git_hooks, "~> 0.7.3", only: [:dev], runtime: false},
+      {:imgproxy, "~> 3.0"}
     ]
   end
 

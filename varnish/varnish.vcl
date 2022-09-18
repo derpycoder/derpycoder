@@ -6,7 +6,7 @@ import std;
 
 include "./hit-miss.vcl";
 
-backend varnish {
+backend imgproxy {
     .host = "127.0.0.1";
     .port = "9080";
     .max_connections = 10000;

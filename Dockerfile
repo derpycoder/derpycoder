@@ -48,11 +48,11 @@ RUN apk upgrade --no-cache
 
 RUN apk add --no-cache openssl ncurses libstdc++ libgcc
 
-RUN adduser -h /app -u 1000 -s /bin/sh -D overlord
+RUN adduser -h /app -u 1000 -s /bin/sh -D derp
 
 COPY --from=build_container /app/_build/prod/rel/derpy_coder /app
-RUN chown -R overlord:overlord /app
-USER overlord
+RUN chown -R derp:derp /app
+USER derp
 WORKDIR /app
 EXPOSE 8000
 ENTRYPOINT ["bin/derpy_coder"]

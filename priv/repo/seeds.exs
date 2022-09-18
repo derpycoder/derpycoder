@@ -24,32 +24,32 @@ Permissions.deny()
 {:ok, admin} =
   Accounts.seed_admin(%{
     email: "admin@derpycoder.com",
-    password: "123456789abc",
-    password_confirmation: "123456789abc",
+    password: "wubalubadubdub",
+    password_confirmation: "wubalubadubdub",
     groups: ~w(admin photography)a
   })
 
 {:ok, bobina} =
   Accounts.seed_user(%{
     email: "bobina@derpycoder.com",
-    password: "123456789abc",
-    password_confirmation: "123456789abc",
+    password: "wubalubadubdub",
+    password_confirmation: "wubalubadubdub",
     groups: ~w(photography)a
   })
 
 {:ok, abhijit} =
   Accounts.seed_user(%{
     email: "abhijit@derpycoder.com",
-    password: "123456789abc",
-    password_confirmation: "123456789abc",
+    password: "wubalubadubdub",
+    password_confirmation: "wubalubadubdub",
     groups: ~w(photography)a
   })
 
 {:ok, abhisek} =
   Accounts.register_user(%{
     email: "abhisek@derpycoder.com",
-    password: "123456789abc",
-    password_confirmation: "123456789abc",
+    password: "wubalubadubdub",
+    password_confirmation: "wubalubadubdub",
     groups: ~w(photography)a
   })
 

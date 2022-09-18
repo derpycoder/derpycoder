@@ -51,5 +51,6 @@ derpycoder.pem*
 # Dialyzer
 .elixir_ls
 
-# Keys
+# Keys & Certs
 keys
+certs
