@@ -1,12 +1,6 @@
 ---
 version: "3"
 
-# https://taskfile.dev/usage/#env-files
-# env:
-#   ENV: testing
-
-# dotenv: ['.env', '{{.ENV}}/.env.', '{{.HOME}}/.env']
-
 tasks:
   install:asdf:
     desc: Install asdf and related plugins using brew
