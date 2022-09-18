@@ -1,5 +1,5 @@
-elixir              1.14-otp-25
-erlang              25.0.4
-cockroach           22.1.7
+elixir              1.13.4-otp-25
+erlang              25.0.3
+cockroach           22.1.6
 minio               2022-09-17T00-09-45Z
 mc                  2022-09-16T09-16-47Z
