@@ -138,7 +138,7 @@ config :fun_with_flags, :persistence,
   repo: DerpyCoder.Repo
 
 # ==============================================================================
-# Imgproxy
+# Configure Imgproxy
 # ==============================================================================
 config :imgproxy,
   prefix: "https://img.derpycoder.site",
@@ -146,6 +146,47 @@ config :imgproxy,
     "943dba783daf474a38beee580326cb28a90c48de7a504f23de7c8f5689d96426eccdafc3e8280c8747a82d39a332ebc14611079689d7ac1938623a909adfa273",
   salt:
     "acd0087624cc841a557be9b82002cbcb818e2b024cbdf7e32fabd2ed22655da5724d40e729ed79e1c12c53960c400bad9a3ee7a5d1fd930887104119d83672e3"
+
+# ==============================================================================
+# Configure Finch
+# ==============================================================================
+default_pool_size = env!("DEFAULT_FINCH_POOL_SIZE", :integer, 50)
+default_pool_count = env!("DEFAULT_FINCH_POOL_COUNT", :integer, 1)
+
+config :derpy_coder, DerpyCoder.Finch,
+  default_pool_config: %{
+    size: default_pool_size,
+    count: default_pool_count
+  }
+
+# ==============================================================================
+# ExAws Configuration
+# ==============================================================================
+debug_requests = env!("DEBUG_REQUESTS", :boolean, false)
+aws_access_key_id = env!("AWS_ACCESS_KEY_ID", :string)
+aws_secret_access_key = env!("AWS_SECRET_ACCESS_KEY", :string)
+max_attempts = env!("MAX_ATTEMPTS", :integer)
+base_backoff_in_ms = env!("BASE_BACKOFF_IN_MS", :integer)
+max_backoff_in_ms = env!("MAX_BACKOFF_IN_MS", :integer)
+s3_host = env!("S3_HOST", :string)
+s3_port = env!("S3_PORT", :string)
+
+config :ex_aws,
+  debug_requests: debug_requests,
+  access_key_id: aws_access_key_id,
+  secret_access_key: aws_secret_access_key,
+  http_client: DerpyCoder.ExAwsHttpClient,
+  json_codec: Jason
+
+config :ex_aws, :s3,
+  scheme: "https://",
+  host: s3_host,
+  port: s3_port
+
+config :ex_aws, :retries,
+  max_attempts: max_attempts,
+  base_backoff_in_ms: base_backoff_in_ms,
+  max_backoff_in_ms: max_backoff_in_ms
 
 # ==============================================================================
 # Configure Swoosh

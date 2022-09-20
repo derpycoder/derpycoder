@@ -70,3 +70,27 @@
   |> Imgproxy.resize(512, 64) \
   |> Imgproxy.set_extension("png") \
   |> to_string()
+
+## Finch & Req
+- req = Req.new(base_url: "https://httpbin.org")
+- Req.get!(req, url: "/status/200").status
+- Req.get!("https://derpycoder.site", finch: DerpyCoder.Finch).body
+- Finch.build(:get, "http://localhost:4000") |> Finch.request(DerpyCoder.Finch)
+- Finch.build(:get, "https://s3.derpycoder.site:9000") |> Finch.request(DerpyCoder.Finch)
+- Finch.build(:get, "https://self-signed.badssl.com") |> Finch.request(DerpyCoder.Finch)
+
+## ExAws
+- ExAws.S3.list_buckets() |> ExAws.request!()
+
+- local_image = File.read!("priv/static/images/phoenix.png")
+- ExAws.S3.put_bucket("bee", "") |> ExAws.request!()
+
+- ExAws.S3.put_object("bee", "priv/static/phoenix.png", local_image) |> ExAws.request!()
+- # images -> img, videos -> vdo, pdfs -> pdf, etc - i.e. img.derpycoder.site
+- opts = [virtual_host: true, bucket_as_host: true]
+- ExAws.Config.new(:s3) |> S3.presigned_url(:get, "bee.derpycoder.site", "priv/static/phoenix.png", opts)
+
+- # my-eu-bucket-3, my-project-x, 4my-group
+- ExAws.Config.new(:s3) |> ExAws.S3.presigned_url(:get, "honeycomb", "phoenix.png")
+- ExAws.Config.new(:s3) |> ExAws.S3.presigned_url(:get, "bee", "priv/static/phoenix.png")
+- ExAws.Config.new(:s3) |> ExAws.S3.presigned_url(:get, "bee", "priv/static/phoenix.png", [expires_in: 300])

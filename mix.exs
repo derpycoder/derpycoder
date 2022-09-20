@@ -69,7 +69,12 @@ defmodule DerpyCoder.MixProject do
       {:dotenvy, "~> 0.6.0"},
       {:sobelow, "~> 0.11.1", only: [:dev], runtime: false},
       {:git_hooks, "~> 0.7.3", only: [:dev], runtime: false},
-      {:imgproxy, "~> 3.0"}
+      {:imgproxy, "~> 3.0"},
+      {:finch, "~> 0.13.0"},
+      {:req, "~> 0.3.0"},
+      {:ex_aws, "~> 2.1"},
+      {:ex_aws_s3, "~> 2.0"},
+      {:sweet_xml, "~> 0.6"}
     ]
   end
 
