@@ -42,6 +42,7 @@ tasks:
     cmds:
       - mkcert -install
       - mkcert derpycoder derpycoder.site "*.derpycoder.site"
+      - mkdir certs/haproxy
       - mv derpycoder+2.pem certs/haproxy/ui.pem
       - mv derpycoder+2-key.pem certs/haproxy/ui.pem.key
   generate:cockroach_cert:
@@ -70,14 +71,23 @@ tasks:
       - cockroach cert list
         --certs-dir=certs/cockroach_db
       - mkcert localhost cockroach.derpycoder.site
+      - mkdir certs/cockroach_db
       - mv localhost+1.pem certs/cockroach_db/ui.crt
       - mv localhost+1-key.pem certs/cockroach_db/ui.key
   generate:minio_cert:
     desc: Generates the certificates necessary to run Minio
     cmds:
       - mkcert localhost minio.derpycoder.site s3.derpycoder.site
+      - mkdir certs/minio
       - mv localhost+2.pem certs/minio/public.crt
       - mv localhost+2-key.pem certs/minio/private.key
+  generate:meilisearch_cert:
+    desc: Generates the certificates necessary to run Meilisearch
+    cmds:
+      - mkcert localhost search.derpycoder.site
+      - mkdir certs/meilisearch
+      - mv localhost+1.pem certs/meilisearch/cert.pem
+      - mv localhost+1-key.pem certs/meilisearch/key.pem
   generate:imgproxy_hash:
     desc: Generates salt & key for Imgproxy
     cmds:
@@ -217,10 +227,12 @@ tasks:
     summary: |
       http://localhost:7700
     cmds:
-      - meilisearch --no-analytics
+      - meilisearch --no-analytics --ssl-require-auth
     env:
       MEILI_MASTER_KEY: wubalubadubdub
       MEILI_ENV: development
+      MEILI_SSL_CERT_PATH: certs/meilisearch/cert.pem
+      MEILI_SSL_KEY_PATH: certs/meilisearch/key.pem
   start:server:
     desc: Runs the server with a custom name
     cmds:
