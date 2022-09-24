@@ -25,6 +25,9 @@ tasks:
       - brew install haproxy
       - brew install varnish
       - brew install imgproxy
+      - brew install pgweb
+      - brew install netdata
+      - brew install meilisearch
       - mix local.hex
   install:deps:
     desc: Fetch & Compile dependencies
@@ -128,6 +131,9 @@ tasks:
         www.derpycoder.site
         img.derpycoder.site
         minio.derpycoder.site
+        pgweb.derpycoder.site
+        search.derpycoder.site
+        netdata.derpycoder.site
         cockroach.derpycoder.site
         127.0.0.1
   setup:ecto:
@@ -152,10 +158,21 @@ tasks:
     cmds:
       - mix ecto.seed
 
+  start:netdata:
+    desc: Start realtime system monitor
+    summary: |
+      http://localhost:19999
+    cmds:
+      - netdata
   start:haproxy:
     desc: Starts HAproxy
     cmds:
       - sudo haproxy -f haproxy.cfg
+  start:pgweb:
+    desc: Start pgweb, to inspect the contents of the Database.
+    cmds:
+      - pgweb --url "postgres://derp@localhost:26257/derpy_coder_dev?sslmode=verify-ca&sslcert=certs/cockroach_db/client.derp.crt&sslkey=certs/cockroach_db/client.derp.key&sslrootcert=certs/cockroach_db/ca.crt&password=wubalubadubdub&cluster=roach-infestation"
+        --listen 8000
   start:minio:
     desc: Starts MinIO
     summary: |
@@ -195,6 +212,15 @@ tasks:
     desc: Starts Varnish Cache
     cmds:
       - sudo varnishd -s file,/tmp,100M -a 127.0.0.1:3000 -f `realpath ./varnish/varnish.vcl`
+  start:meilisearch:
+    desc: Starts a fast search database.
+    summary: |
+      http://localhost:7700
+    cmds:
+      - meilisearch --no-analytics
+    env:
+      MEILI_MASTER_KEY: wubalubadubdub
+      MEILI_ENV: development
   start:server:
     desc: Runs the server with a custom name
     cmds:
@@ -291,6 +317,10 @@ tasks:
     desc: Kill Varnish
     cmds:
       - sudo pkill varnish
+  terminate:netdata:
+    desc: Terminates the realtime monitor
+    cmds:
+      - pkill netdata
 
   reset:ecto:
     desc: Resets Ecto, by dropping, creating, migrating, adding super admin and finally seeding the database.

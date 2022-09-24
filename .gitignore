@@ -54,3 +54,6 @@ derpycoder.pem*
 # Keys & Certs
 keys
 certs
+
+# Meilisearch
+data.ms
