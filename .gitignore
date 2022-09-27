@@ -57,3 +57,7 @@ certs
 
 # Meilisearch
 data.ms
+
+# Benchmark
+lighthouse-result
+sitespeed-result

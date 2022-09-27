@@ -9,26 +9,27 @@ tasks:
       Type `asdf list elixir` to list only the version installed.
     cmds:
       - brew install asdf
+      - asdf plugin-add mc https://github.com/penpyt/asdf-mc.git
+      - asdf plugin add minio https://github.com/aeons/asdf-minio.git
       - asdf plugin-add elixir https://github.com/asdf-vm/asdf-elixir.git
       - asdf plugin-add erlang https://github.com/asdf-vm/asdf-erlang.git
+      - asdf plugin add nodejs https://github.com/asdf-vm/asdf-nodejs.git
       - asdf plugin-add cockroach https://github.com/salasrod/asdf-cockroach.git
-      - asdf plugin add minio https://github.com/aeons/asdf-minio.git
-      - asdf plugin-add mc https://github.com/penpyt/asdf-mc.git
   install:tools:
     desc: Install all tools with help of asdf
     summary: |
       It will pickup up versions from .tool-versions file and install them.
     cmds:
       - asdf install
-      - brew install kevinburke/safe/hostsfile
-      - brew install mkcert
-      - brew install haproxy
-      - brew install varnish
-      - brew install imgproxy
       - brew install pgweb
+      - brew install mkcert
       - brew install netdata
+      - brew install varnish
+      - brew install haproxy
+      - brew install imgproxy
       - brew install meilisearch
-      - mix local.hex
+      - brew install kevinburke/safe/hostsfile
+      - mix  local.hex
   install:deps:
     desc: Fetch & Compile dependencies
     cmds:

@@ -1,5 +1,6 @@
+mc                  2022-09-16T09-16-47Z
+minio               2022-09-17T00-09-45Z
 elixir              1.13.4-otp-25
 erlang              25.0.3
+nodejs              18.9.1
 cockroach           22.1.6
-minio               2022-09-17T00-09-45Z
-mc                  2022-09-16T09-16-47Z

@@ -94,3 +94,21 @@
 - ExAws.Config.new(:s3) |> ExAws.S3.presigned_url(:get, "honeycomb", "phoenix.png")
 - ExAws.Config.new(:s3) |> ExAws.S3.presigned_url(:get, "bee", "priv/static/phoenix.png")
 - ExAws.Config.new(:s3) |> ExAws.S3.presigned_url(:get, "bee", "priv/static/phoenix.png", [expires_in: 300])
+
+- brew install pnpm
+- brew install --cask google-chrome
+- npm install -g lighthouse
+- npm install -g serve
+- lighthouse https://derpycoder.site \
+  --chrome-flags="--headless" \
+  --output-path="performance/lighthouse.html" \
+  --form-factor="desktop" \
+  --screenEmulation.disabled \
+  --view
+- serve performance
+- http://localhost:3000/lighthouse
+
+- npm install -g sitespeed.io
+- sitespeed.io https://derpycoder.site -b chrome -n 1 -o --headless
+
+- rqlite for config storage & feature flags.
