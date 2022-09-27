@@ -15,7 +15,7 @@ defmodule DerpyCoderWeb.Router do
 
                               _ ->
                                 "default-src 'self' 'unsafe-inline';" <>
-                                  "connect-src wss://derpycoder.site wss://www.derpycoder.site ws://localhost:*;" <>
+                                  "connect-src wss://derpycoder.site wss://www.derpycoder.site wss://localhost:* ws://localhost:*;" <>
                                   "img-src 'self' data: https:;" <>
                                   "font-src data:;"
                             end)

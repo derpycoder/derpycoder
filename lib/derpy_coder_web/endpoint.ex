@@ -6,6 +6,7 @@ defmodule DerpyCoderWeb.Endpoint do
   # Set :encryption_salt if you would also like to encrypt it.
   @session_options [
     store: :cookie,
+    secure: true,
     key: "_derpy_coder_key",
     signing_salt: "5zWr53K5"
   ]

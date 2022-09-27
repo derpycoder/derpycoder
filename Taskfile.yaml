@@ -42,10 +42,10 @@ tasks:
       localhost.pem & localhost.pem.key
     cmds:
       - mkcert -install
-      - mkcert derpycoder derpycoder.site "*.derpycoder.site"
+      - mkcert derpycoder derpycoder.site "*.derpycoder.site" localhost 127.0.0.1 ::1
       - mkdir certs/haproxy
-      - mv derpycoder+2.pem certs/haproxy/ui.pem
-      - mv derpycoder+2-key.pem certs/haproxy/ui.pem.key
+      - mv derpycoder+5.pem certs/haproxy/ui.pem
+      - mv derpycoder+5-key.pem certs/haproxy/ui.pem.key
   generate:cockroach_cert:
     desc: Generates all the certificates necessary to run a cockroach db cluster
     cmds:
