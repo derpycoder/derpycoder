@@ -113,10 +113,6 @@
 
 - rqlite for config storage & feature flags.
 
-
 - Start order
   - Cockroach | MinIO
   - Haproxy | Phoenix Server
-
-
-- brew install go
