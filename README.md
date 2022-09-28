@@ -76,7 +76,7 @@
 - Req.get!(req, url: "/status/200").status
 - Req.get!("https://derpycoder.site", finch: DerpyCoder.Finch).body
 - Finch.build(:get, "http://localhost:4000") |> Finch.request(DerpyCoder.Finch)
-- Finch.build(:get, "https://s3.derpycoder.site:9000") |> Finch.request(DerpyCoder.Finch)
+- Finch.build(:get, "https://s3.derpycoder.site") |> Finch.request(DerpyCoder.Finch)
 - Finch.build(:get, "https://self-signed.badssl.com") |> Finch.request(DerpyCoder.Finch)
 
 ## ExAws
@@ -112,3 +112,11 @@
 - sitespeed.io https://derpycoder.site -b chrome -n 1 -o --headless
 
 - rqlite for config storage & feature flags.
+
+
+- Start order
+  - Cockroach | MinIO
+  - Haproxy | Phoenix Server
+
+
+- brew install go

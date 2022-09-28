@@ -53,7 +53,7 @@ defmodule DerpyCoder.Application do
           ]
         ]
       ],
-      "https://s3.derpycoder.site:9000" => [
+      "https://s3.derpycoder.site" => [
         protocol: :http2,
         count: 50,
         conn_opts: [
