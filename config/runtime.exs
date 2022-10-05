@@ -140,12 +140,13 @@ config :fun_with_flags, :persistence,
 # ==============================================================================
 # Configure Imgproxy
 # ==============================================================================
+imgproxy_key = env!("IMGPROXY_KEY", :string)
+imgproxy_salt = env!("IMGPROXY_SALT", :string)
+
 config :imgproxy,
   prefix: "https://img.derpycoder.site",
-  key:
-    "943dba783daf474a38beee580326cb28a90c48de7a504f23de7c8f5689d96426eccdafc3e8280c8747a82d39a332ebc14611079689d7ac1938623a909adfa273",
-  salt:
-    "acd0087624cc841a557be9b82002cbcb818e2b024cbdf7e32fabd2ed22655da5724d40e729ed79e1c12c53960c400bad9a3ee7a5d1fd930887104119d83672e3"
+  key: imgproxy_key,
+  salt: imgproxy_salt
 
 # ==============================================================================
 # Configure Finch

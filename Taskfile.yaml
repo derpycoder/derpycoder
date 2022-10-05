@@ -11,9 +11,11 @@ tasks:
       - brew install asdf
       - asdf plugin-add mc https://github.com/penpyt/asdf-mc.git
       - asdf plugin add minio https://github.com/aeons/asdf-minio.git
+      - asdf plugin-add caddy https://github.com/salasrod/asdf-caddy.git
       - asdf plugin-add elixir https://github.com/asdf-vm/asdf-elixir.git
       - asdf plugin-add erlang https://github.com/asdf-vm/asdf-erlang.git
       - asdf plugin add nodejs https://github.com/asdf-vm/asdf-nodejs.git
+      - asdf plugin-add mkcert https://github.com/salasrod/asdf-mkcert.git
       - asdf plugin-add cockroach https://github.com/salasrod/asdf-cockroach.git
   install:tools:
     desc: Install all tools with help of asdf
@@ -35,17 +37,17 @@ tasks:
     cmds:
       - mix do deps.get, deps.compile
 
-  generate:haproxy_cert:
+  generate:caddy_cert:
     desc: Installs and Initiates the SSL Certificates
     summary: |
       We must rename whatever certificate file name gets generated to:
-      localhost.pem & localhost.pem.key
+      ui.pem & ui-key.pem
     cmds:
       - mkcert -install
       - mkcert derpycoder derpycoder.site "*.derpycoder.site" localhost 127.0.0.1 ::1
-      - mkdir certs/haproxy
-      - mv derpycoder+5.pem certs/haproxy/ui.pem
-      - mv derpycoder+5-key.pem certs/haproxy/ui.pem.key
+      - mkdir -p certs/caddy
+      - mv derpycoder+5.pem certs/caddy/cert.pem
+      - mv derpycoder+5-key.pem certs/caddy/key.pem
   generate:cockroach_cert:
     desc: Generates all the certificates necessary to run a cockroach db cluster
     cmds:
@@ -72,21 +74,21 @@ tasks:
       - cockroach cert list
         --certs-dir=certs/cockroach_db
       - mkcert localhost cockroach.derpycoder.site
-      - mkdir certs/cockroach_db
+      - mkdir -p certs/cockroach_db
       - mv localhost+1.pem certs/cockroach_db/ui.crt
       - mv localhost+1-key.pem certs/cockroach_db/ui.key
   generate:minio_cert:
     desc: Generates the certificates necessary to run Minio
     cmds:
       - mkcert localhost minio.derpycoder.site s3.derpycoder.site
-      - mkdir certs/minio
+      - mkdir -p certs/minio
       - mv localhost+2.pem certs/minio/public.crt
       - mv localhost+2-key.pem certs/minio/private.key
   generate:meilisearch_cert:
     desc: Generates the certificates necessary to run Meilisearch
     cmds:
       - mkcert localhost search.derpycoder.site
-      - mkdir certs/meilisearch
+      - mkdir -p certs/meilisearch
       - mv localhost+1.pem certs/meilisearch/cert.pem
       - mv localhost+1-key.pem certs/meilisearch/key.pem
   generate:imgproxy_hash:
@@ -175,10 +177,12 @@ tasks:
       http://localhost:19999
     cmds:
       - netdata
-  start:haproxy:
-    desc: Starts HAproxy
+  start:caddy:
+    desc: Starts Caddy
+    summary: |
+      Use `caddy run` for a non Daemon mode!
     cmds:
-      - sudo haproxy -f haproxy.cfg
+      - caddy start
   start:pgweb:
     desc: Start pgweb, to inspect the contents of the Database.
     cmds:
@@ -201,14 +205,14 @@ tasks:
     env:
       MINIO_ROOT_USER: derp
       MINIO_ROOT_PASSWORD: wubalubadubdub
-      MINIO_SERVER_URL: https://s3.derpycoder.site
+      MINIO_SERVER_URL: https://localhost:9000
       MINIO_BROWSER_REDIRECT_URL: https://minio.derpycoder.site
   start:imgproxy:
     desc: Starts Imgproxy server
     summary: |
       - Configurations: https://github.com/imgproxy/imgproxy/blob/master/docs/configuration.md
-      - https://img.derpycoder.site/WZpVXkfpVNOqY0NVeMMR-es6py3OKJPgRWO07QG40Bg/aHR0cHM6Ly9wbGFjZWtpdHRlbi5jb20vMjAwLzMwMA
       - https://img.derpycoder.site/EsO27O7uG9o1ibaMyo2-JR1ca33mMaGkeGfQYzoBijs/rs:fit:512:64:false/czM6Ly9ob25leWNvbWIvcGhvZW5peC5wbmc.png
+      - http://localhost:9080/EsO27O7uG9o1ibaMyo2-JR1ca33mMaGkeGfQYzoBijs/rs:fit:512:64:false/czM6Ly9ob25leWNvbWIvcGhvZW5peC5wbmc.png
     cmds:
       - imgproxy
     env:
@@ -284,7 +288,6 @@ tasks:
     desc: Optimize All Images in Assets folder.
     cmds:
       - open -a ImageOptim ./priv/static/images
-
   heexify:svgs:
     desc: Convers SVGs to Heex Components.
     cmds:
@@ -295,6 +298,10 @@ tasks:
     cmds:
       - mix deps.update --all
       - tasks: [install:deps]
+  reload:caddy:
+    desc: Reloads Caddy Config
+    cmds:
+      - caddy reload
 
   locate:cockroaches:
     desc: List all the Cockroach DB instances
@@ -334,6 +341,10 @@ tasks:
     desc: Terminates the realtime monitor
     cmds:
       - pkill netdata
+  terminate:caddy:
+    desc: Closes the Caddy Instance
+    cmds:
+      - caddy stop
 
   reset:ecto:
     desc: Resets Ecto, by dropping, creating, migrating, adding super admin and finally seeding the database.

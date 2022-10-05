@@ -1,0 +1,81 @@
+www.derpycoder.site {
+	redir https://derpycoder.site permanent
+}
+
+derpycoder.site {
+	tls certs/caddy/cert.pem certs/caddy/key.pem
+
+	encode zstd gzip
+
+	reverse_proxy localhost:4000 {
+		header_up Host {host}
+		header_up Origin {host}
+		header_up X-Real-IP {remote}
+		header_up X-Forwarded-Host {host}
+		header_up X-Forwarded-Server {host}
+		header_up X-Forwarded-Port {port}
+		header_up X-Forwarded-For {remote}
+		header_up X-Forwarded-Proto {scheme}
+		header_down Access-Control-Allow-Origin https://derpycoder.site
+		header_down Access-Control-Allow-Credentials true
+	}
+}
+
+s3.derpycoder.site {
+	reverse_proxy localhost:9000 {
+		transport http {
+			tls
+		}
+	}
+}
+
+img.derpycoder.site {
+	tls internal
+
+	reverse_proxy localhost:3000
+}
+
+minio.derpycoder.site {
+	encode zstd gzip
+
+	reverse_proxy localhost:9443 {
+		transport http {
+			tls
+		}
+	}
+}
+
+pgweb.derpycoder.site {
+	encode zstd gzip
+
+	reverse_proxy localhost:8000
+}
+
+search.derpycoder.site {
+	encode zstd gzip
+
+	reverse_proxy localhost:7700 {
+		transport http {
+			tls
+		}
+	}
+	# TODO: 7443 as TLS is enabled.
+}
+
+netdata.derpycoder.site {
+	encode zstd gzip
+
+	reverse_proxy localhost:19999
+	# TODO: 19443 when TLS is enabled
+}
+
+cockroach.derpycoder.site {
+	encode zstd gzip
+
+	reverse_proxy localhost:8080 {
+		transport http {
+			tls
+		}
+	}
+	# TODO: 8443 as TLS is enabled.
+}
