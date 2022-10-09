@@ -21,6 +21,8 @@ tasks:
     desc: Install all tools with help of asdf
     summary: |
       It will pickup up versions from .tool-versions file and install them.
+
+      To update all asdf plugins: `asdf plugin-update --all`
     cmds:
       - asdf install
       - brew install pgweb
@@ -32,6 +34,7 @@ tasks:
       - brew install meilisearch
       - brew install kevinburke/safe/hostsfile
       - mix  local.hex
+      - mix  local.phx
   install:deps:
     desc: Fetch & Compile dependencies
     cmds:
@@ -150,7 +153,7 @@ tasks:
         cockroach.derpycoder.site
         127.0.0.1
   setup:ecto:
-    desc: Runs create, migrate, initializes super admin and finally seeds the database.
+    desc: Runs create, migrate, initializes super admin.
     cmds:
       - mix ecto.setup
   setup:super_admin:
@@ -296,8 +299,11 @@ tasks:
   update:deps:
     desc: Update all dependencies
     cmds:
+      - mix local.phx
+      - mix local.hex
       - mix deps.update --all
       - tasks: [install:deps]
+
   reload:caddy:
     desc: Reloads Caddy Config
     cmds:
@@ -347,7 +353,7 @@ tasks:
       - caddy stop
 
   reset:ecto:
-    desc: Resets Ecto, by dropping, creating, migrating, adding super admin and finally seeding the database.
+    desc: Resets Ecto, by dropping, creating, migrating.
     cmds:
       - mix ecto.reset
   reset:deps:
