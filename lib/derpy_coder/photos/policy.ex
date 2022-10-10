@@ -8,7 +8,7 @@ defmodule DerpyCoder.Photos.Policy do
   @type entity :: struct()
   @type action :: :new | :index | :edit | :show | :delete
 
-  @spec can?(User.t(), action(), entity()) :: boolean()
+  @spec can?(User, action(), entity()) :: boolean()
   def can?(user, action, entity)
 
   # ==============================================================================

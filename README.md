@@ -117,4 +117,5 @@
   - Cockroach | MinIO
   - Haproxy | Phoenix Server
 
-- mix archive.install hex phx_new
+- mix docs
+- serve doc

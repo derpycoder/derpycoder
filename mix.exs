@@ -5,7 +5,7 @@ defmodule DerpyCoder.MixProject do
     [
       app: :derpy_coder,
       version: "0.1.0",
-      elixir: "~> 1.12",
+      elixir: "~> 1.14",
       elixirc_paths: elixirc_paths(Mix.env()),
       compilers: Mix.compilers(),
       start_permanent: Mix.env() == :prod,
@@ -18,6 +18,16 @@ defmodule DerpyCoder.MixProject do
           steps: [:assemble, :tar],
           validate_compile_env: false
         ]
+      ],
+      name: "DerpyCoder",
+      source_url: "https://github.com/abhijit-kar/derpy_coder",
+      homepage_url: "https://derpycoder.site",
+      docs: [
+        main: "DerpyCoder",
+        extras: ["README.md"],
+        source_ref: "master",
+        formatters: ["html"],
+        nest_modules_by_prefix: [DerpyCoder, DerpyCoderWeb]
       ]
     ]
   end
@@ -74,7 +84,8 @@ defmodule DerpyCoder.MixProject do
       {:req, "~> 0.3.0"},
       {:ex_aws, "~> 2.1"},
       {:ex_aws_s3, "~> 2.0"},
-      {:sweet_xml, "~> 0.6"}
+      {:sweet_xml, "~> 0.6"},
+      {:ex_doc, "~> 0.27", only: :dev, runtime: false},
     ]
   end
 

@@ -3,6 +3,5 @@ minio               2022-10-05T14-58-27Z
 caddy               2.6.1
 elixir              1.14.0-otp-25
 erlang              25.1.1
-nodejs              18.10.0
 mkcert              1.4.4
 cockroach           22.1.8

@@ -14,7 +14,6 @@ tasks:
       - asdf plugin-add caddy https://github.com/salasrod/asdf-caddy.git
       - asdf plugin-add elixir https://github.com/asdf-vm/asdf-elixir.git
       - asdf plugin-add erlang https://github.com/asdf-vm/asdf-erlang.git
-      - asdf plugin add nodejs https://github.com/asdf-vm/asdf-nodejs.git
       - asdf plugin-add mkcert https://github.com/salasrod/asdf-mkcert.git
       - asdf plugin-add cockroach https://github.com/salasrod/asdf-cockroach.git
   install:tools:
@@ -244,7 +243,7 @@ tasks:
   start:server:
     desc: Runs the server with a custom name
     cmds:
-      - elixir --name derpy-coder@127.0.0.1 -S mix phx.server
+      - elixir --sname derpycoder --cookie wubalubadubdub -S mix phx.server
   start:console:
     desc: Run iex in conjunction with the server
     summary: |
@@ -252,11 +251,11 @@ tasks:
       This is useful for running iex alongside server.
       Which means any PubSub events fired from iex is received by the server.
     cmds:
-      - iex --name "console@127.0.0.1" --remsh "derpy-coder@127.0.0.1"
+      - iex --sname console --cookie wubalubadubdub --remsh derpycoder
   start:iex:
     desc: Run iex standalone
     cmds:
-      - iex -S mix
+      - iex --sname iex --cookie wubalubadubdub -S mix
   start:csql:
     desc: Starts Cockroach CLI
     summary: |

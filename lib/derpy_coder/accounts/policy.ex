@@ -7,7 +7,7 @@ defmodule DerpyCoder.Accounts.Policy do
   @type entity :: struct()
   @type action :: :new | :index | :edit | :show | :delete
 
-  @spec can?(User.t(), action(), entity()) :: boolean()
+  @spec can?(User, action(), entity()) :: boolean()
   def can?(user, action, entity)
 
   def can?(%User{id: id, role: :super_admin}, _, _), do: DerpyCoder.Accounts.is_super_admin?(id)
