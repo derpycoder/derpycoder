@@ -1,0 +1,49 @@
+# S3 Playground
+
+## Section
+
+```elixir
+Req.get!("https://derpycoder.site", finch: DerpyCoder.Finch)
+```
+
+```elixir
+ExAws.S3.list_objects(:honeycomb) |> ExAws.request!()
+```
+
+```elixir
+ExAws.S3.list_buckets() |> ExAws.request!()
+```
+
+```elixir
+local_image = File.read!("priv/static/images/phoenix.png")
+```
+
+```elixir
+# my-eu-bucket-3, my-project-x, 4my-group
+# ExAws.S3.put_bucket("bee", "") |> ExAws.request!()
+ExAws.S3.put_object("bee", "priv/static/phoenix.png", local_image) |> ExAws.request!()
+```
+
+```elixir
+# images -> img, videos -> vdo, pdfs -> pdf, etc - i.e. img.derpycoder.site
+opts = [virtual_host: true, bucket_as_host: true]
+
+{:ok, url} =
+  ExAws.Config.new(:s3)
+  |> ExAws.S3.presigned_url(:get, "bee.derpycoder.site", "priv/static/phoenix.png", opts)
+
+url
+```
+
+```elixir
+ExAws.Config.new(:s3) |> ExAws.S3.presigned_url(:get, "honeycomb", "phoenix.png")
+```
+
+```elixir
+ExAws.Config.new(:s3) |> ExAws.S3.presigned_url(:get, "bee", "priv/static/phoenix.png")
+```
+
+```elixir
+ExAws.Config.new(:s3)
+|> ExAws.S3.presigned_url(:get, "bee", "priv/static/phoenix.png", expires_in: 300)
+```

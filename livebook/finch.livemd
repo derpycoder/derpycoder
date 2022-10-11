@@ -1,0 +1,24 @@
+# Finch & Req Playground
+
+## Section
+
+```elixir
+req = Req.new(base_url: "https://httpbin.org")
+Req.get!(req, url: "/status/200").status
+```
+
+```elixir
+Req.get!("https://derpycoder.site", finch: DerpyCoder.Finch)
+```
+
+```elixir
+Finch.build(:get, "http://localhost:4000") |> Finch.request(DerpyCoder.Finch)
+```
+
+```elixir
+Finch.build(:get, "https://s3.derpycoder.site") |> Finch.request(DerpyCoder.Finch)
+```
+
+```elixir
+Finch.build(:get, "https://self-signed.badssl.com") |> Finch.request(DerpyCoder.Finch)
+```

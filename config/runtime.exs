@@ -170,7 +170,6 @@ max_attempts = env!("MAX_ATTEMPTS", :integer)
 base_backoff_in_ms = env!("BASE_BACKOFF_IN_MS", :integer)
 max_backoff_in_ms = env!("MAX_BACKOFF_IN_MS", :integer)
 s3_host = env!("S3_HOST", :string)
-s3_port = env!("S3_PORT", :string)
 
 config :ex_aws,
   debug_requests: debug_requests,
@@ -181,8 +180,7 @@ config :ex_aws,
 
 config :ex_aws, :s3,
   scheme: "https://",
-  host: s3_host,
-  port: s3_port
+  host: s3_host
 
 config :ex_aws, :retries,
   max_attempts: max_attempts,

@@ -1,0 +1,14 @@
+# Imgproxy Playground
+
+## Section
+
+```elixir
+Imgproxy.new("https://placekitten.com/200/300") |> to_string()
+```
+
+```elixir
+Imgproxy.new("s3://honeycomb/phoenix.png")
+|> Imgproxy.resize(512, 64)
+|> Imgproxy.set_extension("png")
+|> to_string()
+```

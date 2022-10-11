@@ -107,7 +107,7 @@ tasks:
   spawn:cockroaches:
     desc: Start Cockroach DB Server & Initiate
     summary: |
-      Visit: http://localhost:9080
+      Visit: http://localhost:8081
     cmds:
       - cockroach start
         --certs-dir=certs/cockroach_db
@@ -214,7 +214,7 @@ tasks:
     env:
       MINIO_ROOT_USER: derp
       MINIO_ROOT_PASSWORD: wubalubadubdub
-      MINIO_SERVER_URL: https://localhost:9000
+      MINIO_SERVER_URL: https://s3.derpycoder.site
       MINIO_BROWSER_REDIRECT_URL: https://minio.derpycoder.site
   start:imgproxy:
     desc: Starts Imgproxy server
