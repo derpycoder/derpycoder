@@ -58,12 +58,6 @@
 - brew install grafana
 - brew install loki
 
-## Subdomains & Domains
-- https://derpycoder.site
-- https://img.derpycoder.site
-- https://minio.derpycoder.site
-- https://cockroach.derpycoder.site
-
 ## Imgproxy Code
 - Imgproxy.new("https://placekitten.com/200/300") |> to_string()
 - Imgproxy.new("s3://honeycomb/phoenix.png") \
@@ -116,6 +110,3 @@
 - Start order
   - Cockroach | MinIO
   - Haproxy | Phoenix Server
-
-- mix docs
-- serve doc

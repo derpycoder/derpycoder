@@ -32,8 +32,9 @@ tasks:
       - brew install imgproxy
       - brew install meilisearch
       - brew install kevinburke/safe/hostsfile
-      - mix  local.hex
-      - mix  local.phx
+      - mix  local.hex, local.phx, local.rebar
+      - mix  escript.install hex livebook
+      - asdf reshim elixir
   install:deps:
     desc: Fetch & Compile dependencies
     cmds:
@@ -98,6 +99,10 @@ tasks:
     cmds:
       - echo "salt:" `mix imgproxy.gen.secret`
       - echo "key:" `mix imgproxy.gen.secret`
+  generate:docs:
+    desc: Generates documentation.
+    cmds:
+      - mix docs
 
   spawn:cockroaches:
     desc: Start Cockroach DB Server & Initiate
@@ -145,10 +150,12 @@ tasks:
         s3.derpycoder.site
         www.derpycoder.site
         img.derpycoder.site
+        docs.derpycoder.site
         minio.derpycoder.site
         pgweb.derpycoder.site
         search.derpycoder.site
         netdata.derpycoder.site
+        livebook.derpycoder.site
         cockroach.derpycoder.site
         127.0.0.1
   setup:ecto:
@@ -240,6 +247,16 @@ tasks:
       MEILI_ENV: development
       MEILI_SSL_CERT_PATH: certs/meilisearch/cert.pem
       MEILI_SSL_KEY_PATH: certs/meilisearch/key.pem
+  start:livebook:
+    desc: Stars a livebook server
+    cmds:
+      - livebook server
+    env:
+      LIVEBOOK_HOME: notebook
+      LIVEBOOK_PORT: 49223
+      LIVEBOOK_SHUTDOWN_ENABLED: true
+      LIVEBOOK_TOKEN_ENABLED: false
+      # LIVEBOOK_DEFAULT_RUNTIME: attached:derpycoder:wubalubadubdub
   start:server:
     desc: Runs the server with a custom name
     cmds:

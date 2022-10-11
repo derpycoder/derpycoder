@@ -1,0 +1,24 @@
+# Playground
+
+## Helpers
+
+```elixir
+alias DerpyCoderWeb.Router.Helpers, as: Routes
+alias DerpyCoder.Accounts
+alias DerpyCoder.Repo
+:ok
+```
+
+```elixir
+derp = Accounts.get_user_by_email("derp@derpycoder.com")
+```
+
+```elixir
+FunWithFlags.disable(:new_photos, for_actor: derp)
+FunWithFlags.disable(:delete_photos, for_actor: derp)
+```
+
+```elixir
+FunWithFlags.enable(:new_photos, for_actor: derp)
+FunWithFlags.enable(:delete_photos, for_actor: derp)
+```

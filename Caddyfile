@@ -30,9 +30,14 @@ s3.derpycoder.site {
 }
 
 img.derpycoder.site {
-	tls internal
-
 	reverse_proxy localhost:3000
+}
+
+docs.derpycoder.site {
+	encode zstd gzip
+
+	root * doc
+	file_server browse
 }
 
 minio.derpycoder.site {
@@ -67,6 +72,12 @@ netdata.derpycoder.site {
 
 	reverse_proxy localhost:19999
 	# TODO: 19443 when TLS is enabled
+}
+
+livebook.derpycoder.site {
+	encode zstd gzip
+
+	reverse_proxy localhost:49223
 }
 
 cockroach.derpycoder.site {

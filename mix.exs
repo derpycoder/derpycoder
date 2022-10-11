@@ -22,13 +22,7 @@ defmodule DerpyCoder.MixProject do
       name: "DerpyCoder",
       source_url: "https://github.com/abhijit-kar/derpy_coder",
       homepage_url: "https://derpycoder.site",
-      docs: [
-        main: "DerpyCoder",
-        extras: ["README.md"],
-        source_ref: "master",
-        formatters: ["html"],
-        nest_modules_by_prefix: [DerpyCoder, DerpyCoderWeb]
-      ]
+      docs: docs()
     ]
   end
 
@@ -86,6 +80,52 @@ defmodule DerpyCoder.MixProject do
       {:ex_aws_s3, "~> 2.0"},
       {:sweet_xml, "~> 0.6"},
       {:ex_doc, "~> 0.27", only: :dev, runtime: false},
+    ]
+  end
+
+  defp docs do
+    [
+      main: "DerpyCoder",
+      extras: ["README.md"],
+      source_ref: "master",
+      formatters: ["html"],
+      extra_section: "GUIDES",
+      extras: extras(),
+      groups_for_extras: groups_for_extras(),
+      groups_for_modules: groups_for_modules(),
+      # canonical
+    ]
+  end
+
+  defp extras do
+    [
+      "livebook/playground.livemd",
+      "markdown/overview.md"
+    ]
+  end
+
+  defp groups_for_extras do
+    [
+      "Livebook": ~r/livebook\/[^\/]+\.livemd/,
+      "Markdown": ~r/markdown\/[^\/]+\.md/,
+    ]
+  end
+
+  defp groups_for_modules do
+    [
+        "Mix Tasks": [
+          Mix.Tasks.App.Heexify,
+          Mix.Tasks.App.Setup
+        ],
+        "Derpy Coder": [
+          DerpyCoder.Accounts,
+          DerpyCoder.Accounts.Policy
+        ],
+        "Derpy Coder Web": [
+          DerpyCoderWeb.HomePageLive,
+          DerpyCoderWeb.Permissions,
+          DerpyCoderWeb.Permit
+        ]
     ]
   end
 
