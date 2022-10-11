@@ -86,19 +86,20 @@ defmodule DerpyCoder.MixProject do
   defp docs do
     [
       main: "DerpyCoder",
-      extras: ["README.md"],
       source_ref: "master",
       formatters: ["html"],
       extra_section: "GUIDES",
       extras: extras(),
       groups_for_extras: groups_for_extras(),
       groups_for_modules: groups_for_modules(),
+      assets: "images",
       # canonical
     ]
   end
 
   defp extras do
     [
+      "README.md",
       "livebook/playground.livemd",
       "guides/overview.md"
     ]

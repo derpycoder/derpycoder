@@ -1,4 +1,6 @@
-# DerpyCoder
+<!-- README START -->
+
+![Phoenix Framework](images/phoenix.png)
 
 ## Setup
 ### For Environment Setup:
@@ -79,3 +81,5 @@
 - Start order
   - Cockroach | MinIO
   - Haproxy | Phoenix Server
+
+<!-- README END -->
