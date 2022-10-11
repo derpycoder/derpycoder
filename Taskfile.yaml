@@ -252,7 +252,7 @@ tasks:
     cmds:
       - livebook server
     env:
-      LIVEBOOK_HOME: notebook
+      LIVEBOOK_HOME: livebook
       LIVEBOOK_PORT: 49223
       LIVEBOOK_SHUTDOWN_ENABLED: true
       LIVEBOOK_TOKEN_ENABLED: false

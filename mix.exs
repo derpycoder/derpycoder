@@ -100,14 +100,14 @@ defmodule DerpyCoder.MixProject do
   defp extras do
     [
       "livebook/playground.livemd",
-      "markdown/overview.md"
+      "guides/overview.md"
     ]
   end
 
   defp groups_for_extras do
     [
       "Livebook": ~r/livebook\/[^\/]+\.livemd/,
-      "Markdown": ~r/markdown\/[^\/]+\.md/,
+      "Guides": ~r/guides\/[^\/]+\.md/,
     ]
   end
 
