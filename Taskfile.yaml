@@ -315,10 +315,10 @@ tasks:
   update:deps:
     desc: Update all dependencies
     cmds:
-      - mix local.phx
-      - mix local.hex
+      - mix local.hex, local.phx, local.rebar
       - mix deps.update --all
       - tasks: [install:deps]
+      - mix hex.outdated
 
   reload:caddy:
     desc: Reloads Caddy Config
