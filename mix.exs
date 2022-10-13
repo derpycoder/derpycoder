@@ -47,7 +47,7 @@ defmodule DerpyCoder.MixProject do
   defp deps do
     [
       {:argon2_elixir, "~> 3.0"},
-      {:phoenix, "~> 1.6.7"},
+      {:phoenix, "~> 1.6.14"},
       {:phoenix_ecto, "~> 4.4"},
       {:ecto_sql, "~> 3.6"},
       {:postgrex, ">= 0.0.0"},
@@ -79,7 +79,7 @@ defmodule DerpyCoder.MixProject do
       {:ex_aws, "~> 2.1"},
       {:ex_aws_s3, "~> 2.0"},
       {:sweet_xml, "~> 0.6"},
-      {:ex_doc, "~> 0.27", only: :dev, runtime: false},
+      {:ex_doc, "~> 0.27", only: :dev, runtime: false}
     ]
   end
 
