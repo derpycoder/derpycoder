@@ -66,11 +66,11 @@
 - npm install -g serve
 - lighthouse https://derpycoder.site \
   --chrome-flags="--headless" \
-  --output-path="performance/lighthouse.html" \
-  --form-factor="desktop" \
+  --output-path="lighthouse-result/lighthouse.html" \
+  --form-factor="mobile" \
   --screenEmulation.disabled \
   --view
-- serve performance
+- serve lighthouse-result
 - http://localhost:3000/lighthouse
 
 - npm install -g sitespeed.io
