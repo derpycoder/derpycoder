@@ -149,4 +149,15 @@ https://moosecode.nl/blog/introducing_horde
 https://github.com/bitwalker/swarm
 https://github.com/derekkraan/horde
 
+___
+Mix.Generator: Conveniences for working with paths and generating content.
+
+https://github.com/mveytsman/heroicons_elixir/blob/main/lib/mix/tasks/heroicons/build.ex
+https://github.com/mveytsman/heroicons_elixir/blob/main/assets/heroicons.exs
+
+https://github.com/svg/svgo#configuration
+https://github.com/microsoft/fluentui-emoji
+https://fluenticons.co
+https://github.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis
+
 <!-- README END -->
