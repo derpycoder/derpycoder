@@ -3,13 +3,46 @@
 ## Helpers
 
 ```elixir
-alias DerpyCoderWeb.Router.Helpers, as: Routes
-alias DerpyCoder.Accounts
-alias DerpyCoder.Repo
-:ok
+defmodule Demo do
+  import Integer
+
+  def add_two_to_odd_number({:cont, num}) do
+    if is_odd(num) do
+      {:cont, num + 2}
+    else
+      {:halt, num}
+    end
+  end
+
+  def add_two_to_odd_number({:halt, _} = arg), do: arg
+
+  def mul_two_to_odd_number({:cont, num}) do
+    if is_odd(num) do
+      {:cont, num * 2}
+    else
+      {:halt, num}
+    end
+  end
+
+  def mul_two_to_odd_number({:halt, _} = arg), do: arg
+end
+
+{:cont, 3}
+# Since 3 is odd, 2 will be added and 5 will be passed along with cont
+|> Demo.add_two_to_odd_number()
+# Since 5 is odd, 2 will be multiplied and 10 will be passed along with cont
+|> Demo.mul_two_to_odd_number()
+# Since 10 is even, halt will be passed along
+|> Demo.add_two_to_odd_number()
+# Since halt is passed along, this function call is skipped
+|> Demo.add_two_to_odd_number()
+|> dbg()
 ```
 
 ```elixir
+alias DerpyCoderWeb.Router.Helpers, as: Routes
+alias DerpyCoder.Accounts
+alias DerpyCoder.Repo
 derp = Accounts.get_user_by_email("derp@derpycoder.com")
 ```
 
