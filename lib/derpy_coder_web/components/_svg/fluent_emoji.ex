@@ -10,24 +10,6 @@ defmodule FluentEmoji do
 
   # coveralls-ignore-start
   @doc """
-  # FluentEmoji.heart
-  A Heexified SVG component, that can be passed class, and extra attributes, to alter it.
-
-  ## Examples:
-      <FluentEmoji.heart class="w-5 h-5" />
-  """
-  def heart(assigns) do
-    assigns =
-      assigns
-      |> assign_new(:class, fn -> nil end)
-      |> assign_new(:extra, fn -> assigns_to_attributes(assigns, ~w(class)a) end)
-
-    ~H"""
-
-    """
-  end
-
-  @doc """
   # FluentEmoji.beaming_face
   A Heexified SVG component, that can be passed class, and extra attributes, to alter it.
 
