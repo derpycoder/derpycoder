@@ -32,7 +32,7 @@ tasks:
       - brew install imgproxy
       - brew install meilisearch
       - brew install kevinburke/safe/hostsfile
-      - mix  local.hex, local.phx, local.rebar
+      - mix  do local.hex, local.phx, local.rebar
       - mix  escript.install hex livebook
       - asdf reshim elixir
   install:deps:
@@ -190,8 +190,9 @@ tasks:
     desc: Starts Caddy
     summary: |
       Use `caddy run` for a non Daemon mode!
+      And `caddy start` for Daemon mode.
     cmds:
-      - caddy start
+      - caddy run
   start:pgweb:
     desc: Start pgweb, to inspect the contents of the Database.
     cmds:
@@ -315,7 +316,7 @@ tasks:
   update:deps:
     desc: Update all dependencies
     cmds:
-      - mix local.hex, local.phx, local.rebar
+      - mix do local.hex, local.phx, local.rebar
       - mix deps.update --all
       - tasks: [install:deps]
       - mix hex.outdated
