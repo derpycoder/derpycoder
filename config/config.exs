@@ -59,6 +59,36 @@ config :logger, :console,
 config :phoenix, :json_library, Jason
 
 # ==============================================================================
+# Phoenix Bakery Compression Settings
+# ==============================================================================
+config :phoenix,
+  static_compressors: [
+    PhoenixBakery.Gzip,
+    PhoenixBakery.Brotli
+    # PhoenixBakery.Zstd
+  ]
+
+  # config :phoenix_bakery, :gzip_opts, %{
+  #   level: :best_speed, # defaults to: `:best_compression`
+  #   window_bits: 8, # defaults to: `15` (max)
+  #   mem_level: 8 # defaults to: `9` (max)
+  # }
+
+  # brew install brotli
+  # config :phoenix_bakery, :brotli, "/path/to/brotli"
+  # config :phoenix_bakery,
+  #   brotli_opts: %{
+  #     quality: 5 # defaults to: `11` (max)
+  #   }
+
+  # brew install zstd
+  # config :phoenix_bakery, :zstd, "<path-to-zstd-executable>/zstd"
+  # config :phoenix_bakery,
+  #   zstd_opts: %{
+  #     level: 10 # defaults to: `22` (ultra-max)
+  #   }
+
+# ==============================================================================
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 # ==============================================================================
