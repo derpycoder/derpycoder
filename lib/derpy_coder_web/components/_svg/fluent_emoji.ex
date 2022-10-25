@@ -1,0 +1,291 @@
+defmodule FluentEmoji do
+  @moduledoc """
+  # FluentEmoji
+  Contains Heexified SVG Components, to ease usage of SVG without cluttering markup.
+
+  ## Examples:
+      <FluentEmoji.svg class="w-5 h-5" />
+  """
+  use Phoenix.Component
+
+  # coveralls-ignore-start
+  @doc """
+  # FluentEmoji.heart
+  A Heexified SVG component, that can be passed class, and extra attributes, to alter it.
+
+  ## Examples:
+      <FluentEmoji.heart class="w-5 h-5" />
+  """
+  def heart(assigns) do
+    assigns =
+      assigns
+      |> assign_new(:class, fn -> nil end)
+      |> assign_new(:extra, fn -> assigns_to_attributes(assigns, ~w(class)a) end)
+
+    ~H"""
+
+    """
+  end
+
+  @doc """
+  # FluentEmoji.beaming_face
+  A Heexified SVG component, that can be passed class, and extra attributes, to alter it.
+
+  ## Examples:
+      <FluentEmoji.beaming_face class="w-5 h-5" />
+  """
+  def beaming_face(assigns) do
+    assigns =
+      assigns
+      |> assign_new(:class, fn -> nil end)
+      |> assign_new(:extra, fn -> assigns_to_attributes(assigns, ~w(class)a) end)
+
+    ~H"""
+    <svg class={@class} {@extra} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 32 32">
+      <path fill="url(#a)" d="M16 30c9 0 14-6 14-14S25 2 16 2 2 8 2 16s5 14 14 14Z" /><path
+        fill="url(#b)"
+        d="M16 30c9 0 14-6 14-14S25 2 16 2 2 8 2 16s5 14 14 14Z"
+      /><path fill="url(#c)" d="M16 30c9 0 14-6 14-14S25 2 16 2 2 8 2 16s5 14 14 14Z" /><path
+        fill="url(#d)"
+        fill-opacity=".6"
+        d="M16 30c9 0 14-6 14-14S25 2 16 2 2 8 2 16s5 14 14 14Z"
+      /><path fill="url(#e)" d="M16 30c9 0 14-6 14-14S25 2 16 2 2 8 2 16s5 14 14 14Z" /><path
+        fill="url(#f)"
+        d="M16 30c9 0 14-6 14-14S25 2 16 2 2 8 2 16s5 14 14 14Z"
+      /><path fill="url(#g)" d="M16 30c9 0 14-6 14-14S25 2 16 2 2 8 2 16s5 14 14 14Z" /><path
+        fill="url(#h)"
+        d="M16 30c9 0 14-6 14-14S25 2 16 2 2 8 2 16s5 14 14 14Z"
+      />
+      <g filter="url(#i)" opacity=".5">
+        <path stroke="#9A4609" stroke-linecap="round" stroke-width="2" d="M8 12s0-2 2-2 3 2 3 2" />
+      </g>
+      <g filter="url(#j)" opacity=".5">
+        <path stroke="#9A4609" stroke-linecap="round" stroke-width="2" d="M19 12s0-2 2-2 3 2 3 2" />
+      </g>
+      <path
+        stroke="#43273B"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M8 11s0-2 3-2 2 2 2 2"
+      />
+      <g filter="url(#k)" opacity=".3">
+        <path
+          stroke="#fff"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width=".8"
+          d="M8 11s1-2 3-2 2 2 2 2"
+        />
+      </g>
+      <path
+        stroke="#43273B"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M19 11s1-2 3-2 2 2 2 2"
+      />
+      <g filter="url(#l)" opacity=".3">
+        <path
+          stroke="#fff"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width=".8"
+          d="M19 11s1-2 3-2 2 2 2 2"
+        />
+      </g>
+      <path fill="url(#m)" d="M16 26C6 26 6 16 6 16h20s0 10-10 10Z" /><path
+        fill="url(#n)"
+        d="m8 20-1-4h18l-1 4a2 2 0 0 1-1 1H9a2 2 0 0 1-1-1Z"
+      /><path fill="url(#o)" d="m8 20-1-4h18l-1 4a2 2 0 0 1-1 1H9a2 2 0 0 1-1-1Z" /><path
+        fill="url(#p)"
+        fill-rule="evenodd"
+        d="M8 23c2 2 4 3 8 3s6-1 8-3v-1a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v1Z"
+        clip-rule="evenodd"
+      />
+      <defs>
+        <radialGradient
+          id="a"
+          cx="0"
+          cy="0"
+          r="1"
+          gradientTransform="rotate(133 11 10) scale(37.5033)"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop stop-color="#FFF478" /><stop offset=".5" stop-color="#FFB02E" /><stop
+            offset="1"
+            stop-color="#F70A8D"
+          />
+        </radialGradient>
+        <radialGradient
+          id="b"
+          cx="0"
+          cy="0"
+          r="1"
+          gradientTransform="rotate(132 11 10) scale(38.9487)"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop stop-color="#FFF478" /><stop offset=".5" stop-color="#FFB02E" /><stop
+            offset="1"
+            stop-color="#F70A8D"
+          />
+        </radialGradient>
+        <radialGradient
+          id="c"
+          cx="0"
+          cy="0"
+          r="1"
+          gradientTransform="rotate(101 3 13) scale(17.8466 22.8581)"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop offset=".8" stop-color="#F59639" stop-opacity="0" /><stop
+            offset="1"
+            stop-color="#FF7DCE"
+          />
+        </radialGradient>
+        <radialGradient
+          id="d"
+          cx="0"
+          cy="0"
+          r="1"
+          gradientTransform="matrix(-29 29 -29 -29 18 14)"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop offset=".3" stop-opacity="0" /><stop offset="1" />
+        </radialGradient>
+        <radialGradient
+          id="e"
+          cx="0"
+          cy="0"
+          r="1"
+          gradientTransform="rotate(78 -3 18) scale(28.1469)"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop offset=".5" stop-color="#7D6133" stop-opacity="0" /><stop
+            offset="1"
+            stop-color="#715B32"
+          />
+        </radialGradient>
+        <radialGradient
+          id="f"
+          cx="0"
+          cy="0"
+          r="1"
+          gradientTransform="rotate(56 -7 24) scale(13.3135 9.65032)"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop stop-color="#FFB849" /><stop offset="1" stop-color="#FFB847" stop-opacity="0" />
+        </radialGradient>
+        <radialGradient
+          id="g"
+          cx="0"
+          cy="0"
+          r="1"
+          gradientTransform="rotate(10 -94 128) scale(11.6726)"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop stop-color="#FFA64B" /><stop offset=".9" stop-color="#FFAE46" stop-opacity="0" />
+        </radialGradient>
+        <radialGradient
+          id="h"
+          cx="0"
+          cy="0"
+          r="1"
+          gradientTransform="rotate(44 -10 29) scale(59.0529)"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop offset=".2" stop-opacity="0" /><stop offset="1" stop-opacity=".4" />
+        </radialGradient>
+        <radialGradient
+          id="m"
+          cx="0"
+          cy="0"
+          r="1"
+          gradientTransform="matrix(0 -9 18 0 15 25)"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop stop-color="#F70A8D" /><stop offset="1" stop-color="#89029C" />
+        </radialGradient>
+        <radialGradient
+          id="n"
+          cx="0"
+          cy="0"
+          r="1"
+          gradientTransform="rotate(139 8 12) scale(11.3358)"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop stop-color="#fff" /><stop offset="1" stop-color="#ECCDFF" />
+        </radialGradient>
+        <filter
+          id="i"
+          width="10"
+          height="7"
+          x="5"
+          y="7"
+          color-interpolation-filters="sRGB"
+          filterUnits="userSpaceOnUse"
+        >
+          <feFlood flood-opacity="0" result="BackgroundImageFix" /><feBlend
+            in="SourceGraphic"
+            in2="BackgroundImageFix"
+            result="shape"
+          /><feGaussianBlur result="effect1_foregroundBlur_23_357" stdDeviation=".8" />
+        </filter>
+        <filter
+          id="j"
+          width="10"
+          height="7"
+          x="16"
+          y="7"
+          color-interpolation-filters="sRGB"
+          filterUnits="userSpaceOnUse"
+        >
+          <feFlood flood-opacity="0" result="BackgroundImageFix" /><feBlend
+            in="SourceGraphic"
+            in2="BackgroundImageFix"
+            result="shape"
+          /><feGaussianBlur result="effect1_foregroundBlur_23_357" stdDeviation=".8" />
+        </filter>
+        <filter
+          id="k"
+          width="8.8"
+          height="5.8"
+          x="6"
+          y="7"
+          color-interpolation-filters="sRGB"
+          filterUnits="userSpaceOnUse"
+        >
+          <feFlood flood-opacity="0" result="BackgroundImageFix" /><feBlend
+            in="SourceGraphic"
+            in2="BackgroundImageFix"
+            result="shape"
+          /><feGaussianBlur result="effect1_foregroundBlur_23_357" stdDeviation=".8" />
+        </filter>
+        <filter
+          id="l"
+          width="8.8"
+          height="5.8"
+          x="17"
+          y="7"
+          color-interpolation-filters="sRGB"
+          filterUnits="userSpaceOnUse"
+        >
+          <feFlood flood-opacity="0" result="BackgroundImageFix" /><feBlend
+            in="SourceGraphic"
+            in2="BackgroundImageFix"
+            result="shape"
+          /><feGaussianBlur result="effect1_foregroundBlur_23_357" stdDeviation=".8" />
+        </filter>
+        <linearGradient id="o" x1="16" x2="16" y1="20" y2="21.5" gradientUnits="userSpaceOnUse">
+          <stop stop-color="#E181F4" stop-opacity="0" /><stop offset="1" stop-color="#E181F4" />
+        </linearGradient>
+        <linearGradient id="p" x1="17.1" x2="15.8" y1="21" y2="25.3" gradientUnits="userSpaceOnUse">
+          <stop stop-color="#fff" /><stop offset="1" stop-color="#ECCDFF" />
+        </linearGradient>
+      </defs>
+    </svg>
+    """
+  end
+
+  # coveralls-ignore-stop
+end

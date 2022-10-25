@@ -21,6 +21,8 @@ defmodule Mix.Tasks.App.Heexify do
     Mix.Task.run("app.start")
 
     crunch_svgs_folder()
+
+    Mix.Task.run("format")
   end
 
   # ==============================================================================
@@ -81,14 +83,11 @@ defmodule Mix.Tasks.App.Heexify do
 
       ## Examples:
           <#{module_name}.svg class="w-5 h-5" />
-          <#{module_name}.svg class="w-5 h-5" title="Accessible Title" />
       \"\"\"
       use Phoenix.Component
-      import #{@app_name}Web.SVG
 
       # coveralls-ignore-start
-
-    #{assimilate_svg(file_paths)}
+      #{assimilate_svg(file_paths)}
       # coveralls-ignore-stop
     end
     """
@@ -101,7 +100,6 @@ defmodule Mix.Tasks.App.Heexify do
   # ==============================================================================
   defp module_name(module_path) do
     module_path
-    |> String.replace("-", "_")
     |> String.split("/")
     |> Enum.map(&Naming.camelize/1)
     |> case do
@@ -127,21 +125,8 @@ defmodule Mix.Tasks.App.Heexify do
   # ==============================================================================
   defp create_component(file_path) do
     File.read!(@svg_path <> file_path)
-    |> alter_svg()
-    |> assemble_component(file_path)
-  end
-
-  # ==============================================================================
-  # Trims and adds some new lines to beautify the svg.
-  # Also adds the ability to pass in class, title and any attributes to the SVG.
-  # ==============================================================================
-  defp alter_svg(svg) do
-    svg
-    |> String.trim()
     |> String.replace(~r/<svg /, "<svg class={@class} {@extra} ")
-    |> String.replace(~r/\"><path/, "\">\n      <.title title={@title} />\n      <path")
-    |> String.replace(~r/><path/, ">\n      <path")
-    |> String.replace(~r/<\/svg/, "\n    <\/svg")
+    |> assemble_component(file_path)
   end
 
   # ==============================================================================
@@ -159,15 +144,14 @@ defmodule Mix.Tasks.App.Heexify do
     """
       @doc \"\"\"
       # #{module_name}.#{function_name}
-      A Heexified SVG component, that can be passed class, title and extra attributes, to alter it.
+      A Heexified SVG component, that can be passed class, and extra attributes, to alter it.
 
       ## Examples:
           <#{module_name}.#{function_name} class="w-5 h-5" />
-          <#{module_name}.#{function_name} class="w-5 h-5" title="Accessible Title" />
       \"\"\"
       def #{function_name}(assigns) do
-        assigns = assigns
-          |> assign_new(:title, fn -> nil end)
+        assigns =
+          assigns
           |> assign_new(:class, fn -> nil end)
           |> assign_new(:extra, fn -> assigns_to_attributes(assigns, ~w(class)a) end)
 
