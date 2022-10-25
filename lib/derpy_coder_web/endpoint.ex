@@ -21,7 +21,9 @@ defmodule DerpyCoderWeb.Endpoint do
   plug Plug.Static,
     at: "/",
     from: :derpy_coder,
-    gzip: false,
+    encodings: [{"zstd", ".zstd"}],
+    gzip: true,
+    brotli: true,
     only: ~w(assets fonts images favicon.ico robots.txt)
 
   # Code reloading can be explicitly enabled under the
