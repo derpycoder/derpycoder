@@ -160,4 +160,12 @@ https://github.com/microsoft/fluentui-emoji
 https://fluenticons.co
 https://github.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis
 
+- brew install vips
+- brew install ffmpeg
+
+- ffmpeg -i beaming_face.png -vf scale=64x64 -f apng -plays 0 output.png
+- ffmpeg -i beaming_face.png -filter_complex "[0:v] scale=128:128, split [a][b]; [a] palettegen=reserve_transparent=on:transparency_color=ffffff [p]; [b][p] paletteuse" output-128x128.gif
+
+https://tinypng.com
+
 <!-- README END -->

@@ -12,6 +12,9 @@
 
   <FluentEmoji.beaming_face class="w-16 h-16" />
 
+  <img id="123" src="/images/emojis/beaming-face-32x32.png" width="32" height="32" alt="Beaming Face" />
+  <img id="125" src="/images/emojis/beaming-face-64x64.png" width="40" height="40" alt="Beaming Face" />
+
   <%= live_redirect("Photos", to: Routes.photo_index_path(@socket, :index)) %>
 
   <%= if Accounts.can?(@current_user, :view, DerpyCoderWeb.UserDashboardLive) do %>

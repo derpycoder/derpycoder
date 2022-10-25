@@ -11,7 +11,7 @@ defmodule Mix.Tasks.App.Heexify do
   @shortdoc "Used to enable usage of SVGs in project"
 
   @app_name "DerpyCoder"
-  @svg_path "priv/static/svgs/"
+  @svg_path "priv/static/icons/"
 
   use Mix.Task
   alias Phoenix.Naming

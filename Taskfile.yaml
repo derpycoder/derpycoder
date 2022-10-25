@@ -307,7 +307,7 @@ tasks:
   optimize:images:
     desc: Optimize All Images in Assets folder.
     cmds:
-      - open -a ImageOptim ./priv/static/images
+      - open -a ImageOptim /priv/static/images
   heexify:svgs:
     desc: Convers SVGs to Heex Components.
     cmds:
