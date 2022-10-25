@@ -79,7 +79,8 @@ defmodule DerpyCoder.MixProject do
       {:ex_aws, "~> 2.1"},
       {:ex_aws_s3, "~> 2.0"},
       {:sweet_xml, "~> 0.6"},
-      {:ex_doc, "~> 0.27", only: :dev, runtime: false}
+      {:ex_doc, "~> 0.27", only: :dev, runtime: false},
+      {:phoenix_bakery, "~> 0.1.1"}
     ]
   end
 
