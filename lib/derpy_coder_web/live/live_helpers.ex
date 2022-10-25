@@ -8,7 +8,9 @@ defmodule DerpyCoderWeb.LiveHelpers do
   alias Phoenix.LiveView.JS
   alias DerpyCoderWeb.Router.Helpers, as: Routes
 
-  def env(atom) when is_atom(atom), do: Application.get_env(:derpy_coder, :environment) == to_string(atom)
+  def env(atom) when is_atom(atom),
+    do: Application.get_env(:derpy_coder, :environment) == to_string(atom)
+
   def env(str) when is_binary(str), do: Application.get_env(:derpy_coder, :environment) == str
   def env(list) when is_list(list), do: Application.get_env(:derpy_coder, :environment) in list
 

@@ -93,7 +93,7 @@ defmodule DerpyCoder.MixProject do
       extras: extras(),
       groups_for_extras: groups_for_extras(),
       groups_for_modules: groups_for_modules(),
-      assets: "images",
+      assets: "images"
       # canonical
     ]
   end
@@ -108,26 +108,26 @@ defmodule DerpyCoder.MixProject do
 
   defp groups_for_extras do
     [
-      "Livebook": ~r/livebook\/[^\/]+\.livemd/,
-      "Guides": ~r/guides\/[^\/]+\.md/,
+      Livebook: ~r/livebook\/[^\/]+\.livemd/,
+      Guides: ~r/guides\/[^\/]+\.md/
     ]
   end
 
   defp groups_for_modules do
     [
-        "Mix Tasks": [
-          Mix.Tasks.App.Heexify,
-          Mix.Tasks.App.Setup
-        ],
-        "Derpy Coder": [
-          DerpyCoder.Accounts,
-          DerpyCoder.Accounts.Policy
-        ],
-        "Derpy Coder Web": [
-          DerpyCoderWeb.HomePageLive,
-          DerpyCoderWeb.Permissions,
-          DerpyCoderWeb.Permit
-        ]
+      "Mix Tasks": [
+        Mix.Tasks.App.Heexify,
+        Mix.Tasks.App.Setup
+      ],
+      "Derpy Coder": [
+        DerpyCoder.Accounts,
+        DerpyCoder.Accounts.Policy
+      ],
+      "Derpy Coder Web": [
+        DerpyCoderWeb.HomePageLive,
+        DerpyCoderWeb.Permissions,
+        DerpyCoderWeb.Permit
+      ]
     ]
   end
 

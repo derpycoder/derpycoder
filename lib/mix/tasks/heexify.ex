@@ -23,7 +23,6 @@ defmodule Mix.Tasks.App.Heexify do
     crunch_svgs_folder()
   end
 
-
   # ==============================================================================
   # It Crunches SVGs and for that, it:
   # - Goes over each file in SVGs folder.
@@ -32,7 +31,7 @@ defmodule Mix.Tasks.App.Heexify do
   # - Writes them into Separate files.
   # ==============================================================================
   defp crunch_svgs_folder() do
-    @svg_path <> "**/*.svg"
+    (@svg_path <> "**/*.svg")
     |> Path.wildcard()
     |> Enum.map(&String.replace(&1, @svg_path, ""))
     |> Enum.reduce(%{}, &build_hashmap/2)
@@ -56,10 +55,11 @@ defmodule Mix.Tasks.App.Heexify do
   # And the value becomes the HEEX Component: HeroIcons.Solid.code
   # ==============================================================================
   defp build_hashmap(path, acc) do
-    value = case Map.get(acc, Path.dirname(path)) do
-      nil -> [path]
-      array -> [path | array]
-    end
+    value =
+      case Map.get(acc, Path.dirname(path)) do
+        nil -> [path]
+        array -> [path | array]
+      end
 
     Map.put(acc, Path.dirname(path), value)
   end
@@ -72,27 +72,28 @@ defmodule Mix.Tasks.App.Heexify do
   # ==============================================================================
   defp assemble_module({module_path, file_paths}) do
     module_name = module_name(module_path)
+
     module = """
-      defmodule #{module_name} do
-        @moduledoc \"\"\"
-        # #{module_name}
-        Contains Heexified SVG Components, to ease usage of SVG without cluttering markup.
+    defmodule #{module_name} do
+      @moduledoc \"\"\"
+      # #{module_name}
+      Contains Heexified SVG Components, to ease usage of SVG without cluttering markup.
 
-        ## Examples:
-            <#{module_name}.svg class="w-5 h-5" />
-            <#{module_name}.svg class="w-5 h-5" title="Accessible Title" />
-        \"\"\"
-        use Phoenix.Component
-        import #{@app_name}Web.SVG
+      ## Examples:
+          <#{module_name}.svg class="w-5 h-5" />
+          <#{module_name}.svg class="w-5 h-5" title="Accessible Title" />
+      \"\"\"
+      use Phoenix.Component
+      import #{@app_name}Web.SVG
 
-        # coveralls-ignore-start
+      # coveralls-ignore-start
 
-      #{assimilate_svg(file_paths)}
-        # coveralls-ignore-stop
-      end
-      """
+    #{assimilate_svg(file_paths)}
+      # coveralls-ignore-stop
+    end
+    """
 
-      {module_path, module}
+    {module_path, module}
   end
 
   # ==============================================================================
@@ -100,13 +101,13 @@ defmodule Mix.Tasks.App.Heexify do
   # ==============================================================================
   defp module_name(module_path) do
     module_path
-      |> String.replace("-", "_")
-      |> String.split("/")
-      |> Enum.map(&Naming.camelize/1)
-      |> case do
-        nil -> ""
-        module_name -> Enum.join(module_name, ".")
-      end
+    |> String.replace("-", "_")
+    |> String.split("/")
+    |> Enum.map(&Naming.camelize/1)
+    |> case do
+      nil -> ""
+      module_name -> Enum.join(module_name, ".")
+    end
   end
 
   # ==============================================================================
@@ -115,8 +116,8 @@ defmodule Mix.Tasks.App.Heexify do
   # ==============================================================================
   defp assimilate_svg(file_paths) do
     file_paths
-      |> Enum.map(&create_component/1)
-      |> Enum.join("\n")
+    |> Enum.map(&create_component/1)
+    |> Enum.join("\n")
   end
 
   # ==============================================================================
@@ -152,7 +153,9 @@ defmodule Mix.Tasks.App.Heexify do
       file_path
       |> Path.dirname()
       |> module_name()
+
     function_name = function_name(file_path)
+
     """
       @doc \"\"\"
       # #{module_name}.#{function_name}
@@ -180,8 +183,8 @@ defmodule Mix.Tasks.App.Heexify do
   # ==============================================================================
   defp function_name(file_path) do
     file_path
-      |> Path.basename(".svg")
-      |> String.replace("-", "_")
+    |> Path.basename(".svg")
+    |> String.replace("-", "_")
   end
 
   # ==============================================================================

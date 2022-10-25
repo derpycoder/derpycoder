@@ -68,25 +68,25 @@ config :phoenix,
     # PhoenixBakery.Zstd
   ]
 
-  # config :phoenix_bakery, :gzip_opts, %{
-  #   level: :best_speed, # defaults to: `:best_compression`
-  #   window_bits: 8, # defaults to: `15` (max)
-  #   mem_level: 8 # defaults to: `9` (max)
-  # }
+# config :phoenix_bakery, :gzip_opts, %{
+#   level: :best_speed, # defaults to: `:best_compression`
+#   window_bits: 8, # defaults to: `15` (max)
+#   mem_level: 8 # defaults to: `9` (max)
+# }
 
-  # brew install brotli
-  # config :phoenix_bakery, :brotli, "/path/to/brotli"
-  # config :phoenix_bakery,
-  #   brotli_opts: %{
-  #     quality: 5 # defaults to: `11` (max)
-  #   }
+# brew install brotli
+# config :phoenix_bakery, :brotli, "/path/to/brotli"
+# config :phoenix_bakery,
+#   brotli_opts: %{
+#     quality: 5 # defaults to: `11` (max)
+#   }
 
-  # brew install zstd
-  # config :phoenix_bakery, :zstd, "<path-to-zstd-executable>/zstd"
-  # config :phoenix_bakery,
-  #   zstd_opts: %{
-  #     level: 10 # defaults to: `22` (ultra-max)
-  #   }
+# brew install zstd
+# config :phoenix_bakery, :zstd, "<path-to-zstd-executable>/zstd"
+# config :phoenix_bakery,
+#   zstd_opts: %{
+#     level: 10 # defaults to: `22` (ultra-max)
+#   }
 
 # ==============================================================================
 # Import environment specific config. This must remain at the bottom
@@ -103,16 +103,16 @@ if Mix.env() == :dev do
       blacklist: ["release-.*"]
     ],
     hooks: [
-    #   pre_commit: [
-    #     tasks: [
-    #       {:cmd, "task format:check"}
-    #     ]
-    #   ],
-    #   pre_push: [
-    #     verbose: false,
-    #     tasks: [
-    #       {:cmd, "echo 'success!'"}
-    #     ]
-    #   ]
+      #   pre_commit: [
+      #     tasks: [
+      #       {:cmd, "task format:check"}
+      #     ]
+      #   ],
+      #   pre_push: [
+      #     verbose: false,
+      #     tasks: [
+      #       {:cmd, "echo 'success!'"}
+      #     ]
+      #   ]
     ]
 end
