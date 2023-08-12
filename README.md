@@ -6,9 +6,9 @@ Thanks for checking out my GitHub.
 I am a software engineer from India.
 
 - 🔭 I’m currently working on DerpyTools
-- 🌱 I’m currently learning Elixir, Phoenix & Live View
-- 👯 I’m looking to collaborate on Elixir & Phoenix projects
-- 💬 Ask me about Elixir
+- 🌱 All the while learning Elixir, Phoenix & Live View
+- 👯 Willing to collaborate on Elixir & Phoenix projects
+- 💬 Ask me about Elixir & Phoenix
 - 📫 How to reach me: abhijit@derpytools.com
 
 ![Total Stars](https://img.shields.io/github/stars/derpycoder?style=for-the-badge)
