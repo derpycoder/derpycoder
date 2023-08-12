@@ -1,7 +1,7 @@
 ![grinning_face_with_big_eyes](https://github.com/derpycoder/derpycoder/assets/25662120/d6ed008f-029d-4e72-bd21-4801648281cf)
 
 ## Hey there!
-Thanks for checking out my GitHub.
+Thanks for checking out my git profile.
 
 I am a software engineer from India.
 
