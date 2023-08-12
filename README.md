@@ -5,7 +5,7 @@ Thanks for checking out my GitHub.
 
 I am a software engineer from India.
 
-- 🔭 I’m currently working on DerpyTools
+- 🔭 I’m currently working on [DerpyTools](https://github.com/derpycoder/derpy_tools)
 - 🌱 All the while learning Elixir, Phoenix & Live View
 - 👯 Willing to collaborate on Elixir & Phoenix projects
 - 💬 Ask me about Elixir & Phoenix
@@ -13,9 +13,9 @@ I am a software engineer from India.
 
 ![Total Stars](https://img.shields.io/github/stars/derpycoder?style=for-the-badge)
 
-### DerpyTools
+### [DerpyTools](https://github.com/derpycoder/derpy_tools)
 
-[![Metadata Checker](https://github.com/derpycoder/derpycoder/assets/25662120/5194e6cd-aa83-4890-ac71-d5e81072a1c5)](https://github.com/derpycoder/derpy_tools)
+![Metadata Checker](https://github.com/derpycoder/derpycoder/assets/25662120/5194e6cd-aa83-4890-ac71-d5e81072a1c5)
 
 ### My Tech Stack
 
