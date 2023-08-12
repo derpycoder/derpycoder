@@ -13,9 +13,9 @@ I am a software engineer from India.
 
 ![Total Stars](https://img.shields.io/github/stars/derpycoder?style=for-the-badge)
 
-### DerpyTools (WIP)
+### DerpyTools
 
-![Metadata Checker](https://github.com/derpycoder/derpycoder/assets/25662120/5194e6cd-aa83-4890-ac71-d5e81072a1c5)
+[![Metadata Checker](https://github.com/derpycoder/derpycoder/assets/25662120/5194e6cd-aa83-4890-ac71-d5e81072a1c5)](https://github.com/derpycoder/derpy_tools)
 
 ### My Tech Stack
 
