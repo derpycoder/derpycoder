@@ -46,7 +46,7 @@ Varnish <---> |Image Transformer| Imgproxy
 Imgproxy <---> |S3| S3(Object Store)
 ```
 
-### My Tech Stack
+## My Tech Stack
 
 ##### My Favorite Stack
 ![Elixir](https://img.shields.io/badge/Elixir-4B275F?style=for-the-badge&logo=elixir&logoColor=white)
