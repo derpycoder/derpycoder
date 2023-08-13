@@ -17,7 +17,7 @@ I am a software engineer from India.
 
 ![Metadata Checker](https://github.com/derpycoder/derpycoder/assets/25662120/5194e6cd-aa83-4890-ac71-d5e81072a1c5)
 
-#### Architecture
+## Architecture
 My preferred architecture.
 
 ```mermaid
