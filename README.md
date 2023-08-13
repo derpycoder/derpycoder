@@ -17,6 +17,23 @@ I am a software engineer from India.
 
 ![Metadata Checker](https://github.com/derpycoder/derpycoder/assets/25662120/5194e6cd-aa83-4890-ac71-d5e81072a1c5)
 
+#### Architecture
+
+```mermaid
+graph TD
+  U(user) <---> |proxy| C{caddy}
+  C{caddy} <---> |server| phoenix
+  phoenix <---> |database| sqlite
+  C{caddy} <---> |monitoring| netdata
+  C{caddy} <---> |admin| livebook
+  C{caddy} <---> |search| meilisearch
+  C{caddy} <---> |monitoring| grafana
+  C{caddy} <---> |monitoring| prometheus
+  grafana <---> prometheus
+  C{caddy} <---> |cache| varnish
+  varnish <---> |image manipulator| imgproxy
+```
+
 ### My Tech Stack
 
 ##### My Favorite Stack
