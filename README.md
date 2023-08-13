@@ -18,22 +18,21 @@ I am a software engineer from India.
 ![Metadata Checker](https://github.com/derpycoder/derpycoder/assets/25662120/5194e6cd-aa83-4890-ac71-d5e81072a1c5)
 
 #### Architecture
+My preferred architecture.
 
 ```mermaid
 graph TD
 
 U(User) <---> |Proxy| C{Caddy}
-
 C{Caddy} <---> |Server| Phoenix
+
 Phoenix <---> |Database| Sqlite
+Phoenix <---> |S3| S3(Object Store)
 
 Sqlite <---> |Backup| Litestream
+Litestream <---> |S3| S3(Object Store)
 
-Phoenix <---> |S3| ObjectStore
-Litestream <---> |S3| ObjectStore
-Imgproxy <---> |S3| ObjectStore
-
-C{Caddy} <---> |Admin| Livebook
+C{Caddy} <---> |Admin| LiveBook
 C{Caddy} <---> |Search| Meilisearch
 
 C{Caddy} <---> |Monitoring| Netdata
@@ -43,7 +42,8 @@ C{Caddy} <---> |Monitoring| Prometheus
 Grafana <---> |Visualize| Prometheus
 
 C{Caddy} <---> |Cache| Varnish
-Varnish <---> |Image Transformer| Imgproxy  
+Varnish <---> |Image Transformer| Imgproxy
+Imgproxy <---> |S3| S3(Object Store)
 ```
 
 ### My Tech Stack
