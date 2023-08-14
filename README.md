@@ -35,13 +35,13 @@ subgraph VPS
 
   C{Caddy} <---> |Cache| Varnish
   Varnish <---> |Image Transformer| Imgproxy
-  
+
   C{Caddy} <---> |Monitoring| Netdata
 end
 
-Phoenix <---> |S3| S3(Object Store)
-Imgproxy <---> |S3| S3(Object Store)
-Litestream <---> |S3| S3(Object Store)
+Phoenix <---> |S3| S3((Object Store))
+Imgproxy <---> |S3| S3((Object Store))
+Litestream <---> |S3| S3((Object Store))
 ```
 
 ## My Tech Stack
