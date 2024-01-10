@@ -74,12 +74,15 @@ Litestream <---> |S3| S3((Object Store))
 ![Mac Mini](https://img.shields.io/badge/apple%20silicon-333333?style=for-the-badge&logo=apple&logoColor=white)
 
 
-## My Community Contributions
+## My Adventures & Community Contributions
 
-1. [Made a Source Code Inspector](https://elixirforum.com/t/made-a-source-code-inspector-useful-in-big-projects-or-large-teams/56792?u=derpycoder)
+1. [Made a Source Code Inspector](https://elixirforum.com/t/made-a-source-code-inspector-useful-in-big-projects-or-large-teams/56792?u=derpycoder) (Which was later added to the Phoenix Live View itself!)
    
    ![Source Code Viewer](https://github.com/derpycoder/derpycoder/assets/25662120/96c39b8b-b391-4a2d-8a2d-fd1a5ba33ee3)
-3. [Made a Table of Contents using Floki](https://elixirforum.com/t/i-created-table-of-contents-using-floki-with-header-nesting-how-to-simplify-the-logic/57501/12?u=derpycoder)
+2. [Made a Table of Contents using Floki](https://elixirforum.com/t/i-created-table-of-contents-using-floki-with-header-nesting-how-to-simplify-the-logic/57501/12?u=derpycoder)
    
    ![Table of Contents](https://github.com/derpycoder/derpycoder/assets/25662120/0a70cb29-439f-40c7-bcdc-50ce7b8914ca)
-5. [Role-based Authentication using FunWithFlags](https://elixirforum.com/t/phx-gen-auth-and-role-based-authentication/49428/8?u=derpycoder)
+3. [Created a Command Palette within a week, thanks to Elixir & Phoenix LiveView](https://elixirforum.com/t/created-a-command-palette-within-a-week-thanks-to-elixir-phoenix-liveview/57769)
+   ![global-search](https://github.com/derpycoder/derpycoder/assets/25662120/6569bef4-03b0-4679-8498-afe3ccadf1a5)
+   
+4. [Role-based Authentication using FunWithFlags](https://elixirforum.com/t/phx-gen-auth-and-role-based-authentication/49428/8?u=derpycoder)
