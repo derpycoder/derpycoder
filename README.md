@@ -79,25 +79,25 @@ Litestream <---> |S3| S3((Object Store))
 1. [Made a Source Code Inspector](https://elixirforum.com/t/made-a-source-code-inspector-useful-in-big-projects-or-large-teams/56792?u=derpycoder) (Which was later added to the Phoenix Live View itself!)
    
    ![Source Code Viewer](https://github.com/derpycoder/derpycoder/assets/25662120/96c39b8b-b391-4a2d-8a2d-fd1a5ba33ee3)
-2. [Made a Table of Contents using Floki](https://elixirforum.com/t/i-created-table-of-contents-using-floki-with-header-nesting-how-to-simplify-the-logic/57501/12?u=derpycoder)
+1. [Made a Table of Contents using Floki](https://elixirforum.com/t/i-created-table-of-contents-using-floki-with-header-nesting-how-to-simplify-the-logic/57501/12?u=derpycoder)
    
    ![Table of Contents](https://github.com/derpycoder/derpycoder/assets/25662120/0a70cb29-439f-40c7-bcdc-50ce7b8914ca)
-3. [Created a Command Palette within a week, thanks to Elixir & Phoenix LiveView](https://elixirforum.com/t/created-a-command-palette-within-a-week-thanks-to-elixir-phoenix-liveview/57769)
+1. [Created a Command Palette within a week, thanks to Elixir & Phoenix LiveView](https://elixirforum.com/t/created-a-command-palette-within-a-week-thanks-to-elixir-phoenix-liveview/57769)
    ![global-search](https://github.com/derpycoder/derpycoder/assets/25662120/6569bef4-03b0-4679-8498-afe3ccadf1a5)
    
-5. [Created a Mix Task, to syntax highlights code snippets in bulk using Chroma](https://elixirforum.com/t/created-a-mix-task-to-syntax-highlights-code-snippets-in-bulk-using-chroma/57878)
+1. [Created a Mix Task, to syntax highlights code snippets in bulk using Chroma](https://elixirforum.com/t/created-a-mix-task-to-syntax-highlights-code-snippets-in-bulk-using-chroma/57878)
    ![Source Code Highlighter](https://github.com/derpycoder/derpycoder/assets/25662120/3c734994-fe44-4a4a-90eb-c601c1774854)
 
-6. [Role-based Authorization using FunWithFlags](https://elixirforum.com/t/phx-gen-auth-and-role-based-authentication/49428/8?u=derpycoder)
-
-7. Watch Face
+1. Watch Face
 
    ![Watch](https://github.com/derpycoder/derpycoder/assets/25662120/d22d5016-f1c5-45d3-b347-38f479c6f489)
    
-8. Flow Field
+1. Flow Field
 
    ![Flow Field](https://github.com/derpycoder/derpycoder/assets/25662120/5d25b837-ac48-4b54-8f27-205da616a91c)
 
-9. [Casual Web Game using A* Algorithm](https://derpycoder.github.io/dont-let-him-poo/)
+1. [Casual Web Game using A* Algorithm](https://derpycoder.github.io/dont-let-him-poo/)
 
    ![Screenshot 2024-01-10 at 3 45 43 PM](https://github.com/derpycoder/derpycoder/assets/25662120/2ed52e66-b8bc-45d7-a2b8-487c204bc9d4)
+
+1. [Role-based Authorization using FunWithFlags](https://elixirforum.com/t/phx-gen-auth-and-role-based-authentication/49428/8?u=derpycoder)
