@@ -74,7 +74,7 @@ Litestream <---> |S3| S3((Object Store))
 ![Mac Mini](https://img.shields.io/badge/apple%20silicon-333333?style=for-the-badge&logo=apple&logoColor=white)
 
 
-## My Adventures & Community Contributions
+## My Coding Adventures & Community Contributions
 
 1. [Made a Source Code Inspector](https://elixirforum.com/t/made-a-source-code-inspector-useful-in-big-projects-or-large-teams/56792?u=derpycoder) (Which was later added to the Phoenix Live View itself!)
    
@@ -85,4 +85,7 @@ Litestream <---> |S3| S3((Object Store))
 3. [Created a Command Palette within a week, thanks to Elixir & Phoenix LiveView](https://elixirforum.com/t/created-a-command-palette-within-a-week-thanks-to-elixir-phoenix-liveview/57769)
    ![global-search](https://github.com/derpycoder/derpycoder/assets/25662120/6569bef4-03b0-4679-8498-afe3ccadf1a5)
    
-4. [Role-based Authentication using FunWithFlags](https://elixirforum.com/t/phx-gen-auth-and-role-based-authentication/49428/8?u=derpycoder)
+5. [Created a Mix Task, to syntax highlights code snippets in bulk using Chroma](https://elixirforum.com/t/created-a-mix-task-to-syntax-highlights-code-snippets-in-bulk-using-chroma/57878)
+   ![Source Code Highlighter](https://github.com/derpycoder/derpycoder/assets/25662120/3c734994-fe44-4a4a-90eb-c601c1774854)
+
+6. [Role-based Authentication using FunWithFlags](https://elixirforum.com/t/phx-gen-auth-and-role-based-authentication/49428/8?u=derpycoder)
