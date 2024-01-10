@@ -88,4 +88,4 @@ Litestream <---> |S3| S3((Object Store))
 5. [Created a Mix Task, to syntax highlights code snippets in bulk using Chroma](https://elixirforum.com/t/created-a-mix-task-to-syntax-highlights-code-snippets-in-bulk-using-chroma/57878)
    ![Source Code Highlighter](https://github.com/derpycoder/derpycoder/assets/25662120/3c734994-fe44-4a4a-90eb-c601c1774854)
 
-6. [Role-based Authentication using FunWithFlags](https://elixirforum.com/t/phx-gen-auth-and-role-based-authentication/49428/8?u=derpycoder)
+6. [Role-based Authorization using FunWithFlags](https://elixirforum.com/t/phx-gen-auth-and-role-based-authentication/49428/8?u=derpycoder)
