@@ -94,8 +94,10 @@ Litestream <---> |S3| S3((Object Store))
 
    ![Watch](https://github.com/derpycoder/derpycoder/assets/25662120/d22d5016-f1c5-45d3-b347-38f479c6f489)
    
-9. Flow Field
+8. Flow Field
 
    ![Flow Field](https://github.com/derpycoder/derpycoder/assets/25662120/5d25b837-ac48-4b54-8f27-205da616a91c)
 
+9. [Casual Web Game using A* Algorithm](https://derpycoder.github.io/dont-let-him-poo/)
 
+   ![Screenshot 2024-01-10 at 3 45 43 PM](https://github.com/derpycoder/derpycoder/assets/25662120/2ed52e66-b8bc-45d7-a2b8-487c204bc9d4)
