@@ -101,3 +101,6 @@ Litestream <---> |S3| S3((Object Store))
    ![Screenshot 2024-01-10 at 3 45 43 PM](https://github.com/derpycoder/derpycoder/assets/25662120/2ed52e66-b8bc-45d7-a2b8-487c204bc9d4)
 
 1. [Role-based Authorization using FunWithFlags](https://elixirforum.com/t/phx-gen-auth-and-role-based-authentication/49428/8?u=derpycoder)
+
+   ![Fun With Flag](https://github.com/derpycoder/derpycoder/assets/25662120/f086530a-e4d8-48d2-bbe1-f800381f6ff1)
+
