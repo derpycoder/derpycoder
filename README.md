@@ -88,11 +88,11 @@ Litestream <---> |S3| S3((Object Store))
 1. [Created a Mix Task, to syntax highlights code snippets in bulk using Chroma](https://elixirforum.com/t/created-a-mix-task-to-syntax-highlights-code-snippets-in-bulk-using-chroma/57878)
    ![Source Code Highlighter](https://github.com/derpycoder/derpycoder/assets/25662120/3c734994-fe44-4a4a-90eb-c601c1774854)
 
-1. Watch Face
+1. [Watch Face](https://editor.p5js.org/derpycoder/sketches/nIx_l5aFn)
 
    ![Watch](https://github.com/derpycoder/derpycoder/assets/25662120/d22d5016-f1c5-45d3-b347-38f479c6f489)
    
-1. Flow Field
+1. [Flow Field](https://editor.p5js.org/derpycoder/sketches/bqa06RSXi)
 
    ![Turbulence](https://github.com/derpycoder/derpycoder/assets/25662120/ce48a85e-6f9e-418d-b458-df9f4fc447fa)
 
