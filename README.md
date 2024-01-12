@@ -98,7 +98,7 @@ Litestream <---> |S3| S3((Object Store))
 
 1. [Casual Web Game using A* Algorithm](https://derpycoder.github.io/dont-let-him-poo/)
 
-   ![Screenshot 2024-01-10 at 3 45 43 PM](https://github.com/derpycoder/derpycoder/assets/25662120/2ed52e66-b8bc-45d7-a2b8-487c204bc9d4)
+   ![Dont Let Him Poo](https://github.com/derpycoder/derpycoder/assets/25662120/66bb2693-1da1-42e0-9ecc-9ecac2f9bfb3)
 
 1. [Role-based Authorization using FunWithFlags](https://elixirforum.com/t/phx-gen-auth-and-role-based-authentication/49428/8?u=derpycoder)
 
