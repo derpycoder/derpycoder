@@ -7,6 +7,8 @@ I am a software engineer from India.
 
 - 🔭 I’m currently working on a Game & Game engine using SDL3 GPU & Odin lang.
 - 🌱 Trying to return to the roots, and learn low level programming.
+- 💼 I work at Experian, during the day, and spend time on my hobby at night.
+- 🤖 I don't like to use GenAI on my personal projects, but its all but mandatory at work.
 - 📫 How to reach me: derpycoder@iclouds.com
 
 ![Total Stars](https://img.shields.io/github/stars/derpycoder?style=for-the-badge)
