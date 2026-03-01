@@ -59,8 +59,9 @@ I am a software engineer from India.
    ![Table of Contents](https://github.com/derpycoder/derpycoder/assets/25662120/0a70cb29-439f-40c7-bcdc-50ce7b8914ca)
    
 1. [Created a Command Palette within a week, thanks to Elixir & Phoenix LiveView](https://elixirforum.com/t/created-a-command-palette-within-a-week-thanks-to-elixir-phoenix-liveview/57769)
+
    ![global-search](https://github.com/derpycoder/derpycoder/assets/25662120/6569bef4-03b0-4679-8498-afe3ccadf1a5)
 
 1. [DerpyTools](https://github.com/derpycoder/derpy_tools)
-
-![Metadata Checker](https://github.com/derpycoder/derpycoder/assets/25662120/5194e6cd-aa83-4890-ac71-d5e81072a1c5)
+   
+   ![Metadata Checker](https://github.com/derpycoder/derpycoder/assets/25662120/5194e6cd-aa83-4890-ac71-d5e81072a1c5)
