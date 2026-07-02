@@ -138,6 +138,6 @@ I am a software engineer from India.
 
    ![global-search](https://github.com/derpycoder/derpycoder/assets/25662120/6569bef4-03b0-4679-8498-afe3ccadf1a5)
 
-1. [Tools](https://github.com/derpycoder/derpy_tools)
+1. [DerpyTools](https://github.com/derpycoder/derpy_tools) - I stopped working on this, so there's another website in its place!
    
    ![Metadata Checker](https://github.com/derpycoder/derpycoder/assets/25662120/5194e6cd-aa83-4890-ac71-d5e81072a1c5)
