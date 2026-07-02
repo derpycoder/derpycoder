@@ -68,7 +68,7 @@ I am a software engineer from India.
    <img width="1168" height="980" alt="Poly2Tri - Bird" src="https://github.com/user-attachments/assets/0eb2bb2f-3cd6-49f1-bb62-4efa7cb35bd9" />
    <img width="309" height="494" alt="Screenshot 2026-06-10 at 4 59 50 PM" src="https://github.com/user-attachments/assets/f034b740-1856-4cbc-8317-e723a8933ec5" />
 
-1. Doubly Connected Edge List Data Structure, for use in my custom Polygon Decomposition Algorithm
+1. Doubly Connected Edge List Data Structure, for use in my custom Polygon Decomposition Algorithm.
 
    <img width="800" height="800" alt="Hand Connected" src="https://github.com/user-attachments/assets/c345fba9-b57e-48bd-9c62-300ed983517e" />
 
@@ -76,7 +76,7 @@ I am a software engineer from India.
 
    <img width="800" height="800" alt="Spatial Hash, DDA, for Proximity Jump Cuts" src="https://github.com/user-attachments/assets/9dfda935-e3ad-4e1e-b10c-5fa57b4b3f5d" />
 
-1. Conical BFS with DDA, to find the closest vertex
+1. Conical BFS with DDA, to find the closest vertex for use in my custom Polygon Decomposition Algorithm.
 
    <img width="640" height="638" alt="Conical BFS" src="https://github.com/user-attachments/assets/698c3b0f-d3f1-419b-9195-cbf86027917e" />
 
