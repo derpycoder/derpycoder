@@ -9,7 +9,6 @@ I am a software engineer from India.
 - 🌱 Trying to return to the roots, and learn low level programming.
 - 💼 I work at Experian, during the day, and spend time on my hobby at night.
 - 🤖 I don't like to use GenAI on my personal projects, but, its fair game at work.
-- 📫 How to reach me: derpycoder@icloud.com
 
 ![Total Stars](https://img.shields.io/github/stars/derpycoder?style=for-the-badge)
 
