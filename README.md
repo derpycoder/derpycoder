@@ -114,6 +114,9 @@ I am a software engineer from India.
    <img width="1276" height="716" alt="Implemented Custom Shapes with Rounded Corner" src="https://github.com/user-attachments/assets/2355fbe1-c607-4b42-b456-3f4825b3ae82" />
    <img width="850" height="342" alt="Implemented Complex Line Rendering" src="https://github.com/user-attachments/assets/43079419-55a3-4d51-9e05-9808a954259c" />
 
+1. Made a custom Code Syntax Highlighter for Ghost Blog.
+
+   <img width="800" height="453" alt="Code Syntax Highlighter" src="https://github.com/user-attachments/assets/c40a8037-ecae-4112-b3e7-01b3439cd3ac" />
 
 1. [Watch Face](https://editor.p5js.org/derpycoder/sketches/nIx_l5aFn)
 
