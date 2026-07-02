@@ -97,8 +97,23 @@ I am a software engineer from India.
 1. [I made a Restaurant Menu for my Brother's hotel.](https://roadside-hotel.onrender.com/)
 
    <img width="898" height="740" alt="The Roadside Hotel Header" src="https://github.com/user-attachments/assets/b4e7755d-ccdd-45eb-b01a-0ca84b0799ee" />
-   <img width="554" height="787" alt="The Roadside Hotel QR Code" src="https://github.com/user-attachments/assets/ea6dda6f-cb7e-4642-8edb-4508f39affca" />
    <img width="896" height="536" alt="The Roadside Hotel Footer" src="https://github.com/user-attachments/assets/127fed8a-0e55-46ab-aa80-c953acc38371" />
+
+   <img width="554" height="787" alt="The Roadside Hotel QR Code" src="https://github.com/user-attachments/assets/ea6dda6f-cb7e-4642-8edb-4508f39affca" />
+
+1. [Implemented a MTSDF Font for my custom game engine, which can handle 4.5 million font glyphs showing at 60 FPS, on Mac M1!](https://github.com/derpycoder/FontRendering)
+
+   <img width="1276" height="709" alt="Font Renderer" src="https://github.com/user-attachments/assets/66f94f0a-cbdd-4124-bd79-3988013ff338" />
+   <img width="690" height="354" alt="Font Render Side View" src="https://github.com/user-attachments/assets/7466dd52-bf4f-4699-b06d-d0a366ee1841" />
+
+   See: [Odin Forum Discussion](https://forum.odin-lang.org/t/i-got-4-5-million-msdf-glyphs-showing-on-mac-m1-using-instancing-why-initial-memory-usage-is-high-compared-to-the-expected-amount/1616).
+
+1. Working on a Custom Game Engine using Odin & SDL3 GPU:
+
+   <img width="1277" height="718" alt="Implemented Radial Fans" src="https://github.com/user-attachments/assets/833d53a0-6d19-41f5-bef9-2f9582aeded0" />
+   <img width="1276" height="716" alt="Implemented Custom Shapes with Rounded Corner" src="https://github.com/user-attachments/assets/2355fbe1-c607-4b42-b456-3f4825b3ae82" />
+   <img width="850" height="342" alt="Implemented Complex Line Rendering" src="https://github.com/user-attachments/assets/43079419-55a3-4d51-9e05-9808a954259c" />
+
 
 1. [Watch Face](https://editor.p5js.org/derpycoder/sketches/nIx_l5aFn)
 
