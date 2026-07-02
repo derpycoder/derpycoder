@@ -80,7 +80,7 @@ I am a software engineer from India.
 
    <img width="640" height="638" alt="Conical BFS" src="https://github.com/user-attachments/assets/698c3b0f-d3f1-419b-9195-cbf86027917e" />
 
-1. [I was able to squeeze out 6,50,000 bunnies in bunnymark with SDL3!](https://stackoverflow.com/a/79857213/9368649)
+1. [I was able to squeeze out 6,50,000 bunnies in bunnymark using SDL3 GPU on a Mac M1!](https://stackoverflow.com/a/79857213/9368649)
 
    <img width="480" height="280" alt="Jul-02-2026 12-16-01" src="https://github.com/user-attachments/assets/db0e0b10-32ea-41b5-8004-c2b9a33f0218" />
 
