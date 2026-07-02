@@ -80,6 +80,25 @@ I am a software engineer from India.
 
    <img width="640" height="638" alt="Conical BFS" src="https://github.com/user-attachments/assets/698c3b0f-d3f1-419b-9195-cbf86027917e" />
 
+1. [I was able to squeeze out 6,50,000 bunnies in bunnymark with SDL3!](https://stackoverflow.com/a/79857213/9368649)
+
+   <img width="480" height="280" alt="Jul-02-2026 12-16-01" src="https://github.com/user-attachments/assets/db0e0b10-32ea-41b5-8004-c2b9a33f0218" />
+
+1. I was working on image uploader and converter using Golang, Templ, Tailwind CSS and HTMX.
+
+   <img width="640" height="300" alt="Jul-02-2026 12-18-18" src="https://github.com/user-attachments/assets/88145f08-036d-412a-a2ae-5091db8cfa34" />
+
+   <img width="774" height="282" alt="Jul-02-2026 12-18-54" src="https://github.com/user-attachments/assets/5ee3972b-a712-49b3-aa2f-66d1ebc67521" />
+
+1. Here's a interactive Todo list using Golang and HTMX, which was reorderable and smooth.
+
+   <img width="520" height="380" alt="Jul-02-2026 12-19-15" src="https://github.com/user-attachments/assets/48f8f4d5-17f2-4b99-9a06-5e1eff574868" />
+
+1. [I made a Restaurant Menu for my Brother's hotel.](https://roadside-hotel.onrender.com/)
+
+   <img width="898" height="740" alt="The Roadside Hotel Header" src="https://github.com/user-attachments/assets/b4e7755d-ccdd-45eb-b01a-0ca84b0799ee" />
+   <img width="554" height="787" alt="The Roadside Hotel QR Code" src="https://github.com/user-attachments/assets/ea6dda6f-cb7e-4642-8edb-4508f39affca" />
+   <img width="896" height="536" alt="The Roadside Hotel Footer" src="https://github.com/user-attachments/assets/127fed8a-0e55-46ab-aa80-c953acc38371" />
 
 1. [Watch Face](https://editor.p5js.org/derpycoder/sketches/nIx_l5aFn)
 
@@ -104,6 +123,6 @@ I am a software engineer from India.
 
    ![global-search](https://github.com/derpycoder/derpycoder/assets/25662120/6569bef4-03b0-4679-8498-afe3ccadf1a5)
 
-1. [DerpyTools](https://github.com/derpycoder/derpy_tools)
+1. [Tools](https://github.com/derpycoder/derpy_tools)
    
    ![Metadata Checker](https://github.com/derpycoder/derpycoder/assets/25662120/5194e6cd-aa83-4890-ac71-d5e81072a1c5)
