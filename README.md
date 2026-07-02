@@ -39,6 +39,48 @@ I am a software engineer from India.
 
 ## My Coding Adventures & Community Contributions
 
+1. [Proximity Jump Cuts - WIP](https://editor.p5js.org/derpycoder/sketches/9mCIHLJWM)
+
+   I created a custom polygon decomposition algorithm, instead of using existing libraries like Libtess 2, Poly2Tri, Constrained Delaunay Triangulation.
+   It works with holes, islands, and has config that can result in aesthetic results, which can speed up Box2D collision detection!
+   
+   <img width="640" height="638" alt="Proximity Jump Cuts - Custom Polygon Decomposition Algorithm" src="https://github.com/user-attachments/assets/a1b24d3f-52c5-4d3e-a82c-0d9b9afa8f0d" />
+
+   I have used:
+   - Doubly Connected Edge List, which helps in extracting the faces from automatically generated polygon decomposition.
+   - Spatial Hash, for finding closest inflex vertices quickly without travelling through all the vertices.
+   - Conical BFS, for finding vertices that are visible in FOV.
+   - Digital Differential Algorithm for filling in Spatial Hash for segments and return stroke for visibility checks.
+   - Several computational geometry algorithms like line intersection, orientation checking, etc.
+  
+   Results:
+   
+   <img width="733" height="639" alt="Proximity Jump Cuts - Bird" src="https://github.com/user-attachments/assets/6ed1a52f-c0d5-4b2d-a820-3fee3bd1af0d" />
+   <img width="444" height="595" alt="Proximity Jump Cuts - Two" src="https://github.com/user-attachments/assets/875efc9d-0314-4aab-86ac-174d60d09338" />
+   <img width="641" height="802" alt="Proximity Jump Cuts - Tree" src="https://github.com/user-attachments/assets/50f28716-dcac-465e-b421-960e2ebf7ec5" />
+   <img width="778" height="257" alt="Proximity Jump Cuts - Tank" src="https://github.com/user-attachments/assets/6faabcb3-dc06-49ce-8c28-40c2dc155b45" />
+   <img width="785" height="769" alt="Proximity Jump Cuts - Monkey" src="https://github.com/user-attachments/assets/acf5f329-47a4-42db-b5bc-02572d222ac6" />
+   <img width="792" height="761" alt="Proximity Jump Cuts - Boulder" src="https://github.com/user-attachments/assets/5d4e19ba-4389-462a-8d8e-c960a8047d9c" />
+
+   Compared to Poly2Tri:
+
+   <img width="1669" height="470" alt="Poly2Tri - Tank" src="https://github.com/user-attachments/assets/9a6c17b2-46e2-4972-bf4f-db1e3fda5ef4" />
+   <img width="1168" height="980" alt="Poly2Tri - Bird" src="https://github.com/user-attachments/assets/0eb2bb2f-3cd6-49f1-bb62-4efa7cb35bd9" />
+   <img width="309" height="494" alt="Screenshot 2026-06-10 at 4 59 50 PM" src="https://github.com/user-attachments/assets/f034b740-1856-4cbc-8317-e723a8933ec5" />
+
+1. Doubly Connected Edge List Data Structure, for use in my custom Polygon Decomposition Algorithm
+
+   <img width="800" height="800" alt="Hand Connected" src="https://github.com/user-attachments/assets/c345fba9-b57e-48bd-9c62-300ed983517e" />
+
+1. Spatial Hash, Digital Differential Analyzer (DDA) and a lot more!
+
+   <img width="800" height="800" alt="Spatial Hash, DDA, for Proximity Jump Cuts" src="https://github.com/user-attachments/assets/9dfda935-e3ad-4e1e-b10c-5fa57b4b3f5d" />
+
+1. Conical BFS with DDA, to find the closest vertex
+
+   <img width="640" height="638" alt="Conical BFS" src="https://github.com/user-attachments/assets/698c3b0f-d3f1-419b-9195-cbf86027917e" />
+
+
 1. [Watch Face](https://editor.p5js.org/derpycoder/sketches/nIx_l5aFn)
 
    ![Watch](https://github.com/derpycoder/derpycoder/assets/25662120/d22d5016-f1c5-45d3-b347-38f479c6f489)
