@@ -43,7 +43,9 @@ I am a software engineer from India.
 
    I created a custom polygon decomposition algorithm, instead of using existing libraries like Libtess 2, Poly2Tri, Constrained Delaunay Triangulation.
    It works with holes, islands, and has config that can result in aesthetic results, which can speed up Box2D collision detection!
-   
+
+   <img width="640" height="640" alt="Proximity Jump Cuts - Custom Polygon Decomposition Algorithm with Box2D" src="https://github.com/user-attachments/assets/ec0eccf6-f21d-46f7-8e31-2753042b87ae" />
+
    <img width="640" height="638" alt="Proximity Jump Cuts - Custom Polygon Decomposition Algorithm" src="https://github.com/user-attachments/assets/a1b24d3f-52c5-4d3e-a82c-0d9b9afa8f0d" />
 
    I have used:
