@@ -57,18 +57,18 @@ I am a software engineer from India.
   
    Results:
    
-   <img width="733" height="639" alt="Proximity Jump Cuts - Bird" src="https://github.com/user-attachments/assets/6ed1a52f-c0d5-4b2d-a820-3fee3bd1af0d" />
-   <img width="444" height="595" alt="Proximity Jump Cuts - Two" src="https://github.com/user-attachments/assets/875efc9d-0314-4aab-86ac-174d60d09338" />
-   <img width="641" height="802" alt="Proximity Jump Cuts - Tree" src="https://github.com/user-attachments/assets/50f28716-dcac-465e-b421-960e2ebf7ec5" />
-   <img width="778" height="257" alt="Proximity Jump Cuts - Tank" src="https://github.com/user-attachments/assets/6faabcb3-dc06-49ce-8c28-40c2dc155b45" />
-   <img width="785" height="769" alt="Proximity Jump Cuts - Monkey" src="https://github.com/user-attachments/assets/acf5f329-47a4-42db-b5bc-02572d222ac6" />
-   <img width="792" height="761" alt="Proximity Jump Cuts - Boulder" src="https://github.com/user-attachments/assets/5d4e19ba-4389-462a-8d8e-c960a8047d9c" />
+   <img width="633" height="539" alt="Proximity Jump Cuts - Bird" src="https://github.com/user-attachments/assets/6ed1a52f-c0d5-4b2d-a820-3fee3bd1af0d" />
+   <img width="344" height="495" alt="Proximity Jump Cuts - Two" src="https://github.com/user-attachments/assets/875efc9d-0314-4aab-86ac-174d60d09338" />
+   <img width="541" height="702" alt="Proximity Jump Cuts - Tree" src="https://github.com/user-attachments/assets/50f28716-dcac-465e-b421-960e2ebf7ec5" />
+   <img width="678" height="257" alt="Proximity Jump Cuts - Tank" src="https://github.com/user-attachments/assets/6faabcb3-dc06-49ce-8c28-40c2dc155b45" />
+   <img width="685" height="669" alt="Proximity Jump Cuts - Monkey" src="https://github.com/user-attachments/assets/acf5f329-47a4-42db-b5bc-02572d222ac6" />
+   <img width="692" height="661" alt="Proximity Jump Cuts - Boulder" src="https://github.com/user-attachments/assets/5d4e19ba-4389-462a-8d8e-c960a8047d9c" />
 
    Compared to Poly2Tri:
 
-   <img width="1669" height="470" alt="Poly2Tri - Tank" src="https://github.com/user-attachments/assets/9a6c17b2-46e2-4972-bf4f-db1e3fda5ef4" />
-   <img width="1168" height="980" alt="Poly2Tri - Bird" src="https://github.com/user-attachments/assets/0eb2bb2f-3cd6-49f1-bb62-4efa7cb35bd9" />
-   <img width="309" height="494" alt="Screenshot 2026-06-10 at 4 59 50 PM" src="https://github.com/user-attachments/assets/f034b740-1856-4cbc-8317-e723a8933ec5" />
+   <img width="777" height="257" alt="Poly2Tri - Tank" src="https://github.com/user-attachments/assets/9a6c17b2-46e2-4972-bf4f-db1e3fda5ef4" />
+   <img width="564" height="394" alt="Poly2Tri - Bird" src="https://github.com/user-attachments/assets/0eb2bb2f-3cd6-49f1-bb62-4efa7cb35bd9" />
+   <img width="209" height="394" alt="Screenshot 2026-06-10 at 4 59 50 PM" src="https://github.com/user-attachments/assets/f034b740-1856-4cbc-8317-e723a8933ec5" />
 
 1. Doubly Connected Edge List Data Structure, for use in my custom Polygon Decomposition Algorithm.
 
@@ -81,6 +81,16 @@ I am a software engineer from India.
 1. Conical BFS with DDA, to find the closest vertex for use in my custom Polygon Decomposition Algorithm.
 
    <img width="640" height="638" alt="Conical BFS" src="https://github.com/user-attachments/assets/698c3b0f-d3f1-419b-9195-cbf86027917e" />
+
+1. Learning 3D Modelling with Blender.
+
+   <img width="480" height="640" alt="Rocket Toy" src="https://github.com/user-attachments/assets/e80e206e-056f-415e-bf97-83129cd5c52b" />
+   <img width="480" height="640" alt="Cloud on Building" src="https://github.com/user-attachments/assets/ec530bbb-8396-46ab-bb24-4efa9f4d96fa" />
+   <img width="480" height="640" alt="Toy Tank" src="https://github.com/user-attachments/assets/797049c4-eb13-4087-bb23-4dbc29653055" />
+   <img width="480" height="640" alt="Toy Tank Blueprint - Orthographic" src="https://github.com/user-attachments/assets/eb1be1f1-628f-4a4a-a3f2-8d0c48bcd218" />
+   <img width="480" height="480" alt="Cozy Flat" src="https://github.com/user-attachments/assets/7416b6ee-d1bf-4ab8-962d-8e479e03975b" />
+   <img width="480" height="480" alt="Bottled Mushroom" src="https://github.com/user-attachments/assets/4f793cd7-1061-4806-8f71-153e96f91ba4" />
+   <img width="480" height="480" alt="Castle" src="https://github.com/user-attachments/assets/d8d7755f-aff4-48aa-b16b-65609431f95e" />
 
 1. [I was able to squeeze out 6,50,000 bunnies in bunnymark using SDL3 GPU on a Mac M1!](https://stackoverflow.com/a/79857213/9368649)
 
